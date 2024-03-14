@@ -44,7 +44,7 @@
         android:layout_height="54dp"
         android:layout_marginTop="32dp"
         android:backgroundTint="@color/white"
-        android:text="Register as Atendee"
+        android:text="@string/register_as_atendee"
         android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/button5"
         app:layout_constraintEnd_toEndOf="parent"

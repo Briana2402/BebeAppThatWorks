@@ -11,15 +11,20 @@ import android.view.WindowManager;
 import android.widget.Button;
 
 import com.example.bebeappthatworks.ui.login.LoginActivity;
+import com.example.bebeappthatworks.ui.register.RegisterActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
-
+FirebaseAuth auth;
+FirebaseUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         Button loginButton;
+        Button registerButton;
 
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -29,12 +34,22 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         loginButton = (Button) findViewById(R.id.Login); //login button
-
+        auth = FirebaseAuth.getInstance();
+        registerButton = (Button) findViewById(R.id.button4);
+        user = auth.getCurrentUser();
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
                 startActivity(intent);
             }
         });

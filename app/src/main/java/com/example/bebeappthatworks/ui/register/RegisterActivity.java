@@ -1,4 +1,4 @@
-package com.example.bebeappthatworks.ui.login;
+package com.example.bebeappthatworks.ui.register;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -30,9 +30,9 @@ import android.widget.Toast;
 
 import com.example.bebeappthatworks.MainActivity;
 import com.example.bebeappthatworks.R;
+import com.example.bebeappthatworks.ui.login.LoginActivity;
 import com.example.bebeappthatworks.ui.login.LoginViewModel;
 import com.example.bebeappthatworks.ui.login.LoginViewModelFactory;
-import com.example.bebeappthatworks.ui.register.RegisterActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
@@ -41,11 +41,12 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 
-public class LoginActivity extends AppCompatActivity {
+public class RegisterActivity extends AppCompatActivity {
+
+    TextInputEditText editTextEmail, editTextPassword;
 
     Button backButton;
-    TextInputEditText editTextEmail, editTextPassword;
-    Button loginButton;
+    Button registerButton;
     FirebaseAuth mAuth;
     private LoginViewModel loginViewModel;
 
@@ -66,16 +67,17 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
 
+
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getSupportActionBar().hide();
 
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_register);
         mAuth = FirebaseAuth.getInstance();
         backButton = (Button) findViewById(R.id.BackToMain); //back button
-        loginButton = findViewById(R.id.Loggingin); //login button
+        registerButton = findViewById(R.id.btn_register);
 
-        loginButton.setOnClickListener(new View.OnClickListener() {
+        registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String email, password;
@@ -84,27 +86,24 @@ public class LoginActivity extends AppCompatActivity {
 
                 //checks if email and password are empty
                 if(TextUtils.isEmpty(email)) {
-                    Toast.makeText(LoginActivity.this, "Enter email", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "Enter email", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if(TextUtils.isEmpty(password)) {
-                    Toast.makeText(LoginActivity.this, "Enter password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "Enter password", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                mAuth.signInWithEmailAndPassword(email, password)
+                mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    // Sign in success
-                                    Toast.makeText(LoginActivity.this, "Authentication successful.",
+                                    Toast.makeText(RegisterActivity.this, "Account created",
                                             Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                    startActivity(intent);
-                                    finish();
                                 } else {
-                                    Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                    // If sign in fails, display a message to the user.
+                                    Toast.makeText(RegisterActivity.this, "Authentication failed.",
                                             Toast.LENGTH_SHORT).show();
                                 }
                             }
@@ -115,7 +114,7 @@ public class LoginActivity extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
