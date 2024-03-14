@@ -20,6 +20,9 @@
             android:exported="false"
             android:theme="@style/Theme.BebeAppThatWorks" />
         <activity
+            android:name=".ui.register.RegisterActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true" />
         <activity

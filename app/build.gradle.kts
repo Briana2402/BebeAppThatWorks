@@ -41,7 +41,9 @@ dependencies {
     // Import the Firebase BoM
     implementation(platform("com.google.firebase:firebase-bom:32.7.4"))
 
-    // When using the BoM, don't specify versions in Firebase dependencies
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+
+    // Add the dependency for the Firebase SDK for Google Analytics
     implementation("com.google.firebase:firebase-analytics")
 
     implementation("androidx.appcompat:appcompat:1.6.1")
@@ -52,7 +54,7 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment:2.7.7")
     implementation("androidx.navigation:navigation-ui:2.7.7")
     implementation("androidx.annotation:annotation:1.6.0")
-    implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-firestore:24.10.3")
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.firebase:firebase-firestore")
     implementation("com.google.firebase:firebase-functions")
@@ -61,6 +63,8 @@ dependencies {
     implementation("androidx.activity:activity:1.8.0")
     implementation ("com.google.firebase:firebase-analytics:17.2.1")
     implementation ("com.google.firebase:firebase-inappmessaging-display:19.0.2")
+    implementation("com.google.firebase:firebase-storage")
+    implementation("androidx.activity:activity:1.8.0")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")

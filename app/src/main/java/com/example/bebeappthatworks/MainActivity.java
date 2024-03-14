@@ -2,6 +2,7 @@ package com.example.bebeappthatworks;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.Button;
 
 import com.example.bebeappthatworks.ui.eventCreation.EventCreationActivity;
 import com.example.bebeappthatworks.ui.login.LoginActivity;
+import com.example.bebeappthatworks.ui.register.RegisterActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
         loginButton = (Button) findViewById(R.id.Login); //login button
         guestButton = (Button) findViewById(R.id.Guest); //login button
+        guestButton = (Button) findViewById(R.id.button4); //login button
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,6 +46,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, EventCreationActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+        guestButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
                 startActivity(intent);
             }
         });
