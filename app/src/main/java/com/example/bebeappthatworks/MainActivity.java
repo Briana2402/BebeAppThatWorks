@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
         Button loginButton;
         Button guestButton;
+        Button registerButton;
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         //getSupportActionBar().hide();
@@ -31,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
         loginButton = (Button) findViewById(R.id.Login); //login button
         guestButton = (Button) findViewById(R.id.Guest); //login button
-        guestButton = (Button) findViewById(R.id.button4); //login button
+        registerButton = (Button) findViewById(R.id.button4); //login button
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        guestButton.setOnClickListener(new View.OnClickListener() {
+        registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
