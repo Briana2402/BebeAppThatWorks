@@ -17,4 +17,5 @@
     <string name="back">Back</string>
     <string name="back_login">Back</string>
     <string name="register_as_atendee">Register as Atendee</string>
+    <string name="login_main">Login</string>
 </resources>

@@ -43,47 +43,48 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    TextInputEditText editTextEmail, editTextPassword;
 
-    Button backButton;
-    Button registerButton;
-    FirebaseAuth mAuth;
-    private LoginViewModel loginViewModel;
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        //check if user if already logged in, if yes, open main activity
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
-    }
+    //private RegisterViewModel registerViewModel;
+
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        //check if user if already logged in, if yes, open main activity
+//        FirebaseUser currentUser = mAuth.getCurrentUser();
+//        if(currentUser != null){
+//            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//            startActivity(intent);
+//            finish();
+//        }
+//    }
     @SuppressLint("MissingInflatedId")
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        EditText editTextEmail, editTextPassword;
+        Button backButton;
+        Button registerButton;
+        FirebaseAuth mAuth;
         super.onCreate(savedInstanceState);
-
-
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        getSupportActionBar().hide();
+        //getSupportActionBar().hide();
 
         setContentView(R.layout.activity_register);
-        mAuth = FirebaseAuth.getInstance();
+
         backButton = (Button) findViewById(R.id.BackToMain); //back button
-        registerButton = findViewById(R.id.btn_register);
+        mAuth = FirebaseAuth.getInstance();
+        registerButton =(Button) findViewById(R.id.btn_register);
+        editTextEmail = findViewById(R.id.username);
+        editTextPassword = findViewById(R.id.password);
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String email, password;
-                email = String.valueOf(editTextEmail.getText());
-                password = String.valueOf(editTextPassword.getText());
-
+                email = editTextEmail.getText().toString();
+                password = editTextPassword.getText().toString();
                 //checks if email and password are empty
                 if(TextUtils.isEmpty(email)) {
                     Toast.makeText(RegisterActivity.this, "Enter email", Toast.LENGTH_SHORT).show();
@@ -99,6 +100,7 @@ public class RegisterActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
+                                    //FirebaseUser user = mAuth.getCurrentUser();
                                     Toast.makeText(RegisterActivity.this, "Account created",
                                             Toast.LENGTH_SHORT).show();
                                 } else {
