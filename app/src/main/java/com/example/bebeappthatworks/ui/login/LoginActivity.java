@@ -13,6 +13,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.bebeappthatworks.Home;
 import com.example.bebeappthatworks.MainActivity;
 import com.example.bebeappthatworks.R;
 import com.example.bebeappthatworks.forgotPassword.ForgotPasswordActivity;
@@ -28,6 +29,7 @@ public class LoginActivity extends AppCompatActivity {
 
         Button backToMain;
         Button backToLogin;
+        Button LoginButton;
         TextView forgotPassword;
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -35,8 +37,9 @@ public class LoginActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_login);
 
-        backToMain = (Button) findViewById(R.id.backToMain); //back button
-        forgotPassword = (TextView) findViewById(R.id.forgotPassword); //back button
+        backToMain = (Button) findViewById(R.id.backToMain);
+        LoginButton = (Button) findViewById(R.id.Loggingin);
+        forgotPassword = (TextView) findViewById(R.id.forgotPassword);
 
         backToMain.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,7 +52,15 @@ public class LoginActivity extends AppCompatActivity {
         forgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
+                Intent intent = new Intent(LoginActivity.this, Home.class);
+                startActivity(intent);
+            }
+        });
+
+        LoginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, Home.class);
                 startActivity(intent);
             }
         });
