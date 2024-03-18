@@ -28,6 +28,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.bebeappthatworks.Home;
 import com.example.bebeappthatworks.MainActivity;
 import com.example.bebeappthatworks.R;
 import com.example.bebeappthatworks.ui.login.LoginViewModel;
@@ -61,7 +62,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
         forgotPassword = (TextView) findViewById(R.id.forgotPassword);
-        backToMain = (Button) findViewById(R.id.BackToMain); //back button
+        backToMain = (Button) findViewById(R.id.backToMain); //back button
         loginButton = (Button) findViewById(R.id.Loggingin);
         editTextEmail = findViewById(R.id.username);
         editTextPassword = findViewById(R.id.password);
