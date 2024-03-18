@@ -1,44 +1,28 @@
 package com.example.bebeappthatworks.ui.register;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bebeappthatworks.MainActivity;
 import com.example.bebeappthatworks.R;
-import com.example.bebeappthatworks.ui.login.LoginActivity;
-import com.example.bebeappthatworks.ui.login.LoginViewModel;
-import com.example.bebeappthatworks.ui.login.LoginViewModelFactory;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 
 public class RegisterActivity extends AppCompatActivity {
@@ -73,7 +57,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_register);
 
-        backButton = (Button) findViewById(R.id.BackToMain); //back button
+        backButton = (Button) findViewById(R.id.backToMain); //back button
         mAuth = FirebaseAuth.getInstance();
         registerButton =(Button) findViewById(R.id.btn_register);
         editTextEmail = findViewById(R.id.username);

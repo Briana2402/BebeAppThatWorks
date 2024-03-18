@@ -1,8 +1,9 @@
+package com.example.bebeappthatworks.ui.eventCreation;
+
 public class Event {
 
     // variables for storing our data.
-    private String eventLocation, eventTime, eventDate, eventName;
-    private int maxCapacity = 0 ;
+    private String eventLocation, eventTime, eventDate, eventName,eventDescription, maxCapacity;
 
     public Event() {
         // empty constructor
@@ -10,12 +11,13 @@ public class Event {
     }
 
     // Constructor for all variables.
-    public Event(String eventLocation, String eventTime, String eventName, String eventDate, int maxCapacity) {
+    public Event(String eventLocation, String eventTime, String eventName, String eventDate, String maxCapacity,String eventDescription) {
         this.eventLocation = eventLocation;
         this.eventTime = eventTime;
         this.eventName = eventName;
         this.eventDate = eventDate;
         this.maxCapacity = maxCapacity;
+        this.eventDescription = eventDescription;
     }
 
     // getter methods for all variables.
@@ -54,11 +56,20 @@ public class Event {
     }
 
 
-    public int getEventmaxCapacity() {
+    public String getEventDescription() {
+        return eventDescription;
+    }
+
+    public void setEventDescription(String eventDescription) {
+        this.eventDescription = eventDescription;
+    }
+
+
+    public String getEventMaxCapacity() {
         return maxCapacity;
     }
 
-    public void setEventMaxCapacity(int maxCapacity) {
+    public void setEventMaxCapacity(String maxCapacity) {
         this.maxCapacity = maxCapacity;
     }
 }
