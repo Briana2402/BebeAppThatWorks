@@ -28,15 +28,16 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.bebeappthatworks.Home;
 import com.example.bebeappthatworks.MainActivity;
 import com.example.bebeappthatworks.R;
 import com.example.bebeappthatworks.ui.login.LoginViewModel;
 import com.example.bebeappthatworks.ui.login.LoginViewModelFactory;
-import com.example.bebeappthatworks.ui.register.RegisterActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.example.bebeappthatworks.forgotPassword.ForgotPasswordActivity;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -46,11 +47,12 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         EditText editTextEmail, editTextPassword;
-        Button backButton;
+        Button backToMain;
+        Button backToLogin;
         Button loginButton;
         FirebaseAuth mAuth;
         super.onCreate(savedInstanceState);
-
+        TextView forgotPassword;
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -58,7 +60,9 @@ public class LoginActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_login);
 
-        backButton = (Button) findViewById(R.id.BackToMain); //back button
+
+        forgotPassword = (TextView) findViewById(R.id.forgotPassword);
+        backToMain = (Button) findViewById(R.id.backToMain); //back button
         loginButton = (Button) findViewById(R.id.Loggingin);
         editTextEmail = findViewById(R.id.username);
         editTextPassword = findViewById(R.id.password);
@@ -88,6 +92,8 @@ public class LoginActivity extends AppCompatActivity {
                                     // Sign in success, update UI with the signed-in user's information
                                     Toast.makeText(LoginActivity.this, "Authentication successful",
                                             Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(LoginActivity.this, Home.class);
+                                    startActivity(intent);
                                 } else {
                                     // If sign in fails, display a message to the user.
                                     Toast.makeText(LoginActivity.this, "Authentication failed.",
@@ -100,12 +106,32 @@ public class LoginActivity extends AppCompatActivity {
         });
 
 
-        backButton.setOnClickListener(new View.OnClickListener() {
+        backToMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
+
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, Home.class);
+                startActivity(intent);
+            }
+        });
+
+//        loginButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(LoginActivity.this, Home.class);
+//                startActivity(intent);
+//            }
+//        });
+
+
+
+
     }
 }

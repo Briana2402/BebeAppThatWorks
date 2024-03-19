@@ -49,15 +49,16 @@
         android:layout_height="48dp"
         android:layout_marginStart="5dp"
         android:layout_marginTop="78dp"
+        android:backgroundTint="#A22F99"
         android:text="@string/login"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/BackToMain"
+        app:layout_constraintStart_toEndOf="@+id/backToMain"
         app:layout_constraintTop_toBottomOf="@+id/password"
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/BackToMain"
+        android:id="@+id/backToMain"
         android:layout_width="136dp"
         android:layout_height="48dp"
         android:layout_marginTop="78dp"
@@ -78,6 +79,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/profileicon" />
+
+    <TextView
+        android:id="@+id/forgotPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Forgot Password?"
+        android:textColor="@color/white"
+        android:textSize="17dp"
+        app:layout_constraintBottom_toTopOf="@+id/Loggingin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
