@@ -1,38 +1,26 @@
 package com.example.bebeappthatworks.ui.login;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.bebeappthatworks.Home;
+import com.example.bebeappthatworks.AttendeeActivity;
 import com.example.bebeappthatworks.MainActivity;
 import com.example.bebeappthatworks.R;
-import com.example.bebeappthatworks.ui.login.LoginViewModel;
-import com.example.bebeappthatworks.ui.login.LoginViewModelFactory;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -92,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
                                     // Sign in success, update UI with the signed-in user's information
                                     Toast.makeText(LoginActivity.this, "Authentication successful",
                                             Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(LoginActivity.this, Home.class);
+                                    Intent intent = new Intent(LoginActivity.this, AttendeeActivity.class);
                                     startActivity(intent);
                                 } else {
                                     // If sign in fails, display a message to the user.
@@ -117,18 +105,11 @@ public class LoginActivity extends AppCompatActivity {
         forgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, Home.class);
+                Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
                 startActivity(intent);
             }
         });
 
-//        loginButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(LoginActivity.this, Home.class);
-//                startActivity(intent);
-//            }
-//        });
 
 
 

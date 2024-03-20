@@ -29,9 +29,9 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        loginButton = (Button) findViewById(R.id.Login); //login button
-        guestButton = (Button) findViewById(R.id.Guest); //login button
-        registerButton = (Button) findViewById(R.id.button4); //login button
+        loginButton = (Button) findViewById(R.id.Login);
+        guestButton = (Button) findViewById(R.id.Guest);
+        registerButton = (Button) findViewById(R.id.button4);
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
