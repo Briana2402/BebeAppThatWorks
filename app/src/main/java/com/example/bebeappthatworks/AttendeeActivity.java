@@ -7,16 +7,16 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.bebeappthatworks.databinding.HomeLayoutBinding;
+import com.example.bebeappthatworks.databinding.AttendeeLayoutBinding;
 
 public class AttendeeActivity extends AppCompatActivity {
 
-    HomeLayoutBinding binding;
+    AttendeeLayoutBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = HomeLayoutBinding.inflate(getLayoutInflater());
+        binding = AttendeeLayoutBinding.inflate(getLayoutInflater());
         //EdgeToEdge.enable(this);
         setContentView(binding.getRoot());
         replaceFragment(new EventsFragment());
