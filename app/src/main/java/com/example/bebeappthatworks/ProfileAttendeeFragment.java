@@ -1,14 +1,18 @@
 package com.example.bebeappthatworks;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import com.example.bebeappthatworks.R;
+import com.example.bebeappthatworks.forgotPassword.ForgotPasswordActivity;
+import com.example.bebeappthatworks.ui.login.LoginActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -25,6 +29,7 @@ public class ProfileAttendeeFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    View view;
 
     public ProfileAttendeeFragment() {
         // Required empty public constructor
@@ -56,12 +61,22 @@ public class ProfileAttendeeFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
+
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile_attendee, container, false);
+        view = inflater.inflate(R.layout.fragment_profile_attendee, container, false);
+
+        Button myButton = view.findViewById(R.id.LOGOUTBUTTON);
+        myButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("myTag", "This is my message");
+            }
+        });
+        return view;
     }
 }
