@@ -21,11 +21,13 @@ import android.widget.Toast;
 import com.example.bebeappthatworks.AttendeeActivity;
 import com.example.bebeappthatworks.MainActivity;
 import com.example.bebeappthatworks.R;
+import com.example.bebeappthatworks.ui.eventCreation.EventCreationActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.example.bebeappthatworks.forgotPassword.ForgotPasswordActivity;
+import com.google.firebase.auth.FirebaseUser;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -34,6 +36,7 @@ public class LoginActivity extends AppCompatActivity {
     @SuppressLint("MissingInflatedId")
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         EditText editTextEmail, editTextPassword;
         Button backToMain;
         Button backToLogin;
@@ -55,7 +58,6 @@ public class LoginActivity extends AppCompatActivity {
         editTextEmail = findViewById(R.id.username);
         editTextPassword = findViewById(R.id.password);
         mAuth = FirebaseAuth.getInstance();
-
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

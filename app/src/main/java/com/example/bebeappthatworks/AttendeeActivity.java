@@ -1,6 +1,9 @@
 package com.example.bebeappthatworks;
 
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -8,10 +11,12 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.bebeappthatworks.databinding.HomeLayoutBinding;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class AttendeeActivity extends AppCompatActivity {
 
     HomeLayoutBinding binding;
+    private Button LogOutBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +42,18 @@ public class AttendeeActivity extends AppCompatActivity {
 
             return true;
         });
+
+
+        //LogOutBtn  = findViewById(R.id.idBtnLogOut);
+
+//        LogOutBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                FirebaseAuth.getInstance().signOut();
+//                Intent intent = new Intent(EventCreationActivity.this, MainActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
     }
 

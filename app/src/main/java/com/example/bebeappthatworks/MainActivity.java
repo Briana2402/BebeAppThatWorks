@@ -1,5 +1,6 @@
 package com.example.bebeappthatworks;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -13,12 +14,29 @@ import android.widget.Button;
 import com.example.bebeappthatworks.ui.eventCreation.EventCreationActivity;
 import com.example.bebeappthatworks.ui.login.LoginActivity;
 import com.example.bebeappthatworks.ui.register.RegisterActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
+//    FirebaseAuth.AuthStateListener authStateListener = new FirebaseAuth.AuthStateListener() {
+//        @Override
+//        public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+//            FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+//            if (firebaseUser != null) {
+//                Intent intent = new Intent(MainActivity.this, AttendeeActivity.class);
+//                startActivity(intent);
+//                finish();
+//            }
+//        }
+//    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        FirebaseAuth mAuth;
+        mAuth = FirebaseAuth.getInstance();
+        //mAuth.addAuthStateListener(authStateListener);
+
         super.onCreate(savedInstanceState);
 
         Button loginButton;
@@ -32,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         loginButton = (Button) findViewById(R.id.Login);
         guestButton = (Button) findViewById(R.id.Guest);
         registerButton = (Button) findViewById(R.id.button4);
+
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,8 +77,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
 
     }
 }

@@ -20,9 +20,6 @@
             android:exported="false"
             android:theme="@style/Theme.BebeAppThatWorks" />
         <activity
-            android:name=".forgotPassword.EnterResetCode"
-            android:exported="false" />
-        <activity
             android:name=".forgotPassword.ForgotPasswordActivity"
             android:exported="false" />
         <activity
