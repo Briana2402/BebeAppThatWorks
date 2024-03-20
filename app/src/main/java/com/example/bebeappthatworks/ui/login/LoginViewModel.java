@@ -11,6 +11,9 @@ import com.example.bebeappthatworks.data.Result;
 import com.example.bebeappthatworks.data.model.LoggedInUser;
 import com.example.bebeappthatworks.R;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class LoginViewModel extends ViewModel {
 
     private MutableLiveData<LoginFormState> loginFormState = new MutableLiveData<>();
@@ -65,6 +68,14 @@ public class LoginViewModel extends ViewModel {
 
     // A placeholder password validation check
     private boolean isPasswordValid(String password) {
-        return password != null && password.trim().length() > 5;
+
+        Pattern specailCharPatten = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
+        Pattern UpperCasePatten = Pattern.compile("[A-Z ]");
+        Pattern lowerCasePatten = Pattern.compile("[a-z ]");
+        String regex = "(.*?\\d){2,}";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(password);
+
+        return password != null && password.trim().length() > 5 && specailCharPatten.matcher(password).find() && UpperCasePatten.matcher(password).find() && lowerCasePatten.matcher(password).find();
     }
 }
