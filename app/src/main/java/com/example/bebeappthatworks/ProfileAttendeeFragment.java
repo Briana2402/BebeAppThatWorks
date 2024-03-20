@@ -13,6 +13,7 @@ import android.widget.Button;
 import com.example.bebeappthatworks.R;
 import com.example.bebeappthatworks.forgotPassword.ForgotPasswordActivity;
 import com.example.bebeappthatworks.ui.login.LoginActivity;
+import com.google.firebase.auth.FirebaseAuth;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -74,7 +75,9 @@ public class ProfileAttendeeFragment extends Fragment {
         myButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.d("myTag", "This is my message");
+                FirebaseAuth.getInstance().signOut();
+                Intent i = new Intent(getActivity(), MainActivity.class);
+                startActivity(i);
             }
         });
         return view;

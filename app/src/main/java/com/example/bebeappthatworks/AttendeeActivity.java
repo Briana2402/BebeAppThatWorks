@@ -1,5 +1,6 @@
 package com.example.bebeappthatworks;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -42,18 +43,6 @@ public class AttendeeActivity extends AppCompatActivity {
 
             return true;
         });
-
-
-        //LogOutBtn  = findViewById(R.id.idBtnLogOut);
-
-//        LogOutBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                FirebaseAuth.getInstance().signOut();
-//                Intent intent = new Intent(EventCreationActivity.this, MainActivity.class);
-//                startActivity(intent);
-//            }
-//        });
 
     }
 
