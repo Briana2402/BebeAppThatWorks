@@ -37,7 +37,8 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
         holder.mItem = mValues.get(position);
         //holder.mIdView.setText(mValues.get(position).id);
         holder.mImageView.setImageResource(R.mipmap.ic_banner_foreground);
-        holder.mDetails.setText(R.string.lorem_ipsum);
+        //holder.mName.setText("Name of event");
+        holder.mDescription.setText(R.string.lorem_ipsum);
     }
 
     @Override
@@ -49,7 +50,13 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
         //public final TextView mIdView;
         public final ImageView mImageView;
 
-        public final TextView mDetails;
+        public final TextView mName;
+        public final TextView mLocation;
+        public final TextView mTime;
+        public final TextView mDescription;
+        public final TextView mCapacity;
+        public final TextView Date;
+
         public PlaceholderItem mItem;
 
 
@@ -57,7 +64,13 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
             super(binding.getRoot());
             //mIdView = binding.itemNumber;
             mImageView = binding.content;
-            mDetails = binding.details;
+            mLocation = binding.details;
+            mTime = binding.details;
+            mDescription = binding.description;
+            mCapacity = binding.details;
+            Date = binding.details;
+            mName = binding.details;
+
         }
         /*
         @Override

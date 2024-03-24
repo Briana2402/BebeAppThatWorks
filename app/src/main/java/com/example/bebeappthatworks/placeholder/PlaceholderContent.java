@@ -1,7 +1,7 @@
 package com.example.bebeappthatworks.placeholder;
 
-import android.util.AttributeSet;
 import android.widget.ImageView;
+import com.example.bebeappthatworks.ui.eventCreation.Event;
 
 import com.example.bebeappthatworks.R;
 
