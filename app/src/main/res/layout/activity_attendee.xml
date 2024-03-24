@@ -17,6 +17,7 @@
     <include
         android:id="@+id/home_layout"
         layout="@layout/attendee_layout" />
+    
 
     <!-- This CoordinatorLayout is to dodge the BottomNavigationView when the Snackbar is shown -->
     <androidx.coordinatorlayout.widget.CoordinatorLayout

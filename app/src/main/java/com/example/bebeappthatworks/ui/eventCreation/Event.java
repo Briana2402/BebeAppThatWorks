@@ -1,5 +1,10 @@
 package com.example.bebeappthatworks.ui.eventCreation;
 
+import com.example.bebeappthatworks.placeholder.PlaceholderContent;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Event {
 
     // variables for storing our data.
@@ -9,6 +14,8 @@ public class Event {
         // empty constructor
         // required for Firebase.
     }
+
+    public static final List<Event> ITEMS = new ArrayList<Event>();
 
     // Constructor for all variables.
     public Event(String eventLocation, String eventTime, String eventName, String eventDate, String maxCapacity,String eventDescription) {

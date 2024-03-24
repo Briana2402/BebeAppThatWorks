@@ -7,15 +7,14 @@
     android:orientation="horizontal">
 
 
-
     <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
+        android:layout_width="637dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginStart="19dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="19dp"
         android:layout_marginBottom="19dp"
-        android:layout_marginTop="40dp"
-        android:layout_gravity="center"
         app:cardBackgroundColor="@color/event_card"
         app:cardCornerRadius="25dp">
 
@@ -23,9 +22,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginStart="19dp"
+            android:layout_marginTop="19dp"
             android:layout_marginEnd="19dp"
-            android:layout_marginBottom="19dp"
-            android:layout_marginTop="19dp">
+            android:layout_marginBottom="19dp">
 
             <ImageView
                 android:id="@+id/content"
@@ -35,21 +34,25 @@
                 android:layout_margin="@dimen/text_margin"
                 android:scaleType="centerCrop"
                 android:textAppearance="?attr/textAppearanceListItem"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.107"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:ignore="MissingConstraints" />
 
             <TextView
                 android:id="@+id/details"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="217dp"
+                android:layout_height="214dp"
                 android:layout_gravity="bottom"
                 android:layout_margin="@dimen/text_margin"
                 android:textAppearance="?attr/textAppearanceListItem"
                 android:textColor="@color/white"
-                app:layout_constraintTop_toBottomOf="@+id/content"
-                tools:layout_editor_absoluteX="80dp" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/content"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
