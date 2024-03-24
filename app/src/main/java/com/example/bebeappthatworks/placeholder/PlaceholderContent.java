@@ -1,5 +1,10 @@
 package com.example.bebeappthatworks.placeholder;
 
+import android.util.AttributeSet;
+import android.widget.ImageView;
+
+import com.example.bebeappthatworks.R;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,6 +17,9 @@ import java.util.Map;
  * TODO: Replace all uses of this class before publishing your app.
  */
 public class PlaceholderContent {
+
+    static ImageView content;
+    static String details;
 
     /**
      * An array of sample (placeholder) items.
@@ -38,7 +46,7 @@ public class PlaceholderContent {
     }
 
     private static PlaceholderItem createPlaceholderItem(int position) {
-        return new PlaceholderItem(String.valueOf(position), "Item " + position, makeDetails(position));
+        return new PlaceholderItem(String.valueOf(position), content, details);
     }
 
     private static String makeDetails(int position) {
@@ -55,18 +63,19 @@ public class PlaceholderContent {
      */
     public static class PlaceholderItem {
         public final String id;
-        public final String content;
+        public final ImageView content;
         public final String details;
 
-        public PlaceholderItem(String id, String content, String details) {
+        public PlaceholderItem(String id, ImageView content, String details) {
             this.id = id;
             this.content = content;
             this.details = details;
         }
-
+        /*
         @Override
         public String toString() {
-            return content;
+            return attributeSet;
         }
+        */
     }
 }
