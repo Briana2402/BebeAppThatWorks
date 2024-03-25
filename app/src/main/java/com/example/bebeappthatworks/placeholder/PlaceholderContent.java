@@ -1,6 +1,8 @@
 package com.example.bebeappthatworks.placeholder;
 
 import android.widget.ImageView;
+import android.widget.TextView;
+
 import com.example.bebeappthatworks.ui.eventCreation.Event;
 
 import com.example.bebeappthatworks.R;
@@ -19,7 +21,14 @@ import java.util.Map;
 public class PlaceholderContent {
 
     static ImageView content;
-    static String details;
+    static String name;
+    static String location;
+    static String time;
+    static String description;
+    static String capacity;
+    static String date;
+
+    private String[] items = {name, location, description, time, capacity, date};
 
     /**
      * An array of sample (placeholder) items.
@@ -46,30 +55,36 @@ public class PlaceholderContent {
     }
 
     private static PlaceholderItem createPlaceholderItem(int position) {
-        return new PlaceholderItem(String.valueOf(position), content, details);
+        return new PlaceholderItem(String.valueOf(position), content, name, location, time,
+                description, capacity, date);
     }
-
-    private static String makeDetails(int position) {
-        StringBuilder builder = new StringBuilder();
-        builder.append("Details about Item: ").append(position);
-        for (int i = 0; i < position; i++) {
-            builder.append("\nMore details information here.");
-        }
-        return builder.toString();
+    /*
+    private static String getContent(int position, String item) {
+        ~~ FETCH FUNCTION BASED ON ITEMS ~~s
     }
-
+    */
     /**
      * A placeholder item representing a piece of content.
      */
     public static class PlaceholderItem {
         public final String id;
         public final ImageView content;
-        public final String details;
-
-        public PlaceholderItem(String id, ImageView content, String details) {
+        public final String name;
+        public final String location;
+        public final String time;
+        public final String description;
+        public final String capacity;
+        public final String date;
+        public PlaceholderItem(String id, ImageView content, String name, String location,
+                               String time, String description, String capacity, String date) {
             this.id = id;
             this.content = content;
-            this.details = details;
+            this.date = date;
+            this.location = location;
+            this.time = time;
+            this.description = description;
+            this.name = name;
+            this.capacity = capacity;
         }
         /*
         @Override

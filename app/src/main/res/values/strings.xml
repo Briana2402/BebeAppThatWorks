@@ -24,11 +24,15 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
+    <string name="mName">Name of event</string>
+    <string name="mLocation">Location of event</string>
+    <string name="mTime">Time: _ _ : _ _</string>
+    <string name="mDate">24Oct</string>
+    <string name="mCapacity">Max capacity</string>
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
         volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus
-        dui nec risus. Maecenas non sodales nisi, vel dictum dolor. Class aptent taciti sociosqu ad
-        litora torquent per conubia nostra, per inceptos himenaeos.
+        dui nec risus.
     </string>
     <string name="Enter_Event_name">Enter event name</string>
     <string name="Enter_Event_location">Enter event location\n</string>
