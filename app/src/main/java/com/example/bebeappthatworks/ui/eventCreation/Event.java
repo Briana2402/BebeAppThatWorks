@@ -21,7 +21,7 @@ public class Event {
     public static final List<Event> ITEMS = new ArrayList<Event>();
 
     // Constructor for all variables.
-    public Event(String eventLocation, String eventTime, String eventName, String eventDate, String maxCapacity,String eventDescription, String imageUrl, String eventType, String eventLink, Uri imageUri) {
+    public Event(String eventLocation, String eventTime, String eventName, String eventDate, String maxCapacity,String eventDescription, Uri imageUri, String eventType, String eventLink) {
         this.eventLocation = eventLocation;
         this.eventTime = eventTime;
         this.eventName = eventName;
@@ -94,7 +94,7 @@ public class Event {
     }
 
     public void setEventType(String eventType) {
-        this.imageUrl = imageUrl;
+        this.eventType = eventType;
     }
 
     public String getEventType() {
