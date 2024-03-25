@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.text.TextUtils;
 import android.widget.Button;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 
 import com.example.bebeappthatworks.MainActivity;
 import android.Manifest;
@@ -31,7 +33,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.StorageReference;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -46,7 +50,7 @@ public class EventCreationActivity extends AppCompatActivity {
 
     private Button captureCoverBtn;
 
-    private String imageUrl;
+    private Uri imageUri;
 
     // creating a strings for storing
     // our values from edittext fields.
@@ -59,7 +63,6 @@ public class EventCreationActivity extends AppCompatActivity {
     private static final int REQUEST_CAMERA_PERMISSION_CODE = 1;
 
     private static final int REQUEST_IMAGE_CAPTURE = 2;
-
     private ImageView imageView;
 
     @Override
@@ -109,7 +112,7 @@ public class EventCreationActivity extends AppCompatActivity {
                         eventDateEdt.setError("Please enter Event Date");
                     } else {
                         // calling method to add data to Firebase Firestore.
-                        addDataToFirestore(eventName, eventDescription, eventDuration, eventDate, eventLocation, eventCapacity, imageUrl);
+                        addDataToFirestore(eventName, eventDescription, eventDuration, eventDate, eventLocation, eventCapacity, imageUri);
                     }
                 }
             }
@@ -118,14 +121,14 @@ public class EventCreationActivity extends AppCompatActivity {
 
     }
 
-    private void addDataToFirestore(String eventName, String eventDescription, String eventDuration, String eventDate, String eventLocation, String eventCapacity, String imageUrl) {
+    private void addDataToFirestore(String eventName, String eventDescription, String eventDuration, String eventDate, String eventLocation, String eventCapacity, Uri imageUri) {
 
         // creating a collection reference
         // for our Firebase Firestore database.
         CollectionReference dbEvents = db.collection("Events");
 
         // adding our data to our courses object class.
-        Event events = new Event(eventLocation, eventDuration, eventName, eventDate, eventCapacity, eventDescription, imageUrl);
+        Event events = new Event(eventLocation, eventDuration, eventName, eventDate, eventCapacity, eventDescription, imageUri);
 
         // below method is use to add data to Firebase Firestore.
         dbEvents.add(events).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -146,35 +149,45 @@ public class EventCreationActivity extends AppCompatActivity {
     }
 
     public void captureImage(View view) {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-                != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA},
                     REQUEST_CAMERA_PERMISSION_CODE);
             return;
         }
-
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
         startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+//            try {
+//                Log.i("potato", "I am here");
+//                assert data != null;
+//                Uri imageUri = data.getData();
+//                String test = data.getData().toString();
+//                Log.i("FAT POTATO", test);
+//                if (data.getData() == null){
+//                    Log.i("IS NULL POTATO", "nononono");
+//                }
+//                Log.i("dirty potato", "I am here");
+//                Bitmap imageBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+//                Log.i("old potato", "I am here");
+//                imageView.setImageBitmap(imageBitmap);
+//                // Save the full-size image to a file
+//                saveImageToFile(imageBitmap);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//                Toast.makeText(this, "Failed to load image", Toast.LENGTH_SHORT).show();
+//            }
         super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-            try {
-                assert data != null;
-                Uri imageUri = data.getData();
-                Bitmap imageBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
-                imageView.setImageBitmap(imageBitmap);
-                // Save the full-size image to a file
-                saveImageToFile(imageBitmap);
-            } catch (IOException e) {
-                e.printStackTrace();
-                Toast.makeText(this, "Failed to load image", Toast.LENGTH_SHORT).show();
-            }
-
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK){
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            imageView.setImageBitmap(imageBitmap);
+            Log.i("imageBitmap", imageBitmap.toString());
+            this.imageUri= getImageUri(imageBitmap);
         } else if (resultCode == RESULT_CANCELED) {
             // Handle the case where the user cancels taking a picture
             Toast.makeText(this, "Picture was not taken", Toast.LENGTH_SHORT).show();
@@ -184,39 +197,12 @@ public class EventCreationActivity extends AppCompatActivity {
         }
     }
 
-    private void saveImageToFile(Bitmap bitmap) {
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        imageUrl = null;
-        if (storageDir != null) {
-            String fileName = "IMG_" + System.currentTimeMillis() + ".jpg";
-            System.out.print(fileName);
-            File imageFile = new File(storageDir, fileName);
-            try {
-                FileOutputStream fos = new FileOutputStream(imageFile);
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-                fos.close();
-                imageUrl = imageFile.getAbsolutePath(); // Get the file URI
-                System.out.print(imageUrl);
-                Toast.makeText(this, "Image saved: " + imageUrl, Toast.LENGTH_SHORT).show();
-            } catch (IOException e) {
-                e.printStackTrace();
-                Toast.makeText(this, "Failed to save image", Toast.LENGTH_SHORT).show();
-            }
-        }
+    public Uri getImageUri(Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String fileName = "IMG_" + System.currentTimeMillis() + ".jpg";
+        String path = MediaStore.Images.Media.insertImage(getContentResolver(), inImage, fileName,null);
+        return Uri.parse(path);
     }
 }
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK){
-//            Bundle extras = data.getExtras();
-//            Bitmap imageBitmap = (Bitmap) extras.get("data");
-//            imageView.setImageBitmap(imageBitmap);
-//        } else if (resultCode == RESULT_CANCELED) {
-//            // Handle the case where the user cancels taking a picture
-//            Toast.makeText(this, "Picture was not taken", Toast.LENGTH_SHORT).show();
-//        } else {
-//            // Handle other cases, such as if there's an error
-//            Toast.makeText(this, "Failed to capture image", Toast.LENGTH_SHORT).show();
-//        }
-//}
 

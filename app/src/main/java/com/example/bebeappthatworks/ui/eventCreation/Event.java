@@ -4,12 +4,14 @@ import com.example.bebeappthatworks.placeholder.PlaceholderContent;
 
 import java.util.ArrayList;
 import java.util.List;
+import android.net.Uri;
+
 
 public class Event {
 
     // variables for storing our data.
-    private String eventLocation, eventTime, eventDate, eventName,eventDescription, maxCapacity, imageUrl;
-
+    private String eventLocation, eventTime, eventDate, eventName,eventDescription, maxCapacity;
+    private Uri imageUri;
     public Event() {
         // empty constructor
         // required for Firebase.
@@ -18,14 +20,14 @@ public class Event {
     public static final List<Event> ITEMS = new ArrayList<Event>();
 
     // Constructor for all variables.
-    public Event(String eventLocation, String eventTime, String eventName, String eventDate, String maxCapacity,String eventDescription, String imageUrl) {
+    public Event(String eventLocation, String eventTime, String eventName, String eventDate, String maxCapacity,String eventDescription, Uri imageUri) {
         this.eventLocation = eventLocation;
         this.eventTime = eventTime;
         this.eventName = eventName;
         this.eventDate = eventDate;
         this.maxCapacity = maxCapacity;
         this.eventDescription = eventDescription;
-        this.imageUrl = imageUrl;
+        this.imageUri = imageUri;
     }
 
     // getter methods for all variables.
@@ -72,12 +74,12 @@ public class Event {
         this.eventDescription = eventDescription;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setImageUrl(Uri imageUri) {
+        this.imageUri = imageUri;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public Uri getImageUri() {
+        return imageUri;
     }
 
 
