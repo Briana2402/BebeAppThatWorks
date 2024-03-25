@@ -30,17 +30,37 @@
         app:layout_constraintTop_toBottomOf="@+id/username" />
 
     <EditText
+        android:id="@+id/passwordConfirm"
+        android:layout_width="304dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="4dp"
+        android:background="#9A8FAF"
+        android:hint="@string/confirm_password"
+        android:imeActionLabel="@string/action_sign_in_short"
+        android:imeOptions="actionDone"
+        android:inputType="textPassword"
+        android:selectAllOnFocus="true"
+
+        app:layout_constraintBottom_toTopOf="@+id/btn_register"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/password"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
         android:id="@+id/username"
         android:layout_width="304dp"
         android:layout_height="59dp"
-        android:layout_marginTop="416dp"
+        android:layout_marginTop="356dp"
         android:background="#9A8FAF"
         android:hint="@string/prompt_email"
         android:inputType="textEmailAddress"
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
 
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
@@ -54,7 +74,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/backToMain"
         app:layout_constraintTop_toBottomOf="@+id/password"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.476" />
 
     <Button
         android:id="@+id/backToMain"
@@ -67,7 +87,7 @@
         app:layout_constraintEnd_toStartOf="@+id/btn_register"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.476" />
 
     <ImageView
         android:id="@+id/imageView"

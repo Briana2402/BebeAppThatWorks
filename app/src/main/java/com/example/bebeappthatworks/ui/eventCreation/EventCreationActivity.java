@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.text.TextUtils;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -43,7 +44,7 @@ import java.io.IOException;
 public class EventCreationActivity extends AppCompatActivity {
 
     // creating variables for our edit text
-    private EditText eventNameEdt, eventDurationEdt, eventDescriptionEdt, eventLocationEdt, eventCapacityEdt, eventDateEdt;
+    private EditText eventNameEdt, eventDurationEdt, eventDescriptionEdt, eventLocationEdt, eventCapacityEdt, eventDateEdt, eventLinkEdt;
 
     // creating variable for button
     private Button submitEventBtn;
@@ -51,10 +52,11 @@ public class EventCreationActivity extends AppCompatActivity {
     private Button captureCoverBtn;
 
     private Uri imageUri;
+    private CheckBox paidEvent;
 
     // creating a strings for storing
     // our values from edittext fields.
-    private String eventLocation, eventDate, eventName, eventDescription, eventCapacity, eventDuration;
+    private String eventLocation, eventDate, eventName, eventDescription, eventCapacity, eventDuration, eventType, imageUrl, eventLink;
 
     // creating a variable
     // for firebasefirestore.
@@ -63,12 +65,15 @@ public class EventCreationActivity extends AppCompatActivity {
     private static final int REQUEST_CAMERA_PERMISSION_CODE = 1;
 
     private static final int REQUEST_IMAGE_CAPTURE = 2;
+
     private ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_creation);
+        eventLinkEdt = findViewById(R.id.linkPaid);
+        eventLinkEdt.setVisibility(View.INVISIBLE);
 
         imageView = findViewById(R.id.cover_image);
         // getting our instance
@@ -84,6 +89,23 @@ public class EventCreationActivity extends AppCompatActivity {
         eventDateEdt = findViewById(R.id.idEdtEventDate);
         submitEventBtn = findViewById(R.id.idBtnSubmitEvent);
         captureCoverBtn = findViewById(R.id.button_capture);
+        CheckBox paidEvent = (CheckBox) findViewById(R.id.checkBox);
+
+        paidEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(paidEvent.isChecked()){
+                    eventType = "Paid";
+                    eventLinkEdt.setVisibility(View.VISIBLE);
+                }
+                if(!paidEvent.isChecked()) {
+                    eventType = "Free";
+                    eventLinkEdt.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+
 
         // adding on click listener for button
         submitEventBtn.setOnClickListener(new View.OnClickListener() {
@@ -97,6 +119,17 @@ public class EventCreationActivity extends AppCompatActivity {
                 eventDuration = eventDurationEdt.getText().toString();
                 eventLocation = eventLocationEdt.getText().toString();
                 eventCapacity = eventCapacityEdt.getText().toString();
+
+                if(paidEvent.isChecked()){
+                    eventType = "Paid";
+                } else {
+                    eventType = "Free";
+                    eventLink = "";
+                }
+
+                if(eventType.equals("Paid")){
+                    eventLink = eventLinkEdt.getText().toString();
+                }
 
                 // validating the text fields if empty or not.
                 if (TextUtils.isEmpty(eventName)) {
@@ -112,7 +145,7 @@ public class EventCreationActivity extends AppCompatActivity {
                         eventDateEdt.setError("Please enter Event Date");
                     } else {
                         // calling method to add data to Firebase Firestore.
-                        addDataToFirestore(eventName, eventDescription, eventDuration, eventDate, eventLocation, eventCapacity, imageUri);
+                        addDataToFirestore(eventName, eventDescription, eventDuration, eventDate, eventLocation, eventCapacity, imageUri, eventType, eventLink);
                     }
                 }
             }
@@ -121,14 +154,16 @@ public class EventCreationActivity extends AppCompatActivity {
 
     }
 
-    private void addDataToFirestore(String eventName, String eventDescription, String eventDuration, String eventDate, String eventLocation, String eventCapacity, Uri imageUri) {
+    private void addDataToFirestore(String eventName, String eventDescription, String eventDuration, String eventDate, String eventLocation, String eventCapacity, Uri imageUri, String eventType, String eventLink) {
 
         // creating a collection reference
         // for our Firebase Firestore database.
         CollectionReference dbEvents = db.collection("Events");
+        CollectionReference dbFreeEvents = db.collection("FreeEvents");
+        CollectionReference dbPaidEvents = db.collection("PaidEvents");
 
         // adding our data to our courses object class.
-        Event events = new Event(eventLocation, eventDuration, eventName, eventDate, eventCapacity, eventDescription, imageUri);
+        Event events = new Event(eventLocation, eventDuration, eventName, eventDate, eventCapacity, eventDescription, imageUri, eventType, eventLink);
 
         // below method is use to add data to Firebase Firestore.
         dbEvents.add(events).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -149,38 +184,20 @@ public class EventCreationActivity extends AppCompatActivity {
     }
 
     public void captureImage(View view) {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA},
                     REQUEST_CAMERA_PERMISSION_CODE);
             return;
         }
+
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
         startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-//            try {
-//                Log.i("potato", "I am here");
-//                assert data != null;
-//                Uri imageUri = data.getData();
-//                String test = data.getData().toString();
-//                Log.i("FAT POTATO", test);
-//                if (data.getData() == null){
-//                    Log.i("IS NULL POTATO", "nononono");
-//                }
-//                Log.i("dirty potato", "I am here");
-//                Bitmap imageBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
-//                Log.i("old potato", "I am here");
-//                imageView.setImageBitmap(imageBitmap);
-//                // Save the full-size image to a file
-//                saveImageToFile(imageBitmap);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//                Toast.makeText(this, "Failed to load image", Toast.LENGTH_SHORT).show();
-//            }
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK){
             Bundle extras = data.getExtras();
@@ -205,4 +222,18 @@ public class EventCreationActivity extends AppCompatActivity {
         return Uri.parse(path);
     }
 }
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK){
+//            Bundle extras = data.getExtras();
+//            Bitmap imageBitmap = (Bitmap) extras.get("data");
+//            imageView.setImageBitmap(imageBitmap);
+//        } else if (resultCode == RESULT_CANCELED) {
+//            // Handle the case where the user cancels taking a picture
+//            Toast.makeText(this, "Picture was not taken", Toast.LENGTH_SHORT).show();
+//        } else {
+//            // Handle other cases, such as if there's an error
+//            Toast.makeText(this, "Failed to capture image", Toast.LENGTH_SHORT).show();
+//        }
+//}
 

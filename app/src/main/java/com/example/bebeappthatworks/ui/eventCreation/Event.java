@@ -10,8 +10,9 @@ import android.net.Uri;
 public class Event {
 
     // variables for storing our data.
-    private String eventLocation, eventTime, eventDate, eventName,eventDescription, maxCapacity;
+    private String eventLocation, eventTime, eventDate, eventName,eventDescription, maxCapacity, eventType, eventLink;
     private Uri imageUri;
+
     public Event() {
         // empty constructor
         // required for Firebase.
@@ -20,7 +21,7 @@ public class Event {
     public static final List<Event> ITEMS = new ArrayList<Event>();
 
     // Constructor for all variables.
-    public Event(String eventLocation, String eventTime, String eventName, String eventDate, String maxCapacity,String eventDescription, Uri imageUri) {
+    public Event(String eventLocation, String eventTime, String eventName, String eventDate, String maxCapacity,String eventDescription, String imageUrl, String eventType, String eventLink, Uri imageUri) {
         this.eventLocation = eventLocation;
         this.eventTime = eventTime;
         this.eventName = eventName;
@@ -28,6 +29,8 @@ public class Event {
         this.maxCapacity = maxCapacity;
         this.eventDescription = eventDescription;
         this.imageUri = imageUri;
+        this.eventType = eventType;
+        this.eventLink = eventLink;
     }
 
     // getter methods for all variables.
@@ -37,6 +40,14 @@ public class Event {
 
     public void setEventLocation(String eventLocation) {
         this.eventLocation = eventLocation;
+    }
+
+    public String getEventLink() {
+        return eventLink;
+    }
+
+    public void getEventLink (String eventLink  ) {
+        this.eventLink = eventLink;
     }
 
     // getter methods for all variables.
@@ -80,6 +91,14 @@ public class Event {
 
     public Uri getImageUri() {
         return imageUri;
+    }
+
+    public void setEventType(String eventType) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getEventType() {
+        return eventType;
     }
 
 
