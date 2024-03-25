@@ -17,17 +17,19 @@
         android:id="@+id/button_capture"
         android:layout_width="170dp"
         android:layout_height="48dp"
-        android:layout_marginStart="104dp"
-        android:layout_marginBottom="608dp"
         android:onClick="captureImage"
         android:text="Set Event Cover"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.041" />
 
     <ImageView
         android:id="@+id/cover_image"
-        android:layout_width="300dp"
-        android:layout_height="188dp"
+        android:layout_width="294dp"
+        android:layout_height="143dp"
         android:layout_above="@+id/button_capture"
         android:layout_gravity="center"
         android:layout_margin="@dimen/text_margin"
@@ -42,8 +44,8 @@
 
     <EditText
         android:id="@+id/idEdtEventName"
-        android:layout_width="304dp"
-        android:layout_height="54dp"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
         android:layout_marginTop="4dp"
         android:background="#9A8FAF"
         android:hint="@string/Enter_Event_name"
@@ -56,8 +58,8 @@
 
     <EditText
         android:id="@+id/idEdtEventLocation"
-        android:layout_width="304dp"
-        android:layout_height="54dp"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
         android:layout_marginTop="4dp"
         android:background="#9A8FAF"
         android:hint="@string/Enter_Event_location"
@@ -68,8 +70,8 @@
 
     <EditText
         android:id="@+id/idEdtEventDuration"
-        android:layout_width="304dp"
-        android:layout_height="54dp"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
         android:layout_marginTop="4dp"
         android:background="#9A8FAF"
         android:hint="@string/Enter_Event_duration"
@@ -80,8 +82,8 @@
 
     <EditText
         android:id="@+id/idEdtEventCapacity"
-        android:layout_width="304dp"
-        android:layout_height="54dp"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
         android:layout_marginTop="4dp"
         android:background="#9A8FAF"
         android:hint="@string/Enter_Event_capacity"
@@ -92,8 +94,8 @@
 
     <EditText
         android:id="@+id/idEdtEventDate"
-        android:layout_width="304dp"
-        android:layout_height="54dp"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
         android:layout_marginTop="4dp"
         android:background="#9A8FAF"
         android:hint="@string/Enter_Event_date"
@@ -104,8 +106,8 @@
 
     <EditText
         android:id="@+id/idEdtEventDescription"
-        android:layout_width="304dp"
-        android:layout_height="54dp"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
         android:layout_marginTop="4dp"
         android:background="#9A8FAF"
         android:hint="@string/Enter_Event_description"
@@ -114,16 +116,59 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/idEdtEventDate" />
 
+    <EditText
+        android:id="@+id/linkPaid"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="24dp"
+        android:background="#9A8FAF"
+        android:hint="Enter event link"
+        android:selectAllOnFocus="true"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/idBtnSubmitEvent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="visible" />
+
     <Button
         android:id="@+id/idBtnSubmitEvent"
         android:layout_width="136dp"
         android:layout_height="48dp"
-        android:layout_marginStart="120dp"
-        android:layout_marginTop="70dp"
         android:text="Create Event"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idEdtEventDate"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/idEdtEventDescription"
+        app:layout_constraintVertical_bias="0.904" />
+
+    <CheckBox
+        android:id="@+id/checkBox2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginBottom="24dp"
+        android:text="Free Event"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/linkPaid"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/checkBox"
+        app:layout_constraintTop_toBottomOf="@+id/idEdtEventDescription" />
+
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="10dp"
+        android:text="Paid Event"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/linkPaid"
+        app:layout_constraintEnd_toStartOf="@+id/checkBox2"
+        app:layout_constraintHorizontal_bias="0.984"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/idEdtEventDescription" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

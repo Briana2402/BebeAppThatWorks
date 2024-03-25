@@ -11,4 +11,7 @@
     app:layoutManager="LinearLayoutManager"
     android:background="@drawable/bg_with_stars"
     tools:context=".EventsFragment"
-    tools:listitem="@layout/fragment_events" />
+    tools:listitem="@layout/fragment_events"
+
+    />
+
