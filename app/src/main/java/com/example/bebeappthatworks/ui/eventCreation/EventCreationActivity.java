@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.text.TextUtils;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -47,6 +48,8 @@ public class EventCreationActivity extends AppCompatActivity {
 
     private Button captureCoverBtn;
 
+    private CheckBox paidEvent;
+
     // creating a strings for storing
     // our values from edittext fields.
     private String eventLocation, eventDate, eventName, eventDescription, eventCapacity, eventDuration, eventType, imageUrl, eventLink;
@@ -65,6 +68,8 @@ public class EventCreationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_creation);
+        eventLinkEdt = findViewById(R.id.linkPaid);
+        eventLinkEdt.setVisibility(View.INVISIBLE);
 
         imageView = findViewById(R.id.cover_image);
         // getting our instance
@@ -80,6 +85,23 @@ public class EventCreationActivity extends AppCompatActivity {
         eventDateEdt = findViewById(R.id.idEdtEventDate);
         submitEventBtn = findViewById(R.id.idBtnSubmitEvent);
         captureCoverBtn = findViewById(R.id.button_capture);
+        CheckBox paidEvent = (CheckBox) findViewById(R.id.checkBox);
+
+        paidEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(paidEvent.isChecked()){
+                    eventType = "Paid";
+                    eventLinkEdt.setVisibility(View.VISIBLE);
+                }
+                if(!paidEvent.isChecked()) {
+                    eventType = "Free";
+                    eventLinkEdt.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+
 
         // adding on click listener for button
         submitEventBtn.setOnClickListener(new View.OnClickListener() {
@@ -93,6 +115,17 @@ public class EventCreationActivity extends AppCompatActivity {
                 eventDuration = eventDurationEdt.getText().toString();
                 eventLocation = eventLocationEdt.getText().toString();
                 eventCapacity = eventCapacityEdt.getText().toString();
+
+                if(paidEvent.isChecked()){
+                    eventType = "Paid";
+                } else {
+                    eventType = "Free";
+                    eventLink = "";
+                }
+
+                if(eventType.equals("Paid")){
+                    eventLink = eventLinkEdt.getText().toString();
+                }
 
                 // validating the text fields if empty or not.
                 if (TextUtils.isEmpty(eventName)) {
@@ -108,7 +141,7 @@ public class EventCreationActivity extends AppCompatActivity {
                         eventDateEdt.setError("Please enter Event Date");
                     } else {
                         // calling method to add data to Firebase Firestore.
-                        addDataToFirestore(eventName, eventDescription, eventDuration, eventDate, eventLocation, eventCapacity,eventType, imageUrl, eventLink);
+                        addDataToFirestore(eventName, eventDescription, eventDuration, eventDate, eventLocation, eventCapacity,imageUrl, eventType, eventLink);
                     }
                 }
             }
@@ -122,10 +155,16 @@ public class EventCreationActivity extends AppCompatActivity {
         // creating a collection reference
         // for our Firebase Firestore database.
         CollectionReference dbEvents = db.collection("Events");
+        CollectionReference dbFreeEvents = db.collection("FreeEvents");
+        CollectionReference dbPaidEvents = db.collection("PaidEvents");
 
         // adding our data to our courses object class.
         Event events = new Event(eventLocation, eventDuration, eventName, eventDate, eventCapacity, eventDescription, imageUrl, eventType,eventLink);
-
+        if(eventType.equals("Free")){
+            dbFreeEvents.add(events);
+        } else if(eventType.equals("Paid")){
+            dbPaidEvents.add(events);
+        }
         // below method is use to add data to Firebase Firestore.
         dbEvents.add(events).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
@@ -143,6 +182,8 @@ public class EventCreationActivity extends AppCompatActivity {
             }
         });
     }
+
+
 
     public void captureImage(View view) {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)

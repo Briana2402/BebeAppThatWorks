@@ -39,6 +39,14 @@ public class Event {
         this.eventLocation = eventLocation;
     }
 
+    public String getEventLink() {
+        return eventLink;
+    }
+
+    public void getEventLink (String eventLink  ) {
+        this.eventLink = eventLink;
+    }
+
     // getter methods for all variables.
     public String getEventTime() {
         return eventTime;

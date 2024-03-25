@@ -143,19 +143,7 @@
         app:layout_constraintTop_toBottomOf="@+id/idEdtEventDescription"
         app:layout_constraintVertical_bias="0.904" />
 
-    <CheckBox
-        android:id="@+id/checkBox2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="48dp"
-        android:layout_marginBottom="24dp"
-        android:text="Free Event"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/linkPaid"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/checkBox"
-        app:layout_constraintTop_toBottomOf="@+id/idEdtEventDescription" />
+
 
     <CheckBox
         android:id="@+id/checkBox"
@@ -166,17 +154,8 @@
         android:text="Paid Event"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/linkPaid"
-        app:layout_constraintEnd_toStartOf="@+id/checkBox2"
         app:layout_constraintHorizontal_bias="0.984"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/idEdtEventDescription" />
-
-    <CheckBox
-        android:id="@+id/checkBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="CheckBox"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="595dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
