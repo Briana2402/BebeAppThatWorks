@@ -122,11 +122,11 @@ private FirebaseFirestore db;
                     return;
                 }
                 if(!isPasswordValid(password)){
-                    Toast.makeText(RegisterActivity.this, "Password invalid", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterAttendeeActivity.this, "Password invalid", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if(!isEmailValid(email)){
-                    Toast.makeText(RegisterActivity.this, "Email invalid", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterAttendeeActivity.this, "Email invalid", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
