@@ -20,6 +20,7 @@ import java.util.Map;
  */
 public class PlaceholderContent {
 
+    static String id;
     static ImageView content;
     static String name;
     static String location;
@@ -28,17 +29,18 @@ public class PlaceholderContent {
     static String capacity;
     static String date;
 
-    private String[] items = {name, location, description, time, capacity, date};
+    //private String[] items = {name, location, description, time, capacity, date};
+    //public List<String[]> allEvents = new ArrayList<String[]>();
 
     /**
      * An array of sample (placeholder) items.
      */
-    public static final List<PlaceholderItem> ITEMS = new ArrayList<PlaceholderItem>();
+    public static final List<Event> ITEMS = new ArrayList<Event>();
 
     /**
      * A map of sample (placeholder) items, by ID.
      */
-    public static final Map<String, PlaceholderItem> ITEM_MAP = new HashMap<String, PlaceholderItem>();
+    public static final Map<String, Event> ITEM_MAP = new HashMap<String, Event>();
 
     private static final int COUNT = 25; //TODO change cout to database count
 
@@ -49,48 +51,21 @@ public class PlaceholderContent {
         }
     }
 
-    private static void addItem(PlaceholderItem item) {
+    private static void addItem(Event item) {
         ITEMS.add(item);
         ITEM_MAP.put(item.id, item);
     }
 
-    private static PlaceholderItem createPlaceholderItem(int position) {
-        return new PlaceholderItem(String.valueOf(position), content, name, location, time,
-                description, capacity, date);
+    private static Event createPlaceholderItem(int position) {
+        return new Event(id, location, time, name, date, capacity, description);
     }
     /*
     private static String getContent(int position, String item) {
-        ~~ FETCH FUNCTION BASED ON ITEMS ~~s
+        ~~ FETCH FUNCTION BASED ON ITEMS ~~
     }
     */
     /**
      * A placeholder item representing a piece of content.
      */
-    public static class PlaceholderItem {
-        public final String id;
-        public final ImageView content;
-        public final String name;
-        public final String location;
-        public final String time;
-        public final String description;
-        public final String capacity;
-        public final String date;
-        public PlaceholderItem(String id, ImageView content, String name, String location,
-                               String time, String description, String capacity, String date) {
-            this.id = id;
-            this.content = content;
-            this.date = date;
-            this.location = location;
-            this.time = time;
-            this.description = description;
-            this.name = name;
-            this.capacity = capacity;
-        }
-        /*
-        @Override
-        public String toString() {
-            return attributeSet;
-        }
-        */
-    }
+
 }
