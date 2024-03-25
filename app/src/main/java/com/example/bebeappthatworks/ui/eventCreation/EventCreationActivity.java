@@ -28,6 +28,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 
@@ -42,7 +43,7 @@ public class EventCreationActivity extends AppCompatActivity {
 
     // creating a strings for storing
     // our values from edittext fields.
-    private String eventLocation, eventDate, eventName,eventDescription,eventCapacity,eventDuration;
+    private String id, eventLocation, eventDate, eventName,eventDescription,eventCapacity,eventDuration;
 
     // creating a variable
     // for firebasefirestore.
@@ -102,8 +103,6 @@ public class EventCreationActivity extends AppCompatActivity {
                         // calling method to add data to Firebase Firestore.
                         addDataToFirestore(eventName, eventDescription, eventDuration, eventDate, eventLocation, eventCapacity);
 
-
-
                     }
                 }
             }
@@ -119,7 +118,7 @@ public class EventCreationActivity extends AppCompatActivity {
         CollectionReference dbEvents = db.collection("Events");
 
         // adding our data to our courses object class.
-        Event events = new Event(eventLocation, eventDuration, eventName, eventDate,eventCapacity, eventDescription);
+        Event events = new Event(id, eventLocation, eventDuration, eventName, eventDate,eventCapacity, eventDescription);
 
         // below method is use to add data to Firebase Firestore.
         dbEvents.add(events).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -128,6 +127,10 @@ public class EventCreationActivity extends AppCompatActivity {
                 // after the data addition is successful
                 // we are displaying a success toast message.
                 Toast.makeText(EventCreationActivity.this, "Your Event has been added to Firebase Firestore", Toast.LENGTH_SHORT).show();
+                //id = db.collection("Events").getId();
+
+                //DocumentReference docRef = db.collection("Events").document(id);
+
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

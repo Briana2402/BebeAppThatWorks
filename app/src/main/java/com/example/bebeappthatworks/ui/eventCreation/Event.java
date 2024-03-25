@@ -8,7 +8,13 @@ import java.util.List;
 public class Event {
 
     // variables for storing our data.
-    private String eventLocation, eventTime, eventDate, eventName,eventDescription, maxCapacity;
+    public String id;
+    private String eventLocation;
+    private String eventTime;
+    private String eventDate;
+    private String eventName;
+    private String eventDescription;
+    private String maxCapacity;
 
     public Event() {
         // empty constructor
@@ -18,7 +24,7 @@ public class Event {
     public static final List<Event> ITEMS = new ArrayList<Event>();
 
     // Constructor for all variables.
-    public Event(String eventLocation, String eventTime, String eventName, String eventDate, String maxCapacity,String eventDescription) {
+    public Event(String id, String eventLocation, String eventTime, String eventName, String eventDate, String maxCapacity,String eventDescription) {
         this.eventLocation = eventLocation;
         this.eventTime = eventTime;
         this.eventName = eventName;
@@ -53,6 +59,7 @@ public class Event {
         this.eventDate = eventDate;
     }
 
+    public  void getEventId(String id){this.id = id;}
 
     public String getEventName() {
         return eventName;
