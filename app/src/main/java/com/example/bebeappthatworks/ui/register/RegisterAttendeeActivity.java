@@ -19,13 +19,16 @@ import android.widget.Toast;
 
 import com.example.bebeappthatworks.MainActivity;
 import com.example.bebeappthatworks.R;
+import com.example.bebeappthatworks.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 
-public class RegisterActivity extends AppCompatActivity {
+public class RegisterAttendeeActivity extends AppCompatActivity {
 
 
 
@@ -42,6 +45,7 @@ public class RegisterActivity extends AppCompatActivity {
 //            finish();
 //        }
 //    }
+private FirebaseFirestore db;
     @SuppressLint("MissingInflatedId")
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -56,6 +60,8 @@ public class RegisterActivity extends AppCompatActivity {
         //getSupportActionBar().hide();
 
         setContentView(R.layout.activity_register);
+        db = FirebaseFirestore.getInstance();
+
 
         backButton = (Button) findViewById(R.id.backToMain); //back button
         mAuth = FirebaseAuth.getInstance();
@@ -69,38 +75,49 @@ public class RegisterActivity extends AppCompatActivity {
                 String email, password;
                 email = editTextEmail.getText().toString();
                 password = editTextPassword.getText().toString();
+
+                CollectionReference dbAttendees = db.collection("Attendees");
                 //checks if email and password are empty
                 if(TextUtils.isEmpty(email)) {
-                    Toast.makeText(RegisterActivity.this, "Enter email", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterAttendeeActivity.this, "Enter email", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if(TextUtils.isEmpty(password)) {
-                    Toast.makeText(RegisterActivity.this, "Enter password", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterAttendeeActivity.this, "Enter password", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
+                //creates a user
                 mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    //FirebaseUser user = mAuth.getCurrentUser();
-                                    Toast.makeText(RegisterActivity.this, "Account created",
+                                    //if user is added to auth db
+                                    //FirebaseUser user = mAuth.getUid();
+                                    User user = new User(email, "attendee");
+                                    //adds user to Firestore with he same uid
+                                    dbAttendees.document(mAuth.getCurrentUser().getUid()).set(user);
+                                    Toast.makeText(RegisterAttendeeActivity.this, "Account created",
                                             Toast.LENGTH_SHORT).show();
+
                                 } else {
                                     // If sign in fails, display a message to the user.
-                                    Toast.makeText(RegisterActivity.this, "Account creation failed.",
-                                            Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(RegisterAttendeeActivity.this, "Account creation failed.",
+                                           Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
+
+
+
             }
         });
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                Intent intent = new Intent(RegisterAttendeeActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });

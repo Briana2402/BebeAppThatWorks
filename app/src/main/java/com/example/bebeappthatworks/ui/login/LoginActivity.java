@@ -42,6 +42,7 @@ import com.example.bebeappthatworks.forgotPassword.ForgotPasswordActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
+
     //private LoginViewModel loginViewModel;
     @SuppressLint("MissingInflatedId")
     @Override
@@ -67,6 +68,8 @@ public class LoginActivity extends AppCompatActivity {
         editTextEmail = findViewById(R.id.username);
         editTextPassword = findViewById(R.id.password);
         mAuth = FirebaseAuth.getInstance();
+
+
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,7 +120,7 @@ public class LoginActivity extends AppCompatActivity {
         forgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, Home.class);
+                Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
                 startActivity(intent);
             }
         });

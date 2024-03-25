@@ -2,7 +2,6 @@ package com.example.bebeappthatworks;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -12,7 +11,8 @@ import android.widget.Button;
 
 import com.example.bebeappthatworks.ui.eventCreation.EventCreationActivity;
 import com.example.bebeappthatworks.ui.login.LoginActivity;
-import com.example.bebeappthatworks.ui.register.RegisterActivity;
+import com.example.bebeappthatworks.ui.register.RegisterAttendeeActivity;
+import com.example.bebeappthatworks.ui.register.RegisterOrganisationActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
         Button loginButton;
         Button guestButton;
         Button registerButton;
+        Button registerOrganiser;
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         loginButton = (Button) findViewById(R.id.Login); //login button
         guestButton = (Button) findViewById(R.id.Guest); //login button
         registerButton = (Button) findViewById(R.id.button4); //login button
+        registerOrganiser = (Button) findViewById(R.id.button5); //login button
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,7 +56,16 @@ public class MainActivity extends AppCompatActivity {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+                Intent intent = new Intent(MainActivity.this, RegisterAttendeeActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+        registerOrganiser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, RegisterOrganisationActivity.class);
                 startActivity(intent);
             }
         });

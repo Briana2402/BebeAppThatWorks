@@ -66,4 +66,5 @@
     <string name="Enter_Event_description">Enter Event description</string>
     <string name="Enter_Event_date">Enter Event date</string>
     <string name="Enter_Event_capacity">Enter event capacity</string>
+    <string name="register_as_organisation" />
 </resources>
