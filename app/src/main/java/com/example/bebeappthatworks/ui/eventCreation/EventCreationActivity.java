@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.text.TextUtils;
 import android.widget.Button;
@@ -39,18 +40,16 @@ import java.io.IOException;
 public class EventCreationActivity extends AppCompatActivity {
 
     // creating variables for our edit text
-    private EditText eventNameEdt, eventDurationEdt, eventDescriptionEdt, eventLocationEdt, eventCapacityEdt, eventDateEdt;
+    private EditText eventNameEdt, eventDurationEdt, eventDescriptionEdt, eventLocationEdt, eventCapacityEdt, eventDateEdt, eventLinkEdt;
 
     // creating variable for button
     private Button submitEventBtn;
 
     private Button captureCoverBtn;
 
-    private String imageUrl;
-
     // creating a strings for storing
     // our values from edittext fields.
-    private String eventLocation, eventDate, eventName, eventDescription, eventCapacity, eventDuration;
+    private String eventLocation, eventDate, eventName, eventDescription, eventCapacity, eventDuration, eventType, imageUrl, eventLink;
 
     // creating a variable
     // for firebasefirestore.
@@ -109,7 +108,7 @@ public class EventCreationActivity extends AppCompatActivity {
                         eventDateEdt.setError("Please enter Event Date");
                     } else {
                         // calling method to add data to Firebase Firestore.
-                        addDataToFirestore(eventName, eventDescription, eventDuration, eventDate, eventLocation, eventCapacity, imageUrl);
+                        addDataToFirestore(eventName, eventDescription, eventDuration, eventDate, eventLocation, eventCapacity,eventType, imageUrl, eventLink);
                     }
                 }
             }
@@ -118,14 +117,14 @@ public class EventCreationActivity extends AppCompatActivity {
 
     }
 
-    private void addDataToFirestore(String eventName, String eventDescription, String eventDuration, String eventDate, String eventLocation, String eventCapacity, String imageUrl) {
+    private void addDataToFirestore(String eventName, String eventDescription, String eventDuration, String eventDate, String eventLocation, String eventCapacity, String imageUrl, String eventType, String eventLink ) {
 
         // creating a collection reference
         // for our Firebase Firestore database.
         CollectionReference dbEvents = db.collection("Events");
 
         // adding our data to our courses object class.
-        Event events = new Event(eventLocation, eventDuration, eventName, eventDate, eventCapacity, eventDescription, imageUrl);
+        Event events = new Event(eventLocation, eventDuration, eventName, eventDate, eventCapacity, eventDescription, imageUrl, eventType,eventLink);
 
         // below method is use to add data to Firebase Firestore.
         dbEvents.add(events).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
