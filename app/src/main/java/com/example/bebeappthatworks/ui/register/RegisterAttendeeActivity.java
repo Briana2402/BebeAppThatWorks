@@ -28,7 +28,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
@@ -93,7 +92,7 @@ private FirebaseFirestore db;
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         //getSupportActionBar().hide();
 
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.activity_register_attendee);
         db = FirebaseFirestore.getInstance();
 
 
