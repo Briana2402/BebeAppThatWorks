@@ -1,5 +1,7 @@
 package com.example.bebeappthatworks.ui.eventCreation;
 
+import com.example.bebeappthatworks.Attendee;
+import com.example.bebeappthatworks.Organiser;
 import com.example.bebeappthatworks.placeholder.PlaceholderContent;
 
 import java.util.ArrayList;
@@ -16,6 +18,8 @@ public class Event {
     }
 
     public static final List<Event> ITEMS = new ArrayList<Event>();
+    private ArrayList<Attendee> eventAttendees = new ArrayList<Attendee>();
+    private Organiser organiser;
 
     // Constructor for all variables.
     public Event(String eventLocation, String eventTime, String eventName, String eventDate, String maxCapacity,String eventDescription, String imageUrl, String eventType, String eventLink) {
