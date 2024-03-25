@@ -1,22 +1,36 @@
 package com.example.bebeappthatworks.ui.eventCreation;
 
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.provider.MediaStore;
 import android.view.View;
 import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import com.example.bebeappthatworks.MainActivity;
+import android.Manifest;
 import com.example.bebeappthatworks.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+
 
 public class EventCreationActivity extends AppCompatActivity {
 
@@ -34,11 +48,18 @@ public class EventCreationActivity extends AppCompatActivity {
     // for firebasefirestore.
     private FirebaseFirestore db;
 
+    private static final int REQUEST_CAMERA_PERMISSION_CODE = 1;
+
+    private static final int REQUEST_IMAGE_CAPTURE = 2;
+
+    private ImageView imageView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_creation);
 
+        imageView = findViewById(R.id.cover_image);
         // getting our instance
         // from Firebase Firestore.
         db = FirebaseFirestore.getInstance();
@@ -87,6 +108,8 @@ public class EventCreationActivity extends AppCompatActivity {
                 }
             }
         });
+
+
     }
 
     private void addDataToFirestore(String eventName, String eventDescription, String eventDuration, String eventDate, String eventLocation, String eventCapacity) {
@@ -114,5 +137,30 @@ public class EventCreationActivity extends AppCompatActivity {
                 Toast.makeText(EventCreationActivity.this, "Fail to add course \n" + e, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public void captureImage(View view) {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA},
+                    REQUEST_CAMERA_PERMISSION_CODE);
+            return;
+        }
+
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+        startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_CAMERA_PERMISSION_CODE && resultCode == RESULT_OK){
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+
+            imageView.setImageBitmap(imageBitmap);
+        }
     }
 }
