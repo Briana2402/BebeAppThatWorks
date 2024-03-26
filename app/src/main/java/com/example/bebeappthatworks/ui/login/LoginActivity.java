@@ -140,7 +140,7 @@ public class LoginActivity extends AppCompatActivity {
                                                     List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
                                                     for(DocumentSnapshot d : list) {
                                                         if(d.getId().toString() ==  mAuth.getCurrentUser().getUid().toString()){
-                                                            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                                            Intent intent = new Intent(LoginActivity.this, OrganiserActivity.class);
                                                             startActivity(intent);
                                                             Log.i("organizer", "yes");
                                                         }
