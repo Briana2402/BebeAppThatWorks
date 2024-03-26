@@ -44,7 +44,9 @@ public class EventsFragment extends Fragment {
     // TODO: Customize parameters
     private int mColumnCount = 1;
 
-    List<Event> allEvents = new ArrayList<>();
+    public FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+    public List<Event> allEvents = new ArrayList<>();
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -67,37 +69,18 @@ public class EventsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-
-        //RecyclerView eventRV;
-
-        //MyItemRecyclerViewAdapter adapterRVA = new MyItemRecyclerViewAdapter(allEvents);
-        //eventRV = findViewById(R.id.idRVCourses);
-
-        //Event event = new Event();
-        //CollectionReference dbEvent = db.collection("Events_test");
-        if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-        }
-
-        fetchybebe();
-//        db.collection("Events").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-//            @SuppressLint("NotifyDataSetChanged")
-//            @Override
-//            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-//                if(!queryDocumentSnapshots.isEmpty()) {
-//                    List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
-//                    for(DocumentSnapshot d : list) {
-//                        Event e = d.toObject(Event.class);
-//                        allEvents.add(e);
-//                    }
-//                    adapterRVA.notifyDataSetChanged();
-//                }
-//            }
-//        });
-
-
-
+        db.collection("Events_test")
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                allEvents.add(document.toObject(Event.class));
+                                Log.i("miau", "miau miau");
+                            }
+                        }
+                    }
+                });
 
 
     }
@@ -118,26 +101,6 @@ public class EventsFragment extends Fragment {
             recyclerView.setAdapter(new MyItemRecyclerViewAdapter(allEvents));
         }
 
-        //fetchybebe();
-
-
-
         return view;
-    }
-
-    public void fetchybebe() {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("Events_test")
-                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                allEvents.add(document.toObject(Event.class));
-                                Log.i("miau", "miau miau");
-                            }
-                        }
-                    }
-                });
     }
 }

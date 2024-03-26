@@ -26,28 +26,26 @@ import java.util.List;
 public class AttendeeActivity extends AppCompatActivity {
 
     AttendeeLayoutBinding binding;
-    private Button LogOutBtn;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-
         binding = AttendeeLayoutBinding.inflate(getLayoutInflater());
-        //EdgeToEdge.enable(this);
         setContentView(binding.getRoot());
-        EventsFragment event = new EventsFragment();
-        replaceFragment(event);
+
+        Fragment fragment = new EventsFragment();
+        if (true) {
+            replaceFragment(fragment);
+        }
+
 
 
         binding.bottomNavView.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
 
             if (id == R.id.Events) {
-                replaceFragment(event);
+                replaceFragment(fragment);
             } else if (id == R.id.MyEvents) {
                 replaceFragment(new MyEventsFragment());
             } else if (id == R.id.Notifications){
@@ -55,7 +53,6 @@ public class AttendeeActivity extends AppCompatActivity {
             } else if (id == R.id.Profile) {
                 replaceFragment(new ProfileAttendeeFragment());
             }
-
 
             return true;
         });
