@@ -31,6 +31,7 @@ import android.widget.Toast;
 //import com.example.bebeappthatworks.Home;
 import com.example.bebeappthatworks.AttendeeActivity;
 import com.example.bebeappthatworks.MainActivity;
+import com.example.bebeappthatworks.OrganiserActivity;
 import com.example.bebeappthatworks.R;
 import com.example.bebeappthatworks.ui.login.LoginViewModel;
 import com.example.bebeappthatworks.ui.login.LoginViewModelFactory;
@@ -96,7 +97,7 @@ public class LoginActivity extends AppCompatActivity {
                                     // Sign in success, update UI with the signed-in user's information
                                     Toast.makeText(LoginActivity.this, "Authentication successful",
                                             Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(LoginActivity.this, AttendeeActivity.class);
+                                    Intent intent = new Intent(LoginActivity.this, OrganiserActivity.class);
                                     startActivity(intent);
                                 } else {
                                     // If sign in fails, display a message to the user.
