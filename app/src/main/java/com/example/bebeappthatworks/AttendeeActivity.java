@@ -1,5 +1,6 @@
 package com.example.bebeappthatworks;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.Toast;
@@ -26,39 +27,14 @@ public class AttendeeActivity extends AppCompatActivity {
 
     AttendeeLayoutBinding binding;
     private Button LogOutBtn;
-    public static List<Event> allEvents = new ArrayList<>();
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    private MyItemRecyclerViewAdapter adapterRVA = new MyItemRecyclerViewAdapter(allEvents);
-
-    Event event = new Event();
-    CollectionReference dbEvent = db.collection("Events");
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        db.collection("Events").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-              if(!queryDocumentSnapshots.isEmpty()) {
-                  List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
-                  for(DocumentSnapshot d : list) {
-                      Event e = d.toObject(Event.class);
-                      allEvents.add(e);
-                  }
-                  adapterRVA.notifyDataSetChanged();
-              } else {
-                  Toast.makeText(AttendeeActivity.this, "does not works!", Toast.LENGTH_SHORT).show();
-              }
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(AttendeeActivity.this, "Failed to get data", Toast.LENGTH_SHORT).show();
-            }
-        });
+
 
         binding = AttendeeLayoutBinding.inflate(getLayoutInflater());
         //EdgeToEdge.enable(this);
@@ -81,6 +57,8 @@ public class AttendeeActivity extends AppCompatActivity {
 
             return true;
         });
+
+
 
     }
 

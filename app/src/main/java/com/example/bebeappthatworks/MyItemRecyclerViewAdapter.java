@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -41,6 +42,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
     }
 
 
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
@@ -49,11 +51,12 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
 
-        mValues.addAll(AttendeeActivity.allEvents);
+        //mValues.addAll(AttendeeActivity.allEvents);
 
-        Event event = mValues.get(10);
+
+        Event event = mValues.get(position);
         holder.mImageView.setImageResource(R.mipmap.ic_banner_foreground);
         holder.mName.setText(R.string.mName);
         holder.mLocation.setText(event.getEventLocation());
@@ -74,6 +77,10 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
     public int getItemCount() {
         return mValues.size();
     }
+
+
+
+
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         //public final TextView mIdView;

@@ -115,7 +115,7 @@ public class EventCreationActivity extends AppCompatActivity {
 
         // creating a collection reference
         // for our Firebase Firestore database.
-        CollectionReference dbEvents = db.collection("Events");
+        CollectionReference dbEvents = db.collection("Events_test");
 
         // adding our data to our courses object class.
         Event events = new Event(id, eventLocation, eventDuration, eventName, eventDate,eventCapacity, eventDescription);

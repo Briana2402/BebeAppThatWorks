@@ -1,18 +1,38 @@
 package com.example.bebeappthatworks;
 
+import static android.widget.Toast.LENGTH_SHORT;
+
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.bebeappthatworks.placeholder.PlaceholderContent;
+import com.example.bebeappthatworks.ui.eventCreation.Event;
+import com.example.bebeappthatworks.ui.eventCreation.EventCreationActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A fragment representing a list of Items.
@@ -23,6 +43,8 @@ public class EventsFragment extends Fragment {
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
     private int mColumnCount = 1;
+
+    List<Event> allEvents = new ArrayList<>();
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -45,11 +67,49 @@ public class EventsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        RecyclerView eventRV;
+
+        MyItemRecyclerViewAdapter adapterRVA = new MyItemRecyclerViewAdapter(allEvents);
+        //eventRV = findViewById(R.id.idRVCourses);
+
+        Event event = new Event();
+        CollectionReference dbEvent = db.collection("Events_test");
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
-    }
 
+//        db.collection("Events").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//            @SuppressLint("NotifyDataSetChanged")
+//            @Override
+//            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+//                if(!queryDocumentSnapshots.isEmpty()) {
+//                    List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
+//                    for(DocumentSnapshot d : list) {
+//                        Event e = d.toObject(Event.class);
+//                        allEvents.add(e);
+//                    }
+//                    adapterRVA.notifyDataSetChanged();
+//                }
+//            }
+//        });
+
+        db.collection("Events_test")
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                allEvents.add(document.toObject(Event.class));
+                                Log.i("miau", "miau miau");
+                            }
+                        }
+                    }
+                });
+
+
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -64,7 +124,7 @@ public class EventsFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyItemRecyclerViewAdapter(PlaceholderContent.ITEMS));
+            recyclerView.setAdapter(new MyItemRecyclerViewAdapter(allEvents));
         }
         return view;
     }
