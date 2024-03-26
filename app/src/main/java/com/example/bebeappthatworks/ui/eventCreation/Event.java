@@ -8,13 +8,7 @@ import java.util.List;
 public class Event {
 
     // variables for storing our data.
-    public String id;
-    private String eventLocation;
-    private String eventTime;
-    private String eventDate;
-    private String eventName;
-    private String eventDescription;
-    private String maxCapacity;
+    private String eventLocation, eventTime, eventDate, eventName,eventDescription, maxCapacity, imageUrl, eventType, eventLink;
 
     public Event() {
         // empty constructor
@@ -24,13 +18,16 @@ public class Event {
     public static final List<Event> ITEMS = new ArrayList<Event>();
 
     // Constructor for all variables.
-    public Event(String id, String eventLocation, String eventTime, String eventName, String eventDate, String maxCapacity,String eventDescription) {
+    public Event(String eventLocation, String eventTime, String eventName, String eventDate, String maxCapacity,String eventDescription, String imageUrl, String eventType, String eventLink) {
         this.eventLocation = eventLocation;
         this.eventTime = eventTime;
         this.eventName = eventName;
         this.eventDate = eventDate;
         this.maxCapacity = maxCapacity;
         this.eventDescription = eventDescription;
+        this.imageUrl = imageUrl;
+        this.eventType = eventType;
+        this.eventLink = eventLink;
     }
 
     // getter methods for all variables.
@@ -40,6 +37,14 @@ public class Event {
 
     public void setEventLocation(String eventLocation) {
         this.eventLocation = eventLocation;
+    }
+
+    public String getEventLink() {
+        return eventLink;
+    }
+
+    public void getEventLink (String eventLink  ) {
+        this.eventLink = eventLink;
     }
 
     // getter methods for all variables.
@@ -59,7 +64,6 @@ public class Event {
         this.eventDate = eventDate;
     }
 
-    public  void getEventId(String id){this.id = id;}
 
     public String getEventName() {
         return eventName;
@@ -76,6 +80,22 @@ public class Event {
 
     public void setEventDescription(String eventDescription) {
         this.eventDescription = eventDescription;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setEventType(String eventType) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getEventType() {
+        return eventType;
     }
 
 
