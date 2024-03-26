@@ -36,7 +36,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
         //holder.mIdView.setText(mValues.get(position).id);
-        holder.mImageView.setImageResource(R.mipmap.ic_banner_foreground);
+        holder.mImageView.setImageResource(R.drawable.ic_banner_foreground);
         holder.mName.setText(R.string.mName);
         holder.mLocation.setText(R.string.mLocation);
         holder.mDate.setText(R.string.mDate);
