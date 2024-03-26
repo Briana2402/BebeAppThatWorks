@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
             FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-            if (firebaseUser != null) {
+            if (firebaseUser != null) { //TODO based on user!!!
                 Intent intent = new Intent(MainActivity.this, AttendeeActivity.class);
                 startActivity(intent);
                 finish();
