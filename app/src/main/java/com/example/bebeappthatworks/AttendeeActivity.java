@@ -39,13 +39,15 @@ public class AttendeeActivity extends AppCompatActivity {
         binding = AttendeeLayoutBinding.inflate(getLayoutInflater());
         //EdgeToEdge.enable(this);
         setContentView(binding.getRoot());
-        replaceFragment(new EventsFragment());
+        EventsFragment event = new EventsFragment();
+        replaceFragment(event);
+
 
         binding.bottomNavView.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
 
             if (id == R.id.Events) {
-                replaceFragment(new EventsFragment());
+                replaceFragment(event);
             } else if (id == R.id.MyEvents) {
                 replaceFragment(new MyEventsFragment());
             } else if (id == R.id.Notifications){
