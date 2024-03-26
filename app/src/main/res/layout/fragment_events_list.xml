@@ -13,5 +13,8 @@
     tools:context=".EventsFragment"
     tools:listitem="@layout/fragment_events"
 
+
     />
+
+
 

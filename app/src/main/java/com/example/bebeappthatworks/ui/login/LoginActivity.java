@@ -34,6 +34,7 @@ import android.widget.Toast;
 //import com.example.bebeappthatworks.Home;
 import com.example.bebeappthatworks.AttendeeActivity;
 import com.example.bebeappthatworks.MainActivity;
+import com.example.bebeappthatworks.OrganiserActivity;
 import com.example.bebeappthatworks.R;
 import com.example.bebeappthatworks.ui.login.LoginViewModel;
 import com.example.bebeappthatworks.ui.login.LoginViewModelFactory;
@@ -66,12 +67,14 @@ public class LoginActivity extends AppCompatActivity {
         Button backToMain;
         Button backToLogin;
         Button loginButton;
+        FirebaseAuth mAuth;
         super.onCreate(savedInstanceState);
         TextView forgotPassword;
         db = FirebaseFirestore.getInstance();
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         //getSupportActionBar().hide();
+
         setContentView(R.layout.activity_login);
 
 
@@ -81,6 +84,8 @@ public class LoginActivity extends AppCompatActivity {
         editTextEmail = findViewById(R.id.username);
         editTextPassword = findViewById(R.id.password);
         mAuth = FirebaseAuth.getInstance();
+
+
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,6 +102,7 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "Enter password", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
                 mAuth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
