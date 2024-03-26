@@ -44,9 +44,11 @@ public class EventsFragment extends Fragment {
     // TODO: Customize parameters
     private int mColumnCount = 1;
 
-    public FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public List<Event> allEvents = new ArrayList<>();
+
+    View view;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -55,20 +57,21 @@ public class EventsFragment extends Fragment {
     public EventsFragment() {
     }
 
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
-    public static EventsFragment newInstance(int columnCount) {
-        EventsFragment fragment = new EventsFragment();
-        Bundle args = new Bundle();
-        args.putInt(ARG_COLUMN_COUNT, columnCount);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.fragment_events_list, container, false);
+
+        // Set the adapter
         db.collection("Events_test")
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -76,30 +79,24 @@ public class EventsFragment extends Fragment {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 allEvents.add(document.toObject(Event.class));
-                                Log.i("miau", "miau miau");
+                                Log.i(allEvents.get(0).getEventDate(), "miau miau");
                             }
+
+                            if (view instanceof RecyclerView) {
+                                Context context = view.getContext();
+                                RecyclerView recyclerView = (RecyclerView) view;
+                                if (mColumnCount <= 1) {
+                                    recyclerView.setLayoutManager(new LinearLayoutManager(context));
+                                } else {
+                                    recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+                                }
+                                recyclerView.setAdapter(new MyItemRecyclerViewAdapter(allEvents));
+                                //Log.i(allEvents.get(0).getEventDate(), "miau miau");
+                            }
+
                         }
                     }
                 });
-
-
-    }
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_events_list, container, false);
-
-        // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-            recyclerView.setAdapter(new MyItemRecyclerViewAdapter(allEvents));
-        }
 
         return view;
     }
