@@ -18,7 +18,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.bebeappthatworks.placeholder.PlaceholderContent;
 import com.example.bebeappthatworks.ui.eventCreation.Event;
 import com.example.bebeappthatworks.ui.eventCreation.EventCreationActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -72,14 +71,14 @@ public class EventsFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_events_list, container, false);
 
         // Set the adapter
-        db.collection("Events_test")
+        db.collection("Events")
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 allEvents.add(document.toObject(Event.class));
-                                Log.i(allEvents.get(0).getEventDate(), "miau miau");
+                                //Log.i(allEvents.get(0).getEventDate(), "miau miau");
                             }
 
                             if (view instanceof RecyclerView) {

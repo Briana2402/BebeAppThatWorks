@@ -82,7 +82,7 @@ private FirebaseFirestore db;
     @SuppressLint("MissingInflatedId")
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        EditText editTextEmail, editTextPassword;
+        EditText editTextEmail, editTextPassword, editTextCP;
         Button backButton;
         Button registerButton;
         FirebaseAuth mAuth;
@@ -101,14 +101,16 @@ private FirebaseFirestore db;
         registerButton =(Button) findViewById(R.id.btn_register);
         editTextEmail = findViewById(R.id.username);
         editTextPassword = findViewById(R.id.password);
+        editTextCP = findViewById(R.id.passwordConfirmAttendee);
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email, password;
+                String email, password, confPass;
 
                 email = editTextEmail.getText().toString();
                 password = editTextPassword.getText().toString();
+                confPass = editTextCP.getText().toString();
 
                 CollectionReference dbAttendees = db.collection("Attendees");
                 //checks if email and password are empty
@@ -120,12 +122,22 @@ private FirebaseFirestore db;
                     Toast.makeText(RegisterAttendeeActivity.this, "Enter password", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                if(TextUtils.isEmpty(confPass)) {
+                    Toast.makeText(RegisterAttendeeActivity.this, "Confirm password", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 if(!isPasswordValid(password)){
                     Toast.makeText(RegisterAttendeeActivity.this, "Password invalid", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if(!isEmailValid(email)){
                     Toast.makeText(RegisterAttendeeActivity.this, "Email invalid", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if(!password.equals(confPass)){
+                    Toast.makeText(RegisterAttendeeActivity.this, "Confirm password invalid", Toast.LENGTH_SHORT).show();
                     return;
                 }
 

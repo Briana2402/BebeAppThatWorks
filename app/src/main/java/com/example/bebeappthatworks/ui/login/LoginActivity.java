@@ -90,7 +90,6 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*
                 String email, password;
                 email = editTextEmail.getText().toString();
                 password = editTextPassword.getText().toString();
@@ -110,10 +109,6 @@ public class LoginActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     // Sign in success, update UI with the signed-in user's information
-                                    Toast.makeText(LoginActivity.this, "Authentication successful",
-                                            Toast.LENGTH_SHORT).show();
-
-
                                     tryTest = false;
                                     db.collection("Attendees").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                                         @SuppressLint("NotifyDataSetChanged")
@@ -158,9 +153,6 @@ public class LoginActivity extends AppCompatActivity {
                             }
                         });
 
-                 */
-                Intent intent = new Intent(LoginActivity.this, AttendeeActivity.class);
-                startActivity(intent);
             }
         });
 

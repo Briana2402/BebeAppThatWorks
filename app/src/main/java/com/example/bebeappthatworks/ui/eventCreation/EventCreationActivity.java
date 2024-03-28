@@ -160,7 +160,7 @@ public class EventCreationActivity extends AppCompatActivity {
         CollectionReference dbPaidEvents = db.collection("PaidEvents");
 
         // adding our data to our courses object class.
-        Event events = new Event(eventLocation, eventDuration, eventName, eventDate, eventCapacity, eventDescription, imageUrl, eventType,eventLink);
+        Event events = new Event(eventLocation, eventDuration, eventName, eventDate, eventCapacity, eventDescription);
         if(eventType.equals("Free")){
             dbFreeEvents.add(events);
         } else if(eventType.equals("Paid")){

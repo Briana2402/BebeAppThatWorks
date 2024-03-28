@@ -2,7 +2,6 @@ package com.example.bebeappthatworks.ui.eventCreation;
 
 import com.example.bebeappthatworks.Attendee;
 import com.example.bebeappthatworks.Organiser;
-import com.example.bebeappthatworks.placeholder.PlaceholderContent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +45,7 @@ public class Event {
     */
 
 
-    public Event(String id, String eventLocation,String eventTime, String eventName, String eventDate, String eventCapacity, String eventDescription) {
+    public Event(String eventLocation,String eventTime, String eventName, String eventDate, String eventCapacity, String eventDescription) {
         this.eventLocation = eventLocation;
         this.eventTime = eventTime;
         this.eventName = eventName;

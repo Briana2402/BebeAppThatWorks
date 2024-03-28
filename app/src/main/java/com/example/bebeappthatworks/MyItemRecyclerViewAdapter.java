@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link PlaceholderItem}.
+ * {@link RecyclerView.Adapter} that can display a {@link Event}.
  * TODO: Replace the implementation with code for your data type.
  */
 public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecyclerViewAdapter.ViewHolder> {
@@ -57,7 +57,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
 
 
         Event event = mValues.get(position);
-        holder.mImageView.setImageResource(R.mipmap.ic_banner_foreground);
+        holder.mImageView.setImageResource(R.mipmap.ic_launcher_foreground);
         holder.mName.setText(event.getEventName());
         holder.mLocation.setText(event.getEventLocation());
         holder.mDate.setText(event.getEventDate());
