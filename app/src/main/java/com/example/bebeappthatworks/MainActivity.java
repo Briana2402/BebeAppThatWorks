@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -16,19 +17,58 @@ import com.example.bebeappthatworks.ui.login.LoginActivity;
 import com.example.bebeappthatworks.ui.register.RegisterAttendeeActivity;
 import com.example.bebeappthatworks.ui.register.RegisterOrganisationActivity;
 //import com.example.bebeappthatworks.ui.register.RegisterActivity;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+    private FirebaseFirestore db;
 
     FirebaseAuth.AuthStateListener authStateListener = new FirebaseAuth.AuthStateListener() {
         @Override
         public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
             FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+            db = FirebaseFirestore.getInstance();
             if (firebaseUser != null) { //TODO based on user!!!
-                Intent intent = new Intent(MainActivity.this, AttendeeActivity.class);
-                startActivity(intent);
-                finish();
+                db.collection("Attendees").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @SuppressLint("NotifyDataSetChanged")
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        if(!queryDocumentSnapshots.isEmpty()) {
+                            List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
+                            for(DocumentSnapshot d : list) {
+                                //Log.i(d.getId(),mAuth.getCurrentUser().getUid());
+                                if(d.getId().toString().equals(firebaseUser.getUid().toString())){
+                                    Intent intent = new Intent(MainActivity.this, AttendeeActivity.class);
+                                    startActivity(intent);
+                                    Log.i("attendee", "yes");
+                                }
+                            }
+                        }
+                    }
+                });
+
+                db.collection("Organisers").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @SuppressLint("NotifyDataSetChanged")
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        if(!queryDocumentSnapshots.isEmpty()) {
+                            List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
+                            for(DocumentSnapshot d : list) {
+                                if(d.getId().toString().equals(firebaseUser.getUid().toString())){
+                                    Intent intent = new Intent(MainActivity.this, OrganiserActivity.class);
+                                    startActivity(intent);
+                                    Log.i("organizer", "yes");
+                                }
+                            }
+                        }
+                    }
+                });
             }
         }
     };

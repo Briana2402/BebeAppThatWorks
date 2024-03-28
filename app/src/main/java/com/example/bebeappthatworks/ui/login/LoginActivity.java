@@ -123,7 +123,7 @@ public class LoginActivity extends AppCompatActivity {
                                                 List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
                                                 for(DocumentSnapshot d : list) {
                                                     //Log.i(d.getId(),mAuth.getCurrentUser().getUid());
-                                                    if(d.getId().toString() ==  mAuth.getCurrentUser().getUid().toString()){
+                                                    if(d.getId().toString().equals(mAuth.getCurrentUser().getUid().toString())){
                                                         Intent intent = new Intent(LoginActivity.this, AttendeeActivity.class);
                                                         startActivity(intent);
                                                         Log.i("attendee", "yes");
@@ -140,7 +140,7 @@ public class LoginActivity extends AppCompatActivity {
                                                 if(!queryDocumentSnapshots.isEmpty()) {
                                                     List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
                                                     for(DocumentSnapshot d : list) {
-                                                        if(d.getId().toString() ==  mAuth.getCurrentUser().getUid().toString()){
+                                                        if(d.getId().toString().equals(mAuth.getCurrentUser().getUid().toString())){
                                                             Intent intent = new Intent(LoginActivity.this, OrganiserActivity.class);
                                                             startActivity(intent);
                                                             Log.i("organizer", "yes");
@@ -181,13 +181,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-//        loginButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(LoginActivity.this, Home.class);
-//                startActivity(intent);
-//            }
-//        });
 
 
 
