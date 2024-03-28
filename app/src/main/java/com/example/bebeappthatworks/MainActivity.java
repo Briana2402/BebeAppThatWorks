@@ -21,23 +21,23 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
-    FirebaseAuth.AuthStateListener authStateListener = new FirebaseAuth.AuthStateListener() {
-        @Override
-        public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-            FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-            if (firebaseUser != null) { //TODO based on user!!!
-                Intent intent = new Intent(MainActivity.this, AttendeeActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        }
-    };
+//    FirebaseAuth.AuthStateListener authStateListener = new FirebaseAuth.AuthStateListener() {
+//        @Override
+//        public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+//            FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+//            if (firebaseUser != null) { //TODO based on user!!!
+//                Intent intent = new Intent(MainActivity.this, AttendeeActivity.class);
+//                startActivity(intent);
+//                finish();
+//            }
+//        }
+//    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         FirebaseAuth mAuth;
         mAuth = FirebaseAuth.getInstance();
-        mAuth.addAuthStateListener(authStateListener);
+        //mAuth.addAuthStateListener(authStateListener);
 
         super.onCreate(savedInstanceState);
 
