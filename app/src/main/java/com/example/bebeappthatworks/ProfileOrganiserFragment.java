@@ -20,13 +20,12 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
-
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link ProfileAttendeeFragment#newInstance} factory method to
+ * Use the {@link ProfileOrganiserFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ProfileAttendeeFragment extends Fragment {
+public class ProfileOrganiserFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -43,7 +42,7 @@ public class ProfileAttendeeFragment extends Fragment {
     private FirebaseAuth mAuth;
     View view;
 
-    public ProfileAttendeeFragment() {
+    public ProfileOrganiserFragment() {
         // Required empty public constructor
     }
 
@@ -53,11 +52,11 @@ public class ProfileAttendeeFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment ProfileAttendeeFragment.
+     * @return A new instance of fragment ProfileOrganiserFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ProfileAttendeeFragment newInstance(String param1, String param2) {
-        ProfileAttendeeFragment fragment = new ProfileAttendeeFragment();
+    public static ProfileOrganiserFragment newInstance(String param1, String param2) {
+        ProfileOrganiserFragment fragment = new ProfileOrganiserFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -72,19 +71,16 @@ public class ProfileAttendeeFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_profile_attendee, container, false);
+        view = inflater.inflate(R.layout.fragment_profile_organiser, container, false);
         db = FirebaseFirestore.getInstance();
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
-        Button myButton = view.findViewById(R.id.LOGOUTBUTTONATTENDEE);
+        Button myButton = view.findViewById(R.id.LOGOUTBUTTONORGANISER);
         myButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -94,11 +90,11 @@ public class ProfileAttendeeFragment extends Fragment {
             }
         });
 
-        Button deleteAccountBtn = view.findViewById(R.id.deleteAccountAttendeeBtn);
+        Button deleteAccountBtn = view.findViewById(R.id.deleteAccountOrganiserBtn);
         deleteAccountBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                db.collection("Attendees").document((mAuth.getCurrentUser().getUid()))
+                db.collection("Organisers").document((mAuth.getCurrentUser().getUid()))
                         .delete()
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override

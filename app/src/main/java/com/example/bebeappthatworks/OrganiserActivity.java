@@ -23,9 +23,6 @@ public class OrganiserActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         replaceFragment(new EventsFragment());
 
-        MyEventsFragment created = new MyEventsFragment();
-        replaceFragment(created);
-
         binding.bottomNavView.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
 
@@ -36,7 +33,7 @@ public class OrganiserActivity extends AppCompatActivity {
             } else if (id == R.id.Notifications){
                 replaceFragment(new EventCreateFragment());
             } else if (id == R.id.Profile) {
-                replaceFragment(new ProfileAttendeeFragment());
+                replaceFragment(new ProfileOrganiserFragment());
             }
 
             return true;
