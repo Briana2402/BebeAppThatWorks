@@ -32,7 +32,7 @@ public class OrganiserActivity extends AppCompatActivity {
             } else if (id == R.id.MyEvents) {
                 replaceFragment(new MyEventsFragment());
             } else if (id == R.id.Notifications){
-                replaceFragment(new NotificationsFragment());
+                replaceFragment(new EventCreateFragment());
             } else if (id == R.id.Profile) {
                 replaceFragment(new ProfileAttendeeFragment());
             }
