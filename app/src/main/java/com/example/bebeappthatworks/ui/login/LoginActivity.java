@@ -36,6 +36,7 @@ import com.example.bebeappthatworks.AttendeeActivity;
 import com.example.bebeappthatworks.MainActivity;
 import com.example.bebeappthatworks.OrganiserActivity;
 import com.example.bebeappthatworks.R;
+import com.example.bebeappthatworks.ui.eventCreation.EventCreationActivity;
 import com.example.bebeappthatworks.ui.login.LoginViewModel;
 import com.example.bebeappthatworks.ui.login.LoginViewModelFactory;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -136,7 +137,7 @@ public class LoginActivity extends AppCompatActivity {
                                                     List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
                                                     for(DocumentSnapshot d : list) {
                                                         if(d.getId().toString().equals(mAuth.getCurrentUser().getUid().toString())){
-                                                            Intent intent = new Intent(LoginActivity.this, OrganiserActivity.class);
+                                                            Intent intent = new Intent(LoginActivity.this, EventCreationActivity.class);
                                                             startActivity(intent);
                                                             Log.i("organizer", "yes");
                                                         }

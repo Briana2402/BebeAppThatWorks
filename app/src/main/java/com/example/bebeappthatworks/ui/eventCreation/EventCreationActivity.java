@@ -26,6 +26,8 @@ import androidx.core.content.ContextCompat;
 
 import com.example.bebeappthatworks.MainActivity;
 import android.Manifest;
+
+import com.example.bebeappthatworks.Organiser;
 import com.example.bebeappthatworks.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -64,6 +66,8 @@ public class EventCreationActivity extends AppCompatActivity {
     private static final int REQUEST_IMAGE_CAPTURE = 2;
 
     private ImageView imageView;
+
+    String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -158,9 +162,14 @@ public class EventCreationActivity extends AppCompatActivity {
         CollectionReference dbEvents = db.collection("Events");
         CollectionReference dbFreeEvents = db.collection("FreeEvents");
         CollectionReference dbPaidEvents = db.collection("PaidEvents");
+        FirebaseAuth mAuth;
+
+
+
+        mAuth = FirebaseAuth.getInstance();
 
         // adding our data to our courses object class.
-        Event events = new Event(eventLocation, eventDuration, eventName, eventDate, eventCapacity, eventDescription);
+        Event events = new Event(eventLocation, eventDuration, eventName, eventDate, eventCapacity,eventDescription, imageUrl, eventType, eventLink, mAuth.getCurrentUser().getUid().toString());
         if(eventType.equals("Free")){
             dbFreeEvents.add(events);
         } else if(eventType.equals("Paid")){
@@ -183,6 +192,8 @@ public class EventCreationActivity extends AppCompatActivity {
                 Toast.makeText(EventCreationActivity.this, "Fail to add course \n" + e, Toast.LENGTH_SHORT).show();
             }
         });
+
+
     }
 
 
