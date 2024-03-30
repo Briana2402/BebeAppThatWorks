@@ -37,8 +37,7 @@ public class AttendeeActivity extends AppCompatActivity {
         EventsFragment fragment = new EventsFragment();
         replaceFragment(fragment);
 
-        MyEventsFragment created = new MyEventsFragment();
-        replaceFragment(created);
+
 
         binding.bottomNavView.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
@@ -46,7 +45,7 @@ public class AttendeeActivity extends AppCompatActivity {
             if (id == R.id.Events) {
                 replaceFragment(fragment);
             } else if (id == R.id.MyEvents) {
-                replaceFragment(created);
+                replaceFragment(new MyEventsFragment());
             } else if (id == R.id.Notifications){
                 replaceFragment(new NotificationsFragment());
             } else if (id == R.id.Profile) {

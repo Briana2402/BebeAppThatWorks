@@ -147,6 +147,7 @@ public class EventCreateFragment extends Fragment {
         // getting our instance
         // from Firebase Firestore.
         db = FirebaseFirestore.getInstance();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
         // initializing our edittext and buttons
         eventNameEdt = view.findViewById(R.id.idEdtEventName);
@@ -187,6 +188,7 @@ public class EventCreateFragment extends Fragment {
                 eventDuration = eventDurationEdt.getText().toString();
                 eventLocation = eventLocationEdt.getText().toString();
                 eventCapacity = eventCapacityEdt.getText().toString();
+                String creator = mAuth.getCurrentUser().getUid().toString();
 
                 if(paidEvent.isChecked()){
                     eventType = "Paid";
@@ -213,7 +215,7 @@ public class EventCreateFragment extends Fragment {
                         eventDateEdt.setError("Please enter Event Date");
                     } else {
                         // calling method to add data to Firebase Firestore.
-                        addDataToFirestore(eventName, eventDescription, eventDuration, eventDate, eventLocation, eventCapacity,imageUrl, eventType, eventLink);
+                        addDataToFirestore(eventName, eventDescription, eventDuration, eventDate, eventLocation, eventCapacity,imageUrl, eventType, eventLink, creator);
                     }
                 }
             }
@@ -223,7 +225,7 @@ public class EventCreateFragment extends Fragment {
     }
 
 
-    private void addDataToFirestore(String eventName, String eventDescription, String eventDuration, String eventDate, String eventLocation, String eventCapacity, String imageUrl, String eventType, String eventLink ) {
+    private void addDataToFirestore(String eventName, String eventDescription, String eventDuration, String eventDate, String eventLocation, String eventCapacity, String imageUrl, String eventType, String eventLink, String creator ) {
 
         // creating a collection reference
         // for our Firebase Firestore database.
@@ -232,7 +234,7 @@ public class EventCreateFragment extends Fragment {
         CollectionReference dbPaidEvents = db.collection("PaidEvents");
 
         // adding our data to our courses object class.
-        Event events = new Event(eventLocation, eventDuration, eventName, eventDate, eventCapacity, eventDescription);
+        Event events = new Event(eventLocation, eventDuration, eventName, eventDate, eventCapacity, eventDescription, imageUrl, eventType, eventLink, creator);
         if(eventType.equals("Free")){
             dbFreeEvents.add(events);
         } else if(eventType.equals("Paid")){
