@@ -1,33 +1,25 @@
 package com.example.bebeappthatworks;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.bebeappthatworks.R;
-import com.example.bebeappthatworks.forgotPassword.ForgotPasswordActivity;
-import com.example.bebeappthatworks.ui.eventCreation.Event;
-import com.example.bebeappthatworks.ui.login.LoginActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -93,8 +85,8 @@ public class ProfileOrganiserFragment extends Fragment {
         db = FirebaseFirestore.getInstance();
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
-        Button myButton = view.findViewById(R.id.LOGOUTBUTTONORGANISER);
-        myButton.setOnClickListener(new View.OnClickListener() {
+        Button logOutButton = view.findViewById(R.id.LOGOUTBUTTONORGANISER);
+        logOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
@@ -138,6 +130,15 @@ public class ProfileOrganiserFragment extends Fragment {
                 });
                 mAuth.getCurrentUser().delete();
                 Intent i = new Intent(getActivity(), MainActivity.class);
+                startActivity(i);
+            }
+        });
+
+        ImageView settingsButtonOrganiser = (ImageView) view.findViewById(R.id.SettingsOrganiser);
+        settingsButtonOrganiser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(), SettingsOrganiser.class);
                 startActivity(i);
             }
         });

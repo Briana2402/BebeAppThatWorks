@@ -11,10 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.bebeappthatworks.R;
 import com.example.bebeappthatworks.forgotPassword.ForgotPasswordActivity;
+import com.example.bebeappthatworks.ui.SettingsAttendee;
 import com.example.bebeappthatworks.ui.login.LoginActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -115,6 +117,15 @@ public class ProfileAttendeeFragment extends Fragment {
 
                 mAuth.getCurrentUser().delete();
                 Intent i = new Intent(getActivity(), MainActivity.class);
+                startActivity(i);
+            }
+        });
+
+        ImageView settingsButtonAttendee = (ImageView) view.findViewById(R.id.SettingsAttendee);
+        settingsButtonAttendee.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(), SettingsAttendee.class);
                 startActivity(i);
             }
         });
