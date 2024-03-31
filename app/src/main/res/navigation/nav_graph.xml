@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="com.example.bebeappthatworks.FirstFragment"
+        android:name="com.example.bebeappthatworks.EventsFragment"
         android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first" >
+        tools:layout="@layout/fragment_events" >
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            app:destination="@id/Single" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.example.bebeappthatworks.SecondFragment"
+        android:id="@+id/Single"
+        android:name="com.example.bebeappthatworks.SingleEventFree"
         android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second" >
+        tools:layout="@layout/fragment_single_event" >
 
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
