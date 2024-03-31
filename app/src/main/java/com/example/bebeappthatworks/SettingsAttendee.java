@@ -10,14 +10,14 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.bebeappthatworks.R;
 
-public class SettingsOrganiser extends AppCompatActivity {
+public class SettingsAttendee extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_settings_organiser);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.settingsOrganiserXml), (v, insets) -> {
+        setContentView(R.layout.activity_settings_attendee);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.settingsAttendeeXml), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;

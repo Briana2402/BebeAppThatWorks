@@ -40,7 +40,7 @@ public class Event {
         this.eventDate = eventDate;
         this.maxCapacity = maxCapacity;
         this.eventDescription = eventDescription;
-        this.imageUri = imageUri;
+        this.imageUrl = imageUrl;
         this.eventType = eventType;
         this.eventLink = eventLink;
         this.creator = creator;
@@ -110,12 +110,12 @@ public class Event {
         this.eventDescription = eventDescription;
     }
 
-    public void setImageUrl(Uri imageUri) {
-        this.imageUri = imageUri;
+    public void setImageUrl(String imageUri) {
+        this.imageUrl = imageUri;
     }
 
-    public Uri getImageUri() {
-        return imageUri;
+    public String getImageUri() {
+        return imageUrl;
     }
 
     public void setEventType(String eventType) {

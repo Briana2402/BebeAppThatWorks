@@ -17,6 +17,7 @@
     <style name="Base.Theme.BebeAppThatWorks" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
     </style>
-    <style name="Base.Theme.BebeAppThatWorks.PopupOverlay" parent="Theme.AppCompat.DayNight.DarkActionBar"/>
+
+    <style name="Base.Theme.BebeAppThatWorks.PopupOverlay" parent="Theme.AppCompat.DayNight.DarkActionBar" />
 
 </resources>
