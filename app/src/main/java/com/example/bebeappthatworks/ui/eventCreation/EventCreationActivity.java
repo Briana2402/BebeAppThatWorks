@@ -72,7 +72,7 @@ public class EventCreationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_event_creation);
+        setContentView(R.layout.fragment_event_create);
         eventLinkEdt = findViewById(R.id.linkPaid);
         eventLinkEdt.setVisibility(View.INVISIBLE);
 
