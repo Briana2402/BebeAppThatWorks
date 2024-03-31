@@ -30,6 +30,12 @@
             android:label="@string/title_activity_one_event"
             android:theme="@style/Theme.BebeAppThatWorks" />
         <activity
+            android:name=".ui.SettingsAttendee"
+            android:exported="false" />
+        <activity
+            android:name=".SettingsOrganiser"
+            android:exported="false" />
+        <activity
             android:name=".OrganiserActivity"
             android:exported="false" />
         <activity
