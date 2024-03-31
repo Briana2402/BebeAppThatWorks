@@ -12,7 +12,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 
-import com.example.bebeappthatworks.ui.eventCreation.EventCreationActivity;
 import com.example.bebeappthatworks.ui.login.LoginActivity;
 import com.example.bebeappthatworks.ui.register.RegisterAttendeeActivity;
 import com.example.bebeappthatworks.ui.register.RegisterOrganisationActivity;
@@ -104,13 +103,13 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        guestButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, EventCreationActivity.class);
-                startActivity(intent);
-            }
-        });
+//        guestButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(MainActivity.this, EdFragment.class);
+//                startActivity(intent);
+//            }
+//        });
 
 
         registerButton.setOnClickListener(new View.OnClickListener() {

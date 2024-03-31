@@ -20,7 +20,7 @@ public class Event {
     private String eventType;
     private String eventLink;
 
-    private String creator;
+    private String creator_id;
 
     public Event() {
         // empty constructor
@@ -41,7 +41,7 @@ public class Event {
         this.imageUrl = imageUrl;
         this.eventType = eventType;
         this.eventLink = eventLink;
-        this.creator = creator;
+        this.creator_id = creator;
     }
 
 
@@ -125,11 +125,11 @@ public class Event {
     }
 
     public void setEventCreator(String creator) {
-        this.creator = creator;
+        this.creator_id = creator;
     }
 
     public String getEventCreator() {
-        return creator;
+        return creator_id;
     }
 
     public String getEventMaxCapacity() {
