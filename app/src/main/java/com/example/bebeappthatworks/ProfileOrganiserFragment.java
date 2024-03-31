@@ -1,10 +1,14 @@
 package com.example.bebeappthatworks;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,11 +19,20 @@ import android.widget.Toast;
 
 import com.example.bebeappthatworks.R;
 import com.example.bebeappthatworks.forgotPassword.ForgotPasswordActivity;
+import com.example.bebeappthatworks.ui.eventCreation.Event;
 import com.example.bebeappthatworks.ui.login.LoginActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link ProfileOrganiserFragment#newInstance} factory method to
@@ -109,6 +122,20 @@ public class ProfileOrganiserFragment extends Fragment {
                             }
                         });
 
+                CollectionReference eventsRef = db.collection("Events");
+
+                Query query = eventsRef.whereEqualTo("eventCreator", mAuth.getCurrentUser().getUid());
+
+                query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot queryEvents : task.getResult()) {
+                               eventsRef.document(queryEvents.getId()).delete();
+                            }
+                        }
+                    }
+                });
                 mAuth.getCurrentUser().delete();
                 Intent i = new Intent(getActivity(), MainActivity.class);
                 startActivity(i);
