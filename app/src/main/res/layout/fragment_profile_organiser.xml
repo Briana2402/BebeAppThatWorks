@@ -11,17 +11,17 @@
     <!-- TODO: Update blank fragment layout -->
 
     <Button
-        android:id="@+id/LOGOUTBUTTONATTENDEE"
+        android:id="@+id/LOGOUTBUTTONORGANISER"
         android:layout_width="157dp"
         android:layout_height="48dp"
         android:text="Log out"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/imageView4"
         android:layout_width="227dp"
         android:layout_height="203dp"
         android:layout_marginTop="144dp"
@@ -31,15 +31,26 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/deleteAccountAttendeeBtn"
+        android:id="@+id/deleteAccountOrganiserBtn"
         android:layout_width="150dp"
         android:layout_height="50dp"
         android:layout_marginStart="128dp"
         android:text="Delete account"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/LOGOUTBUTTONATTENDEE"
+        app:layout_constraintBottom_toTopOf="@+id/LOGOUTBUTTONORGANISER"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3"
+        app:layout_constraintTop_toBottomOf="@+id/imageView4"
         app:layout_constraintVertical_bias="0.548" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ProofOrganiser"
+        app:layout_constraintTop_toBottomOf="@+id/LOGOUTBUTTONORGANISER"
+        tools:layout_editor_absoluteX="160dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

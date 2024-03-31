@@ -27,12 +27,15 @@ import androidx.core.content.FileProvider;
 
 import com.example.bebeappthatworks.MainActivity;
 import android.Manifest;
+
+import com.example.bebeappthatworks.Organiser;
 import com.example.bebeappthatworks.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.StorageReference;
 
@@ -67,6 +70,8 @@ public class EventCreationActivity extends AppCompatActivity {
     private static final int REQUEST_IMAGE_CAPTURE = 2;
 
     private ImageView imageView;
+
+    String id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,10 +166,19 @@ public class EventCreationActivity extends AppCompatActivity {
         CollectionReference dbEvents = db.collection("Events");
         CollectionReference dbFreeEvents = db.collection("FreeEvents");
         CollectionReference dbPaidEvents = db.collection("PaidEvents");
+        FirebaseAuth mAuth;
+
+
+
+        mAuth = FirebaseAuth.getInstance();
 
         // adding our data to our courses object class.
-        Event events = new Event(eventLocation, eventDuration, eventName, eventDate, eventCapacity, eventDescription, imageUri, eventType, eventLink);
-
+        Event events = new Event(eventLocation, eventDuration, eventName, eventDate, eventCapacity,eventDescription, imageUrl, eventType, eventLink, mAuth.getCurrentUser().getUid().toString());
+        if(eventType.equals("Free")){
+            dbFreeEvents.add(events);
+        } else if(eventType.equals("Paid")){
+            dbPaidEvents.add(events);
+        }
         // below method is use to add data to Firebase Firestore.
         dbEvents.add(events).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
@@ -172,6 +186,7 @@ public class EventCreationActivity extends AppCompatActivity {
                 // after the data addition is successful
                 // we are displaying a success toast message.
                 Toast.makeText(EventCreationActivity.this, "Your Event has been added to Firebase Firestore", Toast.LENGTH_SHORT).show();
+
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -181,6 +196,8 @@ public class EventCreationActivity extends AppCompatActivity {
                 Toast.makeText(EventCreationActivity.this, "Fail to add course \n" + e, Toast.LENGTH_SHORT).show();
             }
         });
+
+
     }
 
     public void captureImage(View view) {

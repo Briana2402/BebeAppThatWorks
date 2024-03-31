@@ -1,30 +1,35 @@
 package com.example.bebeappthatworks;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
-import android.view.View;
+
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+
 import com.example.bebeappthatworks.databinding.FragmentEventsBinding;
-import com.example.bebeappthatworks.placeholder.PlaceholderContent.PlaceholderItem;
+import com.example.bebeappthatworks.ui.eventCreation.Event;
 
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link PlaceholderItem}.
+ * {@link RecyclerView.Adapter} that can display a {@link Event}.
  * TODO: Replace the implementation with code for your data type.
  */
 public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecyclerViewAdapter.ViewHolder> {
 
-    private final List<PlaceholderItem> mValues;
+    private final List<Event> mValues;
+    private Event event;
 
-    public MyItemRecyclerViewAdapter(List<PlaceholderItem> items) {
+    public MyItemRecyclerViewAdapter(List<Event> items) {
         mValues = items;
     }
 
+
+    @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
@@ -33,16 +38,20 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        //holder.mIdView.setText(mValues.get(position).id);
-        holder.mImageView.setImageResource(R.mipmap.ic_banner_foreground);
-        holder.mName.setText(R.string.mName);
-        holder.mLocation.setText(R.string.mLocation);
-        holder.mDate.setText(R.string.mDate);
-        holder.mTime.setText(R.string.mTime);
-        holder.mDescription.setText(R.string.lorem_ipsum);
-        holder.mCapacity.setText(R.string.mCapacity);
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
+
+        //mValues.addAll(AttendeeActivity.allEvents);
+
+
+        Event event = mValues.get(position);
+        holder.mImageView.setImageResource(R.mipmap.ic_launcher_foreground);
+        holder.mName.setText(event.getEventName());
+        holder.mLocation.setText(event.getEventLocation());
+        holder.mDate.setText(event.getEventDate());
+        holder.mTime.setText(event.getEventTime());
+        holder.mDescription.setText(event.getEventDescription());
+        holder.mCapacity.setText(event.getEventMaxCapacity());
+
     }
 
     @Override
@@ -61,7 +70,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
         public final TextView mCapacity;
         public final TextView mDate;
 
-        public PlaceholderItem mItem;
+        //public PlaceholderItem mItem;
 
 
         public ViewHolder(FragmentEventsBinding binding) {
@@ -76,11 +85,6 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
             mName = binding.name;
 
         }
-        /*
-        @Override
-        public String toString() {
-            return super.toString() + " '" + mImageView.getImageAlpha() + "'";
-        }
-         */
+
     }
 }

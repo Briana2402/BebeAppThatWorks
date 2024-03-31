@@ -1,6 +1,7 @@
 package com.example.bebeappthatworks.ui.eventCreation;
 
-import com.example.bebeappthatworks.placeholder.PlaceholderContent;
+import com.example.bebeappthatworks.Attendee;
+import com.example.bebeappthatworks.Organiser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,8 +11,18 @@ import android.net.Uri;
 public class Event {
 
     // variables for storing our data.
-    private String eventLocation, eventTime, eventDate, eventName,eventDescription, maxCapacity, eventType, eventLink;
-    private Uri imageUri;
+    //public String id;
+    private String eventLocation;
+    private String eventTime;
+    private String eventDate;
+    private String eventName;
+    private String eventDescription;
+    private String maxCapacity;
+    private String imageUrl;
+    private String eventType;
+    private String eventLink;
+
+    private String creator;
 
     public Event() {
         // empty constructor
@@ -19,9 +30,10 @@ public class Event {
     }
 
     public static final List<Event> ITEMS = new ArrayList<Event>();
+    private ArrayList<Attendee> eventAttendees = new ArrayList<Attendee>();
 
     // Constructor for all variables.
-    public Event(String eventLocation, String eventTime, String eventName, String eventDate, String maxCapacity,String eventDescription, Uri imageUri, String eventType, String eventLink) {
+    public Event(String eventLocation, String eventTime, String eventName, String eventDate, String maxCapacity,String eventDescription, String imageUrl, String eventType, String eventLink, String creator) {
         this.eventLocation = eventLocation;
         this.eventTime = eventTime;
         this.eventName = eventName;
@@ -31,7 +43,20 @@ public class Event {
         this.imageUri = imageUri;
         this.eventType = eventType;
         this.eventLink = eventLink;
+        this.creator = creator;
     }
+
+
+    /*
+    public Event(String eventLocation,String eventTime, String eventName, String eventDate, String eventCapacity, String eventDescription) {
+        this.eventLocation = eventLocation;
+        this.eventTime = eventTime;
+        this.eventName = eventName;
+        this.eventDate = eventDate;
+        this.maxCapacity = eventCapacity;
+        this.eventDescription = eventDescription;
+    }*/
+
 
     // getter methods for all variables.
     public String getEventLocation() {
@@ -46,7 +71,7 @@ public class Event {
         return eventLink;
     }
 
-    public void getEventLink (String eventLink  ) {
+    public void setEventLink (String eventLink  ) {
         this.eventLink = eventLink;
     }
 
@@ -101,6 +126,13 @@ public class Event {
         return eventType;
     }
 
+    public void setEventCreator(String creator) {
+        this.creator = creator;
+    }
+
+    public String getEventCreator() {
+        return creator;
+    }
 
     public String getEventMaxCapacity() {
         return maxCapacity;
