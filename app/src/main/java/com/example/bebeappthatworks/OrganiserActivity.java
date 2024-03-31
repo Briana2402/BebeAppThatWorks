@@ -1,20 +1,19 @@
 package com.example.bebeappthatworks;
 
 import android.os.Bundle;
-import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.bebeappthatworks.databinding.AttendeeLayoutBinding;
+
 import com.example.bebeappthatworks.databinding.OrganiserLayoutBinding;
 
 public class OrganiserActivity extends AppCompatActivity {
 
     OrganiserLayoutBinding binding;
-    private Button LogOutBtn;
+    //private Button LogOutBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +31,9 @@ public class OrganiserActivity extends AppCompatActivity {
             } else if (id == R.id.MyEvents) {
                 replaceFragment(new MyEventsFragment());
             } else if (id == R.id.Notifications){
-                replaceFragment(new NotificationsFragment());
+                replaceFragment(new EventCreateFragment());
             } else if (id == R.id.Profile) {
-                replaceFragment(new ProfileAttendeeFragment());
+                replaceFragment(new ProfileOrganiserFragment());
             }
 
             return true;

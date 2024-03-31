@@ -5,11 +5,13 @@ import com.example.bebeappthatworks.Organiser;
 
 import java.util.ArrayList;
 import java.util.List;
+import android.net.Uri;
+
 
 public class Event {
 
     // variables for storing our data.
-    public String id;
+    //public String id;
     private String eventLocation;
     private String eventTime;
     private String eventDate;
@@ -20,6 +22,8 @@ public class Event {
     private String eventType;
     private String eventLink;
 
+    private String creator;
+
     public Event() {
         // empty constructor
         // required for Firebase.
@@ -27,11 +31,9 @@ public class Event {
 
     public static final List<Event> ITEMS = new ArrayList<Event>();
     private ArrayList<Attendee> eventAttendees = new ArrayList<Attendee>();
-    private Organiser organiser;
 
     // Constructor for all variables.
-    /*
-    public Event(String id, String eventLocation, String eventTime, String eventName, String eventDate, String maxCapacity,String eventDescription, String imageUrl, String eventType, String eventLink) {
+    public Event(String eventLocation, String eventTime, String eventName, String eventDate, String maxCapacity,String eventDescription, String imageUrl, String eventType, String eventLink, String creator) {
         this.eventLocation = eventLocation;
         this.eventTime = eventTime;
         this.eventName = eventName;
@@ -41,10 +43,11 @@ public class Event {
         this.imageUrl = imageUrl;
         this.eventType = eventType;
         this.eventLink = eventLink;
+        this.creator = creator;
     }
-    */
 
 
+    /*
     public Event(String eventLocation,String eventTime, String eventName, String eventDate, String eventCapacity, String eventDescription) {
         this.eventLocation = eventLocation;
         this.eventTime = eventTime;
@@ -52,7 +55,7 @@ public class Event {
         this.eventDate = eventDate;
         this.maxCapacity = eventCapacity;
         this.eventDescription = eventDescription;
-    }
+    }*/
 
 
     // getter methods for all variables.
@@ -68,7 +71,7 @@ public class Event {
         return eventLink;
     }
 
-    public void getEventLink (String eventLink  ) {
+    public void setEventLink (String eventLink  ) {
         this.eventLink = eventLink;
     }
 
@@ -107,22 +110,29 @@ public class Event {
         this.eventDescription = eventDescription;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setImageUrl(String imageUri) {
+        this.imageUrl = imageUri;
     }
 
-    public String getImageUrl() {
+    public String getImageUri() {
         return imageUrl;
     }
 
     public void setEventType(String eventType) {
-        this.imageUrl = imageUrl;
+        this.eventType = eventType;
     }
 
     public String getEventType() {
         return eventType;
     }
 
+    public void setEventCreator(String creator) {
+        this.creator = creator;
+    }
+
+    public String getEventCreator() {
+        return creator;
+    }
 
     public String getEventMaxCapacity() {
         return maxCapacity;
