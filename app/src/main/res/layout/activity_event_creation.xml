@@ -35,6 +35,7 @@
         android:layout_margin="@dimen/text_margin"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
+        android:src="@drawable/placeholder_view_vector"
         android:textAppearance="?attr/textAppearanceListItem"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.531"
@@ -142,8 +143,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/idEdtEventDescription"
         app:layout_constraintVertical_bias="0.904" />
-
-
 
     <CheckBox
         android:id="@+id/checkBox"
