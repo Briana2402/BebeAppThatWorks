@@ -6,6 +6,4 @@
     android:background="@drawable/bg_with_stars"
     tools:context=".MyEventsFragment">
 
-
-
 </FrameLayout>

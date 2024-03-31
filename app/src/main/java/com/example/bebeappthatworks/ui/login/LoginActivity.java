@@ -111,22 +111,22 @@ public class LoginActivity extends AppCompatActivity {
                                         }
                                     });
 
-                                        db.collection("Organisers").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                                            @SuppressLint("NotifyDataSetChanged")
-                                            @Override
-                                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                                                if(!queryDocumentSnapshots.isEmpty()) {
-                                                    List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
-                                                    for(DocumentSnapshot d : list) {
-                                                        if(d.getId().toString().equals(mAuth.getCurrentUser().getUid().toString())){
-                                                            Intent intent = new Intent(LoginActivity.this, OrganiserActivity.class);
-                                                            startActivity(intent);
-                                                            Log.i("organizer", "yes");
-                                                        }
+                                    db.collection("Organisers").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                        @SuppressLint("NotifyDataSetChanged")
+                                        @Override
+                                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                            if(!queryDocumentSnapshots.isEmpty()) {
+                                                List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
+                                                for(DocumentSnapshot d : list) {
+                                                    if(d.getId().toString().equals(mAuth.getCurrentUser().getUid().toString())){
+                                                        Intent intent = new Intent(LoginActivity.this, OrganiserActivity.class);
+                                                        startActivity(intent);
+                                                        Log.i("organizer", "yes");
                                                     }
                                                 }
                                             }
-                                        });
+                                        }
+                                    });
 
                                 } else {
                                     // If sign in fails, display a message to the user.
