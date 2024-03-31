@@ -8,13 +8,19 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.bebeappthatworks.ui.eventCreation.Event;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -40,7 +46,12 @@ public class EventsFragment extends Fragment {
     public final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public List<Event> allEvents = new ArrayList<>();
+    public List<String> allEventsId = new ArrayList<>();
+    public int count = 0;
 
+    private RecyclerView recyclerView;
+    private List<Event> eventList;
+    private EventAdapter adapter;
 
     View view;
 
@@ -71,11 +82,39 @@ public class EventsFragment extends Fragment {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 allEvents.add(document.toObject(Event.class));
+                                allEventsId.add(document.getId().toString());
                             }
                             if (view instanceof RecyclerView) {
                                 Context context = view.getContext();
                                 RecyclerView recyclerView = (RecyclerView) view;
-                                recyclerView.setAdapter(new MyItemRecyclerViewAdapter(allEvents));
+                                adapter = new EventAdapter(allEvents);
+                                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                                recyclerView.setAdapter(adapter);
+                               // recyclerView.setAdapter(new MyItemRecyclerViewAdapter(allEvents));
+
+                                adapter.setOnItemClickListener(new EventAdapter.OnItemClickListener() {
+                                    @Override
+                                    public void onItemClick(int count, Event event ) {
+                                        // Handle item click here, e.g., launch details activity/fragment
+                                        SingleEventFree newEvent =  new SingleEventFree();
+                                        SingleEventFree newEventParam = newEvent.newInstance(allEventsId.get(count));
+                                        Fragment fragment = newEventParam;
+
+                                        Toast.makeText(getActivity(), "Clicked on event: " + event.getEventName(), Toast.LENGTH_SHORT).show();
+                                        //adapter.getItemCount();
+                                        Log.i("test",String.valueOf(count));
+                                        Log.i("testID",String.valueOf(allEventsId.get(count)));
+
+                                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                        fragmentTransaction.replace(R.id.navigation_host_fragment_content_main,fragment);
+                                        fragmentTransaction.addToBackStack(null);
+                                        fragmentTransaction.commit();
+
+
+
+                                    }
+                                });
                             }
 
                         }
@@ -83,4 +122,5 @@ public class EventsFragment extends Fragment {
                 });
         return view;
     }
+
 }
