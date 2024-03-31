@@ -5,6 +5,8 @@ import com.example.bebeappthatworks.Organiser;
 
 import java.util.ArrayList;
 import java.util.List;
+import android.net.Uri;
+
 
 public class Event {
 
@@ -38,7 +40,7 @@ public class Event {
         this.eventDate = eventDate;
         this.maxCapacity = maxCapacity;
         this.eventDescription = eventDescription;
-        this.imageUrl = imageUrl;
+        this.imageUri = imageUri;
         this.eventType = eventType;
         this.eventLink = eventLink;
         this.creator = creator;
@@ -108,16 +110,16 @@ public class Event {
         this.eventDescription = eventDescription;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setImageUrl(Uri imageUri) {
+        this.imageUri = imageUri;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public Uri getImageUri() {
+        return imageUri;
     }
 
     public void setEventType(String eventType) {
-        this.imageUrl = imageUrl;
+        this.eventType = eventType;
     }
 
     public String getEventType() {
