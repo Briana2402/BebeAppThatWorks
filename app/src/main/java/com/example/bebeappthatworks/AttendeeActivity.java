@@ -2,6 +2,7 @@ package com.example.bebeappthatworks;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -62,6 +63,8 @@ public class AttendeeActivity extends AppCompatActivity {
     }
 
     public void buttonPlease(View v) {
+//        v.getContext();
+//        Log.i("test", String.valueOf(v.getContext()));
         Intent intent = new Intent(AttendeeActivity.this, OneEventActivity.class);
         startActivity(intent);
     }
