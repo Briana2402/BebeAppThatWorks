@@ -44,4 +44,5 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="confirm_password">Confirm password</string>
     <string name="confirm_password_attendee">Confirm password</string>
+    <string name="title_activity_guest">GuestActivity</string>
 </resources>
