@@ -25,6 +25,11 @@
         android:theme="@style/Theme.BebeAppThatWorks"
         tools:targetApi="31">
         <activity
+            android:name=".OneEventActivity"
+            android:exported="false"
+            android:label="@string/title_activity_one_event"
+            android:theme="@style/Theme.BebeAppThatWorks" />
+        <activity
             android:name=".OrganiserActivity"
             android:exported="false" />
         <activity
