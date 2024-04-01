@@ -5,6 +5,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,6 +28,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 public class MyEventsFragment extends Fragment {
@@ -38,9 +41,13 @@ public class MyEventsFragment extends Fragment {
 
     public List<Event> myEvents = new ArrayList<>();
 
+    public List<String> allEventsId = new ArrayList<>();
+
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     View view;
+
+    private EventAdapter adapter;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -74,6 +81,7 @@ public class MyEventsFragment extends Fragment {
                 if(task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         myEvents.add(document.toObject(Event.class));
+                        allEventsId.add(document.getId().toString());
                         //Log.i("miauuu", "miau miau");
                     }
 
@@ -85,8 +93,29 @@ public class MyEventsFragment extends Fragment {
                         } else {
                             recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
                         }
-                        recyclerView.setAdapter(new MyItemRecyclerViewAdapter(myEvents));
-                        //Log.i("miauuu", "miau miau");
+                        adapter = new EventAdapter(myEvents);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                        recyclerView.setAdapter(adapter);
+
+
+                        adapter.setOnItemClickListener(new EventAdapter.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(int count, Event event ) {
+                                // Handle item click here, e.g., launch details activity/fragment
+                                MyEventOrganizer eventTest = new MyEventOrganizer();
+                                MyEventOrganizer eventFinal = eventTest.newInstance(allEventsId.get(count));
+                                Fragment fragment = eventFinal;
+                                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                fragmentTransaction.replace(R.id.navigation_host_fragment_content_main,fragment);
+                                fragmentTransaction.addToBackStack(null);
+                                fragmentTransaction.commit();
+
+
+
+
+                            }
+                        });
                     }
                 }
             }
