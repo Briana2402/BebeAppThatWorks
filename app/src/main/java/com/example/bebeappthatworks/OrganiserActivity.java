@@ -26,7 +26,7 @@ public class OrganiserActivity extends AppCompatActivity {
         binding = OrganiserLayoutBinding.inflate(getLayoutInflater());
         //EdgeToEdge.enable(this);
         setContentView(binding.getRoot());
-        replaceFragment(new EventsFragment());
+        replaceFragment(new OrganiserEventFragment());
 
         binding.bottomNavView.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
@@ -34,7 +34,7 @@ public class OrganiserActivity extends AppCompatActivity {
             if (id == R.id.Events) {
                 replaceFragment(new OrganiserEventFragment());
             } else if (id == R.id.MyEvents) {
-                replaceFragment(new OneEventFragment());
+                replaceFragment(new MyEventsFragment());
             } else if (id == R.id.Notifications){
                 replaceFragment(new EventCreateFragment());
             } else if (id == R.id.Profile) {

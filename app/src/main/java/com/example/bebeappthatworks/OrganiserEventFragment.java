@@ -97,11 +97,10 @@ public class OrganiserEventFragment extends Fragment {
                                     @Override
                                     public void onItemClick(int count, Event event ) {
                                         // Handle item click here, e.g., launch details activity/fragment
-                                        OneEventFragment newEvent =  new OneEventFragment();
-                                        if(Objects.equals(event.getEventType(), "Free")) {
-                                            //SingleEventFree register = new SingleEventFree();
-                                            OneEventFragment newRegister = newEvent.newInstance(allEventsId.get(count));
-                                            OneEventFragment fragment = newRegister;
+                                        NoButtonsOrganizerFragment newEvent =  new NoButtonsOrganizerFragment();
+                                        NoButtonsOrganizerFragment newRegister = newEvent.newInstance(allEventsId.get(count));
+                                        NoButtonsOrganizerFragment fragment = newRegister;
+                                        Log.i("merge","merge");
 //                                            SingleEventFree newEventParam = newEvent.newInstance(allEventsId.get(count));
 //                                            Fragment fragment = newEventParam;
 //
@@ -110,29 +109,11 @@ public class OrganiserEventFragment extends Fragment {
 //                                            Log.i("test",event.getEventType());
 //                                            //Log.i("testID",String.valueOf(allEventsId.get(count)));
 
-                                            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                                            fragmentTransaction.replace(R.id.navigation_host_fragment_content_main,fragment);
-                                            fragmentTransaction.addToBackStack(null);
-                                            fragmentTransaction.commit();
-                                        } else {
-                                            InterestedInEvent interested = new InterestedInEvent();
-                                            InterestedInEvent newInterest = interested.newInstance(allEventsId.get(count));
-                                            Fragment fragment = newInterest;
-                                            //SingleEventFree newEventParam = newEvent.newInstance(allEventsId.get(count));
-                                            //Fragment fragment = newEventParam;
-
-                                            //Toast.makeText(getActivity(), "Clicked on event: " + event.getEventName(), Toast.LENGTH_SHORT).show();
-                                            //adapter.getItemCount();
-//                                            Log.i("test",String.valueOf(count));
-//                                            Log.i("testID",String.valueOf(allEventsId.get(count)));
-
-                                            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                                            fragmentTransaction.replace(R.id.navigation_host_fragment_content_main,fragment);
-                                            fragmentTransaction.addToBackStack(null);
-                                            fragmentTransaction.commit();
-                                        }
+                                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                        fragmentTransaction.replace(R.id.navigation_host_fragment_content_main,fragment);
+                                        fragmentTransaction.addToBackStack(null);
+                                        fragmentTransaction.commit();
 
                                     }
                                 });

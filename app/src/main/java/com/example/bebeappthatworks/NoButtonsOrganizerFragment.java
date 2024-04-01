@@ -1,9 +1,11 @@
 package com.example.bebeappthatworks;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
@@ -26,7 +28,7 @@ import java.util.List;
  * Use the {@link SingleEventFree#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class OneEventFragment extends Fragment {
+public class NoButtonsOrganizerFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -35,12 +37,14 @@ public class OneEventFragment extends Fragment {
 
     private Event event;
 
+    private EventAdapter adapter;
+
     View view;
 
     public List<Event> theEvent = new ArrayList<>();
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    public OneEventFragment() {
+    public NoButtonsOrganizerFragment() {
         // Required empty public constructor
     }
 
@@ -52,8 +56,8 @@ public class OneEventFragment extends Fragment {
      * @return A new instance of fragment SingleEvent.
      */
     // TODO: Rename and change types and number of parameters
-    public OneEventFragment newInstance(String param1) {
-        OneEventFragment fragment = new OneEventFragment();
+    public NoButtonsOrganizerFragment newInstance(String param1) {
+        NoButtonsOrganizerFragment fragment = new NoButtonsOrganizerFragment();
         Bundle args = new Bundle();
         args.putString(ARGM1, param1);
         fragment.setArguments(args);
@@ -75,7 +79,7 @@ public class OneEventFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_one_event, container, false);
+        view = inflater.inflate(R.layout.fragment_no_buttons_organizer, container, false);
 
         DocumentReference docRef = db.collection("Events").document(eventID);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -84,12 +88,11 @@ public class OneEventFragment extends Fragment {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     theEvent.add(document.toObject(Event.class));
-
-
-                    if (view instanceof RecyclerView) {
-                        RecyclerView recyclerView = (RecyclerView) view;
-                        recyclerView.setAdapter(new OneEventRecyclerView(theEvent));
-                    }
+                    Context context = view.getContext();
+                    RecyclerView recyclerView = (RecyclerView) view;
+                    adapter = new EventAdapter(theEvent);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                    recyclerView.setAdapter(adapter);
                 }
 
             }
