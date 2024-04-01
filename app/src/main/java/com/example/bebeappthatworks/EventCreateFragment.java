@@ -226,6 +226,7 @@ public class EventCreateFragment extends Fragment {
                         eventDateEdt.setError("Please enter Event Date");
                     } else {
                         // calling method to add data to Firebase Firestore.
+                        Log.i("imageUrl", imageUrl);
                         addDataToFirestore(eventName, eventDescription, eventDuration, eventDate, eventLocation, eventCapacity,imageUrl, eventType, eventLink, creator);
                     }
                 }
@@ -318,7 +319,7 @@ public class EventCreateFragment extends Fragment {
     }
 
     private void uploadImageToFirebase(Bitmap imageBitmap) {
-        // Firebase Storage reference (replace with your storage reference)
+        // Firebase Storage reference
         StorageReference storageRef = FirebaseStorage.getInstance().getReference("images/" + UUID.randomUUID().toString());
 
         // Convert Bitmap to byte array
@@ -340,8 +341,15 @@ public class EventCreateFragment extends Fragment {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 // Get the download URL after successful upload
-                imageUrl = taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
-                // Now you have the imageUrl to store or use
+                imageUrl = storageRef.getDownloadUrl().toString();
+                storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
+                {
+                    @Override
+                    public void onSuccess(Uri downloadUrl)
+                    {
+                        Log.i("imageUrl", imageUrl);
+                    }
+                });
             }
         });
     }

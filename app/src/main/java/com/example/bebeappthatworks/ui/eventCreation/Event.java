@@ -43,6 +43,7 @@ public class Event {
         this.eventType = eventType;
         this.eventLink = eventLink;
         this.creator = creator;
+        this.imageUrl = imageUrl;
     }
 
 
