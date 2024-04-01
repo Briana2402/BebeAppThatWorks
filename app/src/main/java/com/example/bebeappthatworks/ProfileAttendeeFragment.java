@@ -27,10 +27,15 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.UUID;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -49,7 +54,7 @@ public class ProfileAttendeeFragment extends Fragment {
     private static final int REQUEST_CAMERA_PERMISSION_CODE = 1;
 
     private static final int REQUEST_IMAGE_CAPTURE = 2;
-    private ImageView imageView;
+    private ImageView profile_pic;
     private String imageUrl;
     private Button captureImageButton;
     private FirebaseFirestore db;
@@ -96,7 +101,7 @@ public class ProfileAttendeeFragment extends Fragment {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
         Button myButton = view.findViewById(R.id.LOGOUTBUTTONATTENDEE);
-        imageView = view.findViewById(R.id.imageView3);
+        profile_pic = view.findViewById(R.id.imageView4);
         captureImageButton = view.findViewById(R.id.button_capture);
         myButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -167,11 +172,14 @@ public class ProfileAttendeeFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
             if (data != null && data.getExtras() != null) {
-                Bitmap imageBitmap = (Bitmap) data.getExtras().get("data");
+                Bundle extras = data.getExtras();
+                Bitmap imageBitmap = (Bitmap) extras.get("data");
+                //Uri imageUri = data.getData();
+                //Bitmap imageBitmap = (Bitmap) data.getExtras().get("data");
                 if (imageBitmap != null) {
-                    imageView.setImageBitmap(imageBitmap);
+                    profile_pic.setImageBitmap(imageBitmap);
+                    uploadImageToFirebase(imageBitmap);
                     // Save the full-size image to a file
-                    saveImageToFile(imageBitmap);
                 } else {
                     Toast.makeText(getContext(), "Failed to load image", Toast.LENGTH_SHORT).show();
                 }
@@ -185,27 +193,43 @@ public class ProfileAttendeeFragment extends Fragment {
             // Handle other cases, such as if there's an error
             Toast.makeText(getContext(), "Failed to capture image", Toast.LENGTH_SHORT).show();
         }
+
     }
 
-    private void saveImageToFile(Bitmap bitmap) {
-        File storageDir = getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        imageUrl = null;
-        if (storageDir != null) {
-            String fileName = "IMG_" + System.currentTimeMillis() + ".jpg";
-            System.out.print(fileName);
-            File imageFile = new File(storageDir, fileName);
-            try {
-                FileOutputStream fos = new FileOutputStream(imageFile);
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-                fos.close();
-                imageUrl = imageFile.getAbsolutePath(); // Get the file URI
-                System.out.print(imageUrl);
-                Toast.makeText(getContext(), "Image saved: " + imageUrl, Toast.LENGTH_SHORT).show();
-            } catch (IOException e) {
-                e.printStackTrace();
-                Toast.makeText(getContext(), "Failed to save image", Toast.LENGTH_SHORT).show();
+    private void uploadImageToFirebase(Bitmap imageBitmap) {
+        // Firebase Storage reference
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference("images/" + UUID.randomUUID().toString());
+
+        // Convert Bitmap to byte array
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] data = baos.toByteArray();
+
+        // Upload task
+        UploadTask uploadTask = storageRef.putBytes(data);
+
+        // Register observers to handle success, failure, and progress
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle upload failure
+                Toast.makeText(getContext(), "Image upload failed!", Toast.LENGTH_SHORT).show();
             }
-        }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                // Get the download URL after successful upload
+                imageUrl = storageRef.getDownloadUrl().toString();
+                storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
+                {
+                    @Override
+                    public void onSuccess(Uri downloadUrl)
+                    {
+                        Log.i("imageUrl", imageUrl);
+                    }
+                });
+            }
+        });
     }
 
 }
