@@ -6,6 +6,7 @@ import com.example.bebeappthatworks.Organiser;
 import java.util.ArrayList;
 import java.util.List;
 import android.net.Uri;
+import android.widget.ImageView;
 
 
 public class Event {
@@ -40,10 +41,10 @@ public class Event {
         this.eventDate = eventDate;
         this.maxCapacity = maxCapacity;
         this.eventDescription = eventDescription;
+        this.imageUrl = imageUrl;
         this.eventType = eventType;
         this.eventLink = eventLink;
         this.creator = creator;
-        this.imageUrl = imageUrl;
     }
 
 

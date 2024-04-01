@@ -23,9 +23,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.bebeappthatworks.R;
-import com.example.bebeappthatworks.forgotPassword.ForgotPasswordActivity;
-import com.example.bebeappthatworks.ui.login.LoginActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -140,6 +137,14 @@ public class ProfileAttendeeFragment extends Fragment {
             public void onClick(View v) {
                 // Call your captureImage method or perform your action here
                 captureImage(v);
+            }
+        });
+        ImageView settingsButtonAttendee = (ImageView) view.findViewById(R.id.SettingsAttendee);
+        settingsButtonAttendee.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(), SettingsAttendee.class);
+                startActivity(i);
             }
         });
 

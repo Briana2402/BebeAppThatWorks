@@ -1,19 +1,26 @@
 package com.example.bebeappthatworks;
 
+import static com.google.android.gms.tasks.Tasks.await;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.bebeappthatworks.ui.eventCreation.Event;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -21,6 +28,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.example.bebeappthatworks.OneEventActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,13 +39,19 @@ import java.util.List;
 public class EventsFragment extends Fragment {
 
     // TODO: Customize parameter argument names
-    //private static final String ARG_COLUMN_COUNT = "column-count";
+    private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
-    private final int mColumnCount = 1;
+    private int mColumnCount = 1;
 
-    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    public final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public List<Event> allEvents = new ArrayList<>();
+    public List<String> allEventsId = new ArrayList<>();
+    public int count = 0;
+
+    private RecyclerView recyclerView;
+    private List<Event> eventList;
+    private EventAdapter adapter;
 
     View view;
 
@@ -52,8 +66,6 @@ public class EventsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
 
     }
 
@@ -70,25 +82,45 @@ public class EventsFragment extends Fragment {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 allEvents.add(document.toObject(Event.class));
-                                //Log.i(allEvents.get(0).getEventDate(), "miau miau");
+                                allEventsId.add(document.getId().toString());
                             }
-
                             if (view instanceof RecyclerView) {
                                 Context context = view.getContext();
                                 RecyclerView recyclerView = (RecyclerView) view;
-                                if (mColumnCount <= 1) {
-                                    recyclerView.setLayoutManager(new LinearLayoutManager(context));
-                                } else {
-                                    recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-                                }
-                                recyclerView.setAdapter(new MyItemRecyclerViewAdapter(allEvents));
-                                //Log.i(allEvents.get(0).getEventDate(), "miau miau");
+                                adapter = new EventAdapter(allEvents);
+                                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                                recyclerView.setAdapter(adapter);
+                               // recyclerView.setAdapter(new MyItemRecyclerViewAdapter(allEvents));
+
+                                adapter.setOnItemClickListener(new EventAdapter.OnItemClickListener() {
+                                    @Override
+                                    public void onItemClick(int count, Event event ) {
+                                        // Handle item click here, e.g., launch details activity/fragment
+                                        SingleEventFree newEvent =  new SingleEventFree();
+                                        SingleEventFree newEventParam = newEvent.newInstance(allEventsId.get(count));
+                                        Fragment fragment = newEventParam;
+
+                                        Toast.makeText(getActivity(), "Clicked on event: " + event.getEventName(), Toast.LENGTH_SHORT).show();
+                                        //adapter.getItemCount();
+                                        Log.i("test",String.valueOf(count));
+                                        Log.i("testID",String.valueOf(allEventsId.get(count)));
+
+                                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                        fragmentTransaction.replace(R.id.navigation_host_fragment_content_main,fragment);
+                                        fragmentTransaction.addToBackStack(null);
+                                        fragmentTransaction.commit();
+
+
+
+                                    }
+                                });
                             }
 
                         }
                     }
                 });
-
         return view;
     }
+
 }

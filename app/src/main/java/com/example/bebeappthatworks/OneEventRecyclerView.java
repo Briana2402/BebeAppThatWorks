@@ -3,42 +3,36 @@ package com.example.bebeappthatworks;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.bebeappthatworks.databinding.FragmentEventsBinding;
+import com.example.bebeappthatworks.databinding.LayoutOneEventBinding;
 //import com.example.bebeappthatworks.placeholder.PlaceholderContent.PlaceholderItem;
 import com.example.bebeappthatworks.ui.eventCreation.Event;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link Event}.
  * TODO: Replace the implementation with code for your data type.
  */
-public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecyclerViewAdapter.ViewHolder> {
+public class OneEventRecyclerView extends RecyclerView.Adapter<OneEventRecyclerView.ViewHolder> {
 
     private final List<Event> mValues;
     private Event event;
 
-    public MyItemRecyclerViewAdapter(List<Event> items) {
-        mValues = items;
+    private OnItemClickListener onItemClickListener;
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.onItemClickListener = listener;
+    }
+
+    public OneEventRecyclerView(List<Event> items) {
+        this.mValues = items;
     }
 
 
@@ -46,7 +40,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        return new ViewHolder(FragmentEventsBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
+        return new ViewHolder(LayoutOneEventBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
 
     }
 
@@ -65,17 +59,25 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
         holder.mDescription.setText(event.getEventDescription());
         holder.mCapacity.setText(event.getEventMaxCapacity());
 
-        /*
-        //holder.mItem = mValues.get(position);
-        //holder.mIdView.setText(mValues.get(position).id);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onItemClickListener != null) {
+                    onItemClickListener.onItemClick(event);
+                }
+            }
+        });
 
 
-         */
     }
 
     @Override
     public int getItemCount() {
         return mValues.size();
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(Event event);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -92,7 +94,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
         //public PlaceholderItem mItem;
 
 
-        public ViewHolder(FragmentEventsBinding binding) {
+        public ViewHolder(@NonNull LayoutOneEventBinding binding) {
             super(binding.getRoot());
             //mIdView = binding.itemNumber;
             mImageView = binding.content;

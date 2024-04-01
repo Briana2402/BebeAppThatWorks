@@ -80,7 +80,7 @@ public class EventCreationActivity extends AppCompatActivity {
         eventLinkEdt = findViewById(R.id.linkPaid);
         eventLinkEdt.setVisibility(View.INVISIBLE);
 
-        imageView = findViewById(R.id.cover_image);
+        //imageUrl = findViewById(R.id.cover_image);
         // getting our instance
         // from Firebase Firestore.
         db = FirebaseFirestore.getInstance();
