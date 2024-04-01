@@ -42,7 +42,7 @@ public class OneEventFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_one_event, container, false);
+        view = inflater.inflate(R.layout.layout_one_event, container, false);
 
         db.collection("Events")
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -61,6 +61,7 @@ public class OneEventFragment extends Fragment {
                         }
                     }
                 });
+
 
         return view;
     }

@@ -20,6 +20,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.bebeappthatworks.MainActivity;
+import com.example.bebeappthatworks.OrganiserActivity;
 import com.example.bebeappthatworks.R;
 import com.example.bebeappthatworks.User;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -96,6 +97,7 @@ public class RegisterOrganisationActivity extends AppCompatActivity {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /*
                 String email, password, confPass;
                 email = editTextEmail.getText().toString();
                 password = editTextPassword.getText().toString();
@@ -155,9 +157,10 @@ public class RegisterOrganisationActivity extends AppCompatActivity {
                                 }
                             }
                         });
+                 */
 
-
-
+                Intent intent = new Intent(RegisterOrganisationActivity.this, OrganiserActivity.class);
+                startActivity(intent);
             }
         });
 

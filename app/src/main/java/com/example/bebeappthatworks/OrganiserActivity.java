@@ -1,11 +1,15 @@
 package com.example.bebeappthatworks;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import com.example.bebeappthatworks.EventCreationActivity;
 
 
 import com.example.bebeappthatworks.databinding.OrganiserLayoutBinding;
@@ -13,6 +17,7 @@ import com.example.bebeappthatworks.databinding.OrganiserLayoutBinding;
 public class OrganiserActivity extends AppCompatActivity {
 
     OrganiserLayoutBinding binding;
+    EventCreationActivity eventCreationActivity;
     //private Button LogOutBtn;
 
     @Override
@@ -29,7 +34,7 @@ public class OrganiserActivity extends AppCompatActivity {
             if (id == R.id.Events) {
                 replaceFragment(new EventsFragment());
             } else if (id == R.id.MyEvents) {
-                replaceFragment(new MyEventsFragment());
+                replaceFragment(new OneEventFragment());
             } else if (id == R.id.Notifications){
                 replaceFragment(new EventCreateFragment());
             } else if (id == R.id.Profile) {
@@ -40,6 +45,9 @@ public class OrganiserActivity extends AppCompatActivity {
         });
 
     }
+
+
+
 
     private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();

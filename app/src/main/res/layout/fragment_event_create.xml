@@ -3,166 +3,215 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
-    android:background="#2C1854"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context=".EventCreateFragment">
+    android:background="@drawable/bg_with_stars"
+    tools:context=".EventCreationActivity">
 
-
-    <Button
-        android:id="@+id/button_capture"
-        android:layout_width="157dp"
-        android:layout_height="38dp"
-        android:text="Set Event Cover"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.478"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <ImageView
-        android:id="@+id/cover_image"
-        android:layout_width="276dp"
-        android:layout_height="111dp"
-        android:layout_above="@+id/button_capture"
-        android:layout_gravity="center"
-        android:layout_margin="@dimen/text_margin"
-        android:adjustViewBounds="true"
-        android:scaleType="centerCrop"
-        android:src="@drawable/placeholder_view_vector"
-        android:textAppearance="?attr/textAppearanceListItem"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_capture"
-        tools:ignore="MissingConstraints" />
-
-    <EditText
-        android:id="@+id/idEdtEventName"
-        android:layout_width="300dp"
-        android:layout_height="38dp"
-        android:layout_marginTop="4dp"
-        android:background="#9A8FAF"
-        android:hint="@string/Enter_Event_name"
-        android:imeActionLabel="@string/action_sign_in_short"
-        android:selectAllOnFocus="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cover_image"
-        tools:ignore="MissingConstraints" />
-
-    <EditText
-        android:id="@+id/idEdtEventLocation"
-        android:layout_width="300dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="4dp"
-        android:background="#9A8FAF"
-        android:hint="@string/Enter_Event_location"
-        android:selectAllOnFocus="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idEdtEventName" />
-
-    <EditText
-        android:id="@+id/idEdtEventDuration"
-        android:layout_width="300dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="4dp"
-        android:background="#9A8FAF"
-        android:hint="@string/Enter_Event_duration"
-        android:selectAllOnFocus="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idEdtEventLocation" />
-
-    <EditText
-        android:id="@+id/idEdtEventCapacity"
-        android:layout_width="300dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="4dp"
-        android:background="#9A8FAF"
-        android:hint="@string/Enter_Event_capacity"
-        android:selectAllOnFocus="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idEdtEventDuration" />
-
-    <EditText
-        android:id="@+id/idEdtEventDate"
-        android:layout_width="300dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="4dp"
-        android:background="#9A8FAF"
-        android:hint="@string/Enter_Event_date"
-        android:selectAllOnFocus="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idEdtEventCapacity" />
-
-    <EditText
-        android:id="@+id/idEdtEventDescription"
-        android:layout_width="300dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="4dp"
-        android:background="#9A8FAF"
-        android:hint="@string/Enter_Event_description"
-        android:selectAllOnFocus="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idEdtEventDate" />
-
-    <EditText
-        android:id="@+id/linkPaid"
-        android:layout_width="240dp"
-        android:layout_height="44dp"
-        android:layout_marginStart="148dp"
-        android:layout_marginBottom="16dp"
-        android:background="#9A8FAF"
-        android:hint="Enter event link"
-        android:selectAllOnFocus="true"
-        android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/idBtnSubmitEvent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idEdtEventDescription"
-        app:layout_constraintVertical_bias="0.857"
-        tools:visibility="visible" />
-
-    <Button
-        android:id="@+id/idBtnSubmitEvent"
-        android:layout_width="136dp"
-        android:layout_height="48dp"
-        android:text="Create Event"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idEdtEventDescription"
-        app:layout_constraintVertical_bias="0.448" />
-
-    <CheckBox
-        android:id="@+id/checkBox"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="8dp"
-        android:text="Paid Event"
-        android:textColor="@color/white"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="4dp"
+        app:cardBackgroundColor="#36FFFFFF"
+        app:cardCornerRadius="25dp"
+        app:layout_constraintBottom_toTopOf="@+id/cardView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.516"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idEdtEventDescription" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/camera_fragment"
-        android:name="com.example.bebeappthatworks.use_camera"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_gravity="end|bottom"
-        android:background="@drawable/add_photo"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="279dp"
-        tools:layout_editor_absoluteY="119dp" />
+        <ImageView
+            android:id="@+id/cover_image"
+            android:layout_width="315dp"
+            android:layout_height="200dp"
+            android:layout_above="@+id/button_capture"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/text_margin"
+            android:layout_marginTop="4dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:textAppearance="?attr/textAppearanceListItem"
+            app:layout_constraintBottom_toTopOf="@+id/cardView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/button_capture"
+            tools:ignore="MissingConstraints" />
 
+        <ImageView
+            android:layout_width="41dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="290dp"
+            android:layout_marginTop="190dp"
+            android:src="@drawable/pencil" />
+
+        <Button
+            android:id="@+id/button_capture"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="280dp"
+            android:layout_marginTop="180dp"
+            android:background="#00FFFFFF"
+            android:onClick="captureImage"
+            android:textColorLink="#34FFFFFF" />
+
+    </androidx.cardview.widget.CardView>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="7dp"
+        android:src="@drawable/rocket"
+        app:layout_constraintBottom_toTopOf="@+id/cardView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardViewImage" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="30dp"
+        app:cardBackgroundColor="@color/event_card"
+        app:cardCornerRadius="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.531"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardViewImage"
+        tools:ignore="MissingConstraints">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="15dp"
+            android:paddingBottom="2dp">
+
+            <EditText
+                android:id="@+id/idEdtEventName"
+                android:layout_width="300dp"
+                android:layout_height="38dp"
+                android:background="#9A8FAF"
+                android:hint="@string/Enter_Event_name"
+                android:imeActionLabel="@string/action_sign_in_short"
+                android:paddingStart="10dp"
+                android:selectAllOnFocus="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteY="15dp" />
+
+            <EditText
+                android:id="@+id/idEdtEventLocation"
+                android:layout_width="300dp"
+                android:layout_height="38dp"
+                android:layout_marginTop="10dp"
+                android:background="#9A8FAF"
+                android:hint="@string/Enter_Event_location"
+                android:paddingStart="10dp"
+                android:paddingTop="10dp"
+                android:selectAllOnFocus="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/idEdtEventName" />
+
+            <EditText
+                android:id="@+id/idEdtEventDuration"
+                android:layout_width="300dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:background="#9A8FAF"
+                android:hint="@string/Enter_Event_duration"
+                android:paddingStart="10dp"
+                android:selectAllOnFocus="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/idEdtEventLocation" />
+
+            <EditText
+                android:id="@+id/idEdtEventCapacity"
+                android:layout_width="300dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:background="#9A8FAF"
+                android:hint="@string/Enter_Event_capacity"
+                android:paddingStart="10dp"
+                android:selectAllOnFocus="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/idEdtEventDuration" />
+
+            <EditText
+                android:id="@+id/idEdtEventDate"
+                android:layout_width="300dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:background="#9A8FAF"
+                android:hint="@string/Enter_Event_date"
+                android:paddingStart="10dp"
+                android:selectAllOnFocus="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/idEdtEventCapacity" />
+
+            <EditText
+                android:id="@+id/idEdtEventDescription"
+                android:layout_width="300dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:background="#9A8FAF"
+                android:hint="@string/Enter_Event_description"
+                android:paddingStart="10dp"
+                android:selectAllOnFocus="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/idEdtEventDate" />
+
+            <EditText
+                android:id="@+id/linkPaid"
+                android:layout_width="300dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:background="#9A8FAF"
+                android:hint="@string/event_link"
+                android:paddingStart="10dp"
+                android:selectAllOnFocus="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/idEdtEventDescription" />
+
+
+            <Button
+                android:id="@+id/idBtnSubmitEvent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="120dp"
+                android:layout_marginEnd="40dp"
+                android:layout_marginTop="7dp"
+                android:onClick="captureImage"
+                android:text="Create Event"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linkPaid"
+                app:layout_constraintVertical_bias="0.6" />
+
+            <CheckBox
+                android:id="@+id/checkBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="7dp"
+                android:text="Paid Event"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toStartOf="@+id/idBtnSubmitEvent"
+                app:layout_constraintTop_toBottomOf="@+id/linkPaid" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
