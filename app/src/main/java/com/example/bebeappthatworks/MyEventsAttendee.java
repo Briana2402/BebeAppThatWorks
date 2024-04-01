@@ -44,6 +44,8 @@ public class MyEventsAttendee extends Fragment {
 
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
+    public String event_id = new String();
+
     View view;
 
     /**
@@ -54,32 +56,11 @@ public class MyEventsAttendee extends Fragment {
     }
 
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        CollectionReference eventsRef = db.collection("Attendees").document(mAuth.getCurrentUser().getUid().toString()).collection("my events");
 
-
-        //Log.i("miauuu", "gets after collection");
-        //Query query = eventsRef.whereEqualTo("eventCreator", mAuth.getCurrentUser().getUid());
-        eventsRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                Log.i("miauuu", "goes into first fetch");
-                if(task.isSuccessful()) {
-                    //creates an  array with all the ids of the events that the logged in user is registered for
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        events_id.add(document.getId().toString());
-                        //Log.i("miauuu", document.getId().toString());
-                    }
-                } else {
-                    Log.i("miauuu", "doesnt work :(");
-                }
-
-            }
-        });
 
 
     }
@@ -98,39 +79,81 @@ public class MyEventsAttendee extends Fragment {
         //get executed so when it gets to this loop, the array is still empty so somehow this for has to wait for
         //all the ids to be fetched.
         //checks all the ids of the vents a user is registered for and fetches the events based on the ids
-        for (String eventId : events_id) {
-            Log.i("miauuu", eventId);
-            DocumentReference docRef = db.collection("Events").document(eventId);
-            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                @Override
-                public void onComplete(Task<DocumentSnapshot> task) {
-                    Log.i("miauuu", "starts fetching again");
-                    if (task.isSuccessful()) {
-                        //gets here
-                        Log.i("miauuu", "document.getId().toString()");
-                        DocumentSnapshot document = task.getResult();
-                        if (document.exists()) {
-                            // Map Firestore document to Event object
-                            myEvents.add(document.toObject(Event.class));
-                            Log.i("miauuu", document.getId().toString());
-                            //adapter.notifyDataSetChanged();
-                        }
+//        for (String eventId : events_id) {
+//            Log.i("miauuu", eventId);
+//            DocumentReference docRef = db.collection("Events").document(eventId);
+//            docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//                @Override
+//                public void onComplete(Task<DocumentSnapshot> task) {
+//                    Log.i("miauuu", "starts fetching again");
+//                    if (task.isSuccessful()) {
+//                        //gets here
+//                        Log.i("miauuu", "document.getId().toString()");
+//                        DocumentSnapshot document = task.getResult();
+//                        if (document.exists()) {
+//                            // Map Firestore document to Event object
+//                            myEvents.add(document.toObject(Event.class));
+//                            Log.i("miauuu", document.getId().toString());
+//                            //adapter.notifyDataSetChanged();
+//                        }
+//
+//                    }
+//                }
+//            });
 
+        CollectionReference eventsRef = db.collection("Attendees").document(mAuth.getCurrentUser().getUid().toString()).collection("my events");
+
+
+        //Log.i("miauuu", "gets after collection");
+        //Query query = eventsRef.whereEqualTo("eventCreator", mAuth.getCurrentUser().getUid());
+
+        eventsRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                Log.i("miauuu", "goes into first fetch");
+                if (task.isSuccessful()) {
+                    //creates an  array with all the ids of the events that the logged in user is registered for
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        events_id.add(document.getId().toString());
+                        //Log.i("miauuu", document.getId().toString());
+                        event_id = document.getId().toString();
+                        DocumentReference docRef = db.collection("Events").document(event_id);
+                        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                            @Override
+                            public void onComplete(Task<DocumentSnapshot> task) {
+                                Log.i("miauuu", "starts fetching again for events");
+                                if (task.isSuccessful()) {
+                                    //gets here
+                                    Log.i("miauuu", "document.getId().toString()");
+                                    DocumentSnapshot document = task.getResult();
+                                    if (document.exists()) {
+                                        // Map Firestore document to Event object
+                                        myEvents.add(document.toObject(Event.class));
+                                        Log.i("miauuu", document.getId().toString());
+                                        EventAdapter adapter = new EventAdapter(myEvents);
+                                        RecyclerView recyclerView = (RecyclerView) view;
+                                        Context context = view.getContext();
+                                        if (mColumnCount <= 1) {
+                                            recyclerView.setLayoutManager(new LinearLayoutManager(context));
+                                        } else {
+                                            recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+                                        }
+                                        recyclerView.setAdapter(adapter);
+                                        Log.i("miauuu", "miau miau");
+                                        //adapter.notifyDataSetChanged();
+                                    }
+
+                                }
+                            }
+                        });
                     }
+                } else {
+                    Log.i("miauuu", "doesnt work :(");
                 }
-            });
 
-            EventAdapter adapter = new EventAdapter(myEvents);
-            RecyclerView recyclerView = (RecyclerView) view;
-            Context context = view.getContext();
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(adapter);
-            Log.i("miauuu", "miau miau");
-        }
+        });
+
 
 
 
