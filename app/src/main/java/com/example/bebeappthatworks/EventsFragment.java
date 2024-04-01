@@ -32,6 +32,7 @@ import com.example.bebeappthatworks.OneEventActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * A fragment representing a list of Items.
@@ -97,19 +98,43 @@ public class EventsFragment extends Fragment {
                                     public void onItemClick(int count, Event event ) {
                                         // Handle item click here, e.g., launch details activity/fragment
                                         SingleEventFree newEvent =  new SingleEventFree();
-                                        SingleEventFree newEventParam = newEvent.newInstance(allEventsId.get(count));
-                                        Fragment fragment = newEventParam;
+                                        if(Objects.equals(event.getEventType(), "Free")) {
+                                            RegisterForEvent register = new RegisterForEvent();
+                                            RegisterForEvent newRegister = register.newInstance(allEventsId.get(count));
+                                            Fragment fragment = newRegister;
+//                                            SingleEventFree newEventParam = newEvent.newInstance(allEventsId.get(count));
+//                                            Fragment fragment = newEventParam;
+//
+//                                            Toast.makeText(getActivity(), "Clicked on event: " + event.getEventName(), Toast.LENGTH_SHORT).show();
+//                                            //adapter.getItemCount();
+//                                            Log.i("test",event.getEventType());
+//                                            //Log.i("testID",String.valueOf(allEventsId.get(count)));
 
-                                        Toast.makeText(getActivity(), "Clicked on event: " + event.getEventName(), Toast.LENGTH_SHORT).show();
-                                        //adapter.getItemCount();
-                                        Log.i("test",String.valueOf(count));
-                                        Log.i("testID",String.valueOf(allEventsId.get(count)));
+                                            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                            fragmentTransaction.replace(R.id.navigation_host_fragment_content_main,fragment);
+                                            fragmentTransaction.addToBackStack(null);
+                                            fragmentTransaction.commit();
+                                        } else {
+                                            InterestedInEvent interested = new InterestedInEvent();
+                                            InterestedInEvent newInterest = interested.newInstance(allEventsId.get(count));
+                                            Fragment fragment = newInterest;
+                                            //SingleEventFree newEventParam = newEvent.newInstance(allEventsId.get(count));
+                                            //Fragment fragment = newEventParam;
 
-                                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                                        fragmentTransaction.replace(R.id.navigation_host_fragment_content_main,fragment);
-                                        fragmentTransaction.addToBackStack(null);
-                                        fragmentTransaction.commit();
+                                            //Toast.makeText(getActivity(), "Clicked on event: " + event.getEventName(), Toast.LENGTH_SHORT).show();
+                                            //adapter.getItemCount();
+//                                            Log.i("test",String.valueOf(count));
+//                                            Log.i("testID",String.valueOf(allEventsId.get(count)));
+
+                                            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                            fragmentTransaction.replace(R.id.navigation_host_fragment_content_main,fragment);
+                                            fragmentTransaction.addToBackStack(null);
+                                            fragmentTransaction.commit();
+                                        }
+
+
 
 
 
