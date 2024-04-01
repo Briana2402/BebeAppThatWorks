@@ -49,7 +49,6 @@ public class use_camera extends Fragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment use_camera.
      */
-    // TODO: Rename and change types and number of parameters
     public static use_camera newInstance(String param1, String param2) {
         use_camera fragment = new use_camera();
         Bundle args = new Bundle();
