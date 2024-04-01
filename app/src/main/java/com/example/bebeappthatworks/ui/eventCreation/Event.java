@@ -6,6 +6,7 @@ import com.example.bebeappthatworks.Organiser;
 import java.util.ArrayList;
 import java.util.List;
 import android.net.Uri;
+import android.widget.ImageView;
 
 
 public class Event {
@@ -114,7 +115,7 @@ public class Event {
         this.imageUrl = imageUri;
     }
 
-    public String getImageUri() {
+    public String getImageUrl() {
         return imageUrl;
     }
 
