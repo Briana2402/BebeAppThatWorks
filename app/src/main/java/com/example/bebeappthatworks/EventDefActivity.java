@@ -37,9 +37,4 @@ public class EventDefActivity extends AppCompatActivity {
 
     }
 
-    public void openMaps(View v) {
-        Intent intent = new Intent( this, Map.class);
-        startActivity(intent);
-    }
-
 }

@@ -65,12 +65,12 @@ public class AttendeeActivity extends AppCompatActivity {
 
     }
 
-    public void buttonPlease(View v) {
-//        v.getContext();
-//        Log.i("test", String.valueOf(v.getContext()));
-        Intent intent = new Intent(AttendeeActivity.this, OneEventActivity.class);
-        startActivity(intent);
-    }
+//    public void buttonPlease(View v) {
+////        v.getContext();
+////        Log.i("test", String.valueOf(v.getContext()));
+//        Intent intent = new Intent(AttendeeActivity.this, OneEventActivity.class);
+//        startActivity(intent);
+//    }
 
 
     public void replaceFragment(Fragment fragment) {
@@ -79,5 +79,10 @@ public class AttendeeActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.navigation_host_fragment_content_main, fragment);
         fragmentTransaction.commit();
 
+    }
+
+    public void openMaps(View v) {
+        Intent intent = new Intent(this, com.example.bebeappthatworks.Map.class);
+        startActivity(intent);
     }
 }

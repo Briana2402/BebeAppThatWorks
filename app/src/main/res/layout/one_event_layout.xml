@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/layout_one_event">
+    tools:showIn="@layout/register_button">
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/navigation_one_event_fragment"
