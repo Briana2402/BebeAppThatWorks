@@ -169,7 +169,7 @@ public class EventCreateFragment extends Fragment {
         eventDateEdt = view.findViewById(R.id.idEdtEventDate);
         submitEventBtn = view.findViewById(R.id.idBtnSubmitEvent);
         CheckBox paidEvent = (CheckBox) view.findViewById(R.id.checkBox);
-        captureImageButton = view.findViewById(R.id.button_capture);
+        captureImageButton = view.findViewById(R.id.event_cover);
 
         paidEvent.setOnClickListener(new View.OnClickListener() {
             @Override
