@@ -17,7 +17,6 @@
         android:id="@+id/button_capture"
         android:layout_width="157dp"
         android:layout_height="38dp"
-        android:onClick="captureImage"
         android:text="Set Event Cover"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -33,9 +32,9 @@
         android:layout_above="@+id/button_capture"
         android:layout_gravity="center"
         android:layout_margin="@dimen/text_margin"
-        android:layout_marginTop="4dp"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
+        android:src="@drawable/placeholder_view_vector"
         android:textAppearance="?attr/textAppearanceListItem"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
@@ -117,7 +116,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/idEdtEventDate" />
 
-
     <EditText
         android:id="@+id/linkPaid"
         android:layout_width="240dp"
@@ -155,5 +153,16 @@
         android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/idEdtEventDescription" />
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/camera_fragment"
+        android:name="com.example.bebeappthatworks.use_camera"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="end|bottom"
+        android:background="@drawable/add_photo"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="279dp"
+        tools:layout_editor_absoluteY="119dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

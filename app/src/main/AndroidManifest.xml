@@ -50,7 +50,7 @@
             android:name=".forgotPassword.ForgotPasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.eventCreation.EventCreationActivity"
+            android:name=".EditProfileFragment"
             android:exported="false"
             android:theme="@style/Theme.BebeAppThatWorks" />
         <activity

@@ -96,5 +96,4 @@
         app:layout_constraintVertical_bias="0.53"
         app:srcCompat="@drawable/profileicon" />
 
-
 </androidx.constraintlayout.widget.ConstraintLayout>

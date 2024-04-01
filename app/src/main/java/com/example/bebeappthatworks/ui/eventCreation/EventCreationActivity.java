@@ -76,7 +76,7 @@ public class EventCreationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_event_creation);
+        setContentView(R.layout.fragment_event_create);
         eventLinkEdt = findViewById(R.id.linkPaid);
         eventLinkEdt.setVisibility(View.INVISIBLE);
 
@@ -173,10 +173,10 @@ public class EventCreationActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         // adding our data to our courses object class.
-        Event events = new Event(eventLocation, eventDuration, eventName, eventDate, eventCapacity,eventDescription, imageUrl, eventType, eventLink, mAuth.getCurrentUser().getUid().toString());
-        if(eventType.equals("Free")){
+        Event events = new Event(eventLocation, eventDuration, eventName, eventDate, eventCapacity, eventDescription, imageUrl, eventType, eventLink, mAuth.getCurrentUser().getUid().toString());
+        if (eventType.equals("Free")) {
             dbFreeEvents.add(events);
-        } else if(eventType.equals("Paid")){
+        } else if (eventType.equals("Paid")) {
             dbPaidEvents.add(events);
         }
         // below method is use to add data to Firebase Firestore.
@@ -216,12 +216,12 @@ public class EventCreationActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK){
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             imageView.setImageBitmap(imageBitmap);
             Log.i("imageBitmap", imageBitmap.toString());
-            this.imageUri= getImageUri(imageBitmap);
+            this.imageUri = getImageUri(imageBitmap);
         } else if (resultCode == RESULT_CANCELED) {
             // Handle the case where the user cancels taking a picture
             Toast.makeText(this, "Picture was not taken", Toast.LENGTH_SHORT).show();
@@ -235,7 +235,7 @@ public class EventCreationActivity extends AppCompatActivity {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
         String fileName = "IMG_" + System.currentTimeMillis() + ".jpg";
-        String path = MediaStore.Images.Media.insertImage(getContentResolver(), inImage, fileName,null);
+        String path = MediaStore.Images.Media.insertImage(getContentResolver(), inImage, fileName, null);
         return Uri.parse(path);
     }
 }
