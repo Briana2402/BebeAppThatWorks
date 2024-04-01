@@ -331,27 +331,42 @@ public class EventCreateFragment extends Fragment {
         UploadTask uploadTask = storageRef.putBytes(data);
 
         // Register observers to handle success, failure, and progress
-        uploadTask.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle upload failure
-                Toast.makeText(getContext(), "Image upload failed!", Toast.LENGTH_SHORT).show();
-            }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+        uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 // Get the download URL after successful upload
-                imageUrl = storageRef.getDownloadUrl().toString();
-                storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
-                {
+                storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
-                    public void onSuccess(Uri downloadUrl)
-                    {
+                    public void onSuccess(Uri downloadUrl) {
+                        imageUrl = downloadUrl.toString();  // Correct URL retrieval
                         Log.i("imageUrl", imageUrl);
+                        // Use the imageUrl to display or store in your app
                     }
                 });
             }
         });
+
+//        uploadTask.addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception exception) {
+//                // Handle upload failure
+//                Toast.makeText(getContext(), "Image upload failed!", Toast.LENGTH_SHORT).show();
+//            }
+//        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//            @Override
+//            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                // Get the download URL after successful upload
+//                imageUrl = storageRef.getDownloadUrl().toString();
+//                storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
+//                {
+//                    @Override
+//                    public void onSuccess(Uri downloadUrl)
+//                    {
+//                        Log.i("imageUrl", imageUrl);
+//                    }
+//                });
+//            }
+//        });
     }
 //    private String getImageUrl(Bitmap imageBitmap) {
 //        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
