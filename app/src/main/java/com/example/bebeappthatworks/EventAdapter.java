@@ -1,5 +1,7 @@
 package com.example.bebeappthatworks;
 
+import android.content.Context;
+import android.media.Image;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +10,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import com.example.bebeappthatworks.R;
 import com.example.bebeappthatworks.ui.eventCreation.Event;
@@ -36,7 +46,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     @Override
     public void onBindViewHolder(@NonNull EventViewHolder holder, int position) {
         Event event = eventList.get(position);
-        holder.mImageView.setImageResource(R.mipmap.ic_launcher_foreground);
+        //holder.mImageView.setImageResource(R.mipmap.ic_launcher_foreground);
+        setImage(event.getImageUrl(), holder.mImageView, holder.itemView.getContext());
         holder.mName.setText(event.getEventName());
         holder.mLocation.setText(event.getEventLocation());
         holder.mTime.setText(event.getEventTime());
@@ -54,6 +65,16 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
             }
         });
     }
+    private void setImage(String imageUrl, ImageView imageView, Context context) {
+        if (imageUrl==null){
+            Log.i("null", "IMAGEURL IS NULL");
+        } else {
+            Log.i("imageUrl:", imageUrl);
+        }
+        Glide.with(context)
+                .load(imageUrl)
+                .into(imageView);
+    }
 
     @Override
     public int getItemCount() {
@@ -69,6 +90,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         public final TextView mDescription;
         public final TextView mCapacity;
         public final TextView mDate;
+
+
 
         public EventViewHolder(@NonNull View itemView) {
             super(itemView);
