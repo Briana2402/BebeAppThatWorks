@@ -76,7 +76,7 @@ public class EventCreationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_event_creation);
+        setContentView(R.layout.fragment_event_create);
         eventLinkEdt = findViewById(R.id.linkPaid);
         eventLinkEdt.setVisibility(View.INVISIBLE);
 
@@ -100,11 +100,11 @@ public class EventCreationActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if (paidEvent.isChecked()) {
+                if(paidEvent.isChecked()){
                     eventType = "Paid";
                     eventLinkEdt.setVisibility(View.VISIBLE);
                 }
-                if (!paidEvent.isChecked()) {
+                if(!paidEvent.isChecked()) {
                     eventType = "Free";
                     eventLinkEdt.setVisibility(View.INVISIBLE);
                 }
@@ -125,14 +125,14 @@ public class EventCreationActivity extends AppCompatActivity {
                 eventLocation = eventLocationEdt.getText().toString();
                 eventCapacity = eventCapacityEdt.getText().toString();
 
-                if (paidEvent.isChecked()) {
+                if(paidEvent.isChecked()){
                     eventType = "Paid";
                 } else {
                     eventType = "Free";
                     eventLink = "";
                 }
 
-                if (eventType.equals("Paid")) {
+                if(eventType.equals("Paid")){
                     eventLink = eventLinkEdt.getText().toString();
                 }
 
@@ -167,6 +167,7 @@ public class EventCreationActivity extends AppCompatActivity {
         CollectionReference dbFreeEvents = db.collection("FreeEvents");
         CollectionReference dbPaidEvents = db.collection("PaidEvents");
         FirebaseAuth mAuth;
+
 
 
         mAuth = FirebaseAuth.getInstance();
@@ -238,4 +239,18 @@ public class EventCreationActivity extends AppCompatActivity {
         return Uri.parse(path);
     }
 }
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK){
+//            Bundle extras = data.getExtras();
+//            Bitmap imageBitmap = (Bitmap) extras.get("data");
+//            imageView.setImageBitmap(imageBitmap);
+//        } else if (resultCode == RESULT_CANCELED) {
+//            // Handle the case where the user cancels taking a picture
+//            Toast.makeText(this, "Picture was not taken", Toast.LENGTH_SHORT).show();
+//        } else {
+//            // Handle other cases, such as if there's an error
+//            Toast.makeText(this, "Failed to capture image", Toast.LENGTH_SHORT).show();
+//        }
+//}
 

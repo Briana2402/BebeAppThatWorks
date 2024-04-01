@@ -74,7 +74,7 @@ public class MyEventsFragment extends Fragment {
                 if(task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         myEvents.add(document.toObject(Event.class));
-                        Log.i("miauuu", "miau miau");
+                        //Log.i("miauuu", "miau miau");
                     }
 
                     if (view instanceof RecyclerView) {

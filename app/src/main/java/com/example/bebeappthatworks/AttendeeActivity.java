@@ -40,16 +40,19 @@ public class AttendeeActivity extends AppCompatActivity {
         binding = AttendeeLayoutBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        EventsFragment fragment = new EventsFragment();
-        replaceFragment(fragment);
+        //EventsFragment fragment = new EventsFragment();
+        replaceFragment(new EventsFragment());
+
+//        MyEventsAttendee myevents = new MyEventsAttendee();
+//        replaceFragment(myevents);
 
         binding.bottomNavView.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
 
             if (id == R.id.Events) {
-                replaceFragment(fragment);
+                replaceFragment(new EventsFragment());
             } else if (id == R.id.MyEvents) {
-                replaceFragment(new MyEventsFragment());
+                replaceFragment(new MyEventsAttendee());
             } else if (id == R.id.Notifications){
                 replaceFragment(new NotificationsFragment());
             } else if (id == R.id.Profile) {
