@@ -97,11 +97,11 @@ public class EventsFragment extends Fragment {
                                     @Override
                                     public void onItemClick(int count, Event event ) {
                                         // Handle item click here, e.g., launch details activity/fragment
-                                        SingleEventFree newEvent =  new SingleEventFree();
+                                        //SingleEventFree newEvent =  new SingleEventFree();
                                         if(Objects.equals(event.getEventType(), "Free")) {
-                                            RegisterForEvent register = new RegisterForEvent();
-                                            RegisterForEvent newRegister = register.newInstance(allEventsId.get(count));
-                                            Fragment fragment = newRegister;
+                                            SingleEventFree newEvent =  new SingleEventFree();
+                                            SingleEventFree newEventParam = newEvent.newInstance(allEventsId.get(count));
+                                            Fragment fragment = newEventParam;
 //                                            SingleEventFree newEventParam = newEvent.newInstance(allEventsId.get(count));
 //                                            Fragment fragment = newEventParam;
 //

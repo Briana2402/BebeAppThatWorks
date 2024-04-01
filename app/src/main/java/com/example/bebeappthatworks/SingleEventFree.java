@@ -10,16 +10,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.bebeappthatworks.ui.eventCreation.Event;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,6 +40,8 @@ public class SingleEventFree extends Fragment {
     private Event event;
 
     View view;
+
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     public List<Event> theEvent = new ArrayList<>();
 
@@ -89,6 +95,31 @@ public class SingleEventFree extends Fragment {
                     }
                 }
 
+            }
+        });
+
+        Button button = view.findViewById(R.id.registerFree);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Log.i("gets here", event_id.toString());
+                Map<String, String> data = new HashMap<>();
+                data.put("type", "registered");
+                //data.put("type of event", event_type);
+                db.collection("Attendees").document(mAuth.getCurrentUser().getUid()).collection("my events").document(eventID).set(data);
+            }
+        });
+
+        Button dereg = view.findViewById(R.id.deregisterFree);
+
+        dereg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Log.i("gets here", event_id.toString());
+                //Map<String, String> data = new HashMap<>();
+                //data.put("type", "deregistered");
+                //data.put("type of event", event_type);
+                db.collection("Attendees").document(mAuth.getCurrentUser().getUid()).collection("my events").document(eventID).delete();
             }
         });
         return view;

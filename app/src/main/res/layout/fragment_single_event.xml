@@ -13,5 +13,7 @@
     tools:context=".SingleEventFree"
     tools:showIn="@layout/layout_one_event">
 
+
+
 </androidx.recyclerview.widget.RecyclerView>
 

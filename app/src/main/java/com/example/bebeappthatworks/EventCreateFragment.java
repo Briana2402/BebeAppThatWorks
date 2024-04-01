@@ -40,7 +40,7 @@ import com.example.bebeappthatworks.MainActivity;
 import android.Manifest;
 import com.example.bebeappthatworks.R;
 import com.example.bebeappthatworks.ui.eventCreation.Event;
-import com.example.bebeappthatworks.ui.eventCreation.EventCreationActivity;
+//import com.example.bebeappthatworks.ui.eventCreation.EventCreationActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
