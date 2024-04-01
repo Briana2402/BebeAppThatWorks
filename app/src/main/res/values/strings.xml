@@ -32,6 +32,10 @@
     <string name="lorem_ipsum">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
         volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus
+        dui nec risus.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
+        volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus
+        dui nec risus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
+        volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus
         dui nec risus.
     </string>
     <string name="Enter_Event_name">Enter event name</string>
@@ -47,4 +51,8 @@
 
     <string name="more_details">More Details</string>
     <string name="title_activity_one_event">OneEventActivity</string>
+    <string name="event_link">Enter Event Link</string>
+    <string name="in_the_benining">begin your journey...</string>
+    <string name="mderegister">Deregister</string>
+    <string name="mregister">Register</string>
 </resources>

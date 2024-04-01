@@ -38,7 +38,7 @@ public class AttendeeActivity extends AppCompatActivity {
             if (id == R.id.Events) {
                 replaceFragment(fragment);
             } else if (id == R.id.MyEvents) {
-                replaceFragment(new MyEventsFragment());
+                replaceFragment(new OneEventFragment());
             } else if (id == R.id.Notifications){
                 replaceFragment(new NotificationsFragment());
             } else if (id == R.id.Profile) {
