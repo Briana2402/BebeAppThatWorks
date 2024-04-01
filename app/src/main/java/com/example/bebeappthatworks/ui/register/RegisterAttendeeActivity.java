@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.bebeappthatworks.AttendeeActivity;
 import com.example.bebeappthatworks.MainActivity;
 import com.example.bebeappthatworks.R;
 import com.example.bebeappthatworks.User;
@@ -106,6 +107,7 @@ private FirebaseFirestore db;
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /*
                 String email, password, confPass;
 
                 email = editTextEmail.getText().toString();
@@ -162,8 +164,10 @@ private FirebaseFirestore db;
                                 }
                             }
                         });
+                */
 
-
+                Intent intent = new Intent(RegisterAttendeeActivity.this, AttendeeActivity.class);
+                startActivity(intent);
 
             }
         });

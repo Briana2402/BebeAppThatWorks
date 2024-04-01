@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.bebeappthatworks.databinding.RegisterButtonBinding;
+import com.example.bebeappthatworks.databinding.OrganiserEventLayBinding;
 //import com.example.bebeappthatworks.placeholder.PlaceholderContent.PlaceholderItem;
 import com.example.bebeappthatworks.ui.eventCreation.Event;
 
@@ -20,7 +20,7 @@ import java.util.List;
  * {@link RecyclerView.Adapter} that can display a {@link Event}.
  * TODO: Replace the implementation with code for your data type.
  */
-public class OneEventRecyclerView extends RecyclerView.Adapter<OneEventRecyclerView.ViewHolder> {
+public class Recycler_View_noButtons extends RecyclerView.Adapter<Recycler_View_noButtons.ViewHolder> {
 
     private final List<Event> mValues;
     private Event event;
@@ -31,7 +31,7 @@ public class OneEventRecyclerView extends RecyclerView.Adapter<OneEventRecyclerV
         this.onItemClickListener = listener;
     }
 
-    public OneEventRecyclerView(List<Event> items) {
+    public Recycler_View_noButtons(List<Event> items) {
         this.mValues = items;
     }
 
@@ -40,7 +40,7 @@ public class OneEventRecyclerView extends RecyclerView.Adapter<OneEventRecyclerV
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        return new ViewHolder(RegisterButtonBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
+        return new ViewHolder(OrganiserEventLayBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
 
     }
 
@@ -68,6 +68,7 @@ public class OneEventRecyclerView extends RecyclerView.Adapter<OneEventRecyclerV
             }
         });
 
+
     }
 
     @Override
@@ -93,7 +94,7 @@ public class OneEventRecyclerView extends RecyclerView.Adapter<OneEventRecyclerV
         //public PlaceholderItem mItem;
 
 
-        public ViewHolder(@NonNull RegisterButtonBinding binding) {
+        public ViewHolder(@NonNull OrganiserEventLayBinding binding) {
             super(binding.getRoot());
             //mIdView = binding.itemNumber;
             mImageView = binding.content;

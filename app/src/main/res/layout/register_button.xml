@@ -6,26 +6,198 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@drawable/bg_with_stars"
-    tools:context=".OneEventActivity">
+    tools:context=".AttendeeActivity">
 
-
-    <Button
-        android:id="@+id/buttonRegister"
-        android:layout_height="48dp"
-        android:layout_marginTop="78dp"
-        android:layout_marginEnd="5dp"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginStart="150dp"
-        android:text="Register"
-        android:layout_width="136dp"/>
+        android:layout_marginStart="19dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="19dp"
+        app:cardBackgroundColor="@color/event_card"
+        app:cardCornerRadius="25dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="19dp"
+            android:layout_marginTop="19dp"
+            android:layout_marginEnd="19dp"
+            android:layout_marginBottom="19dp">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="19dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="15dp"
+                app:cardPreventCornerOverlap="false"
+                app:layout_constraintStart_toEndOf="@id/content"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:ignore="MissingConstraints">
+
+                <TextView
+                    android:id="@+id/date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/text_margin"
+                    android:textAppearance="?attr/textAppearanceListItem"
+                    android:textColor="@color/event_card"
+                    android:textSize="18sp" />
+
+            </androidx.cardview.widget.CardView>
+
+            <ImageView
+                android:id="@+id/content"
+                android:layout_width="315dp"
+                android:layout_height="193dp"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/text_margin"
+                android:scaleType="centerCrop"
+                android:textAppearance="?attr/textAppearanceListItem"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="MissingConstraints" />
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/text_margin"
+                android:paddingBottom="10dp"
+                android:textAppearance="?attr/textAppearanceListItem"
+                android:textColor="@color/white"
+                android:textSize="18dp"
+                app:layout_constraintStart_toEndOf="@id/content"
+                app:layout_constraintTop_toBottomOf="@+id/content" />
+
+            <ImageView
+                android:id="@+id/imageView8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/rocket"
+                app:layout_constraintBottom_toBottomOf="@+id/name"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/name"
+                app:layout_constraintVertical_bias="1.0" />
+
+            <TextView
+                android:id="@+id/location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/text_margin"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="@dimen/text_margin"
+                android:paddingBottom="10dp"
+                android:textAppearance="?attr/textAppearanceListItem"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/name" />
+
+            <ScrollView
+                android:id="@+id/scrollable"
+                android:layout_width="fill_parent"
+                android:layout_height="200dp"
+                android:fillViewport="true"
+                android:scrollbars="vertical"
+                app:layout_constraintStart_toEndOf="@id/location"
+                app:layout_constraintTop_toBottomOf="@+id/location">
+
+                <TextView
+                    android:id="@+id/description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/text_margin"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="@dimen/text_margin"
+                    android:textAppearance="?attr/textAppearanceListItem"
+                    android:textColor="@color/white" />
+            </ScrollView>
+
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/text_margin"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="@dimen/text_margin"
+                android:textAppearance="?attr/textAppearanceListItem"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toEndOf="@id/scrollable"
+                app:layout_constraintTop_toBottomOf="@+id/scrollable" />
+
+            <TextView
+                android:id="@+id/capacity"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
+                android:textAppearance="?attr/textAppearanceListItem"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/time" />
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/location"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/pula"
+                app:layout_constraintTop_toTopOf="@+id/pula" />
+
+            <Button
+                android:id="@+id/pula"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="#00FFFFFF"
+                android:text="."
+                android:textColor="@color/white"
+                android:onClick="openMaps"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 
     <Button
         android:id="@+id/buttonDeregister"
-        android:layout_height="48dp"
-        android:layout_marginTop="150dp"
-        android:layout_marginEnd="5dp"
-        android:layout_gravity="center"
-        android:layout_marginStart="150dp"
-        android:layout_width="136dp"
-        android:text="Deregister" />
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cardView2"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="20dp"
+        android:textSize="18dp"
+        android:text="@string/mderegister"
+        app:layout_constraintTop_toBottomOf="@+id/cardView2"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/buttonRegister"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/cardView2"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="20dp"
+        android:textSize="18dp"
+        android:layout_marginStart="220dp"
+        android:text="@string/register"
+        app:layout_constraintTop_toBottomOf="@+id/cardView2"
+        tools:ignore="MissingConstraints" />
+
 </RelativeLayout>

@@ -9,8 +9,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission
-        android:name="android.permission.READ_MEDIA_IMAGES"
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"
         tools:ignore="SelectedPhotoAccess" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -24,21 +23,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BebeAppThatWorks"
-        tools:targetApi="31">
-        <activity
-            android:name=".GuestActivity"
-            android:exported="false" />
+        tools:targetApi="31"
+        tools:ignore="ExtraText">
+
+        <meta-data android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyB_q-nv0OD-tMLjt1pSZkoCIall2p1l_1k" />
+
         <activity
             android:name=".OneEventActivity"
             android:exported="false"
             android:label="@string/title_activity_one_event"
             android:theme="@style/Theme.BebeAppThatWorks" />
-        <activity
-            android:name=".ui.SettingsAttendee"
-            android:exported="false" />
-        <activity
-            android:name=".SettingsOrganiser"
-            android:exported="false" />
         <activity
             android:name=".OrganiserActivity"
             android:exported="false" />
@@ -60,15 +57,26 @@
             android:name=".ui.register.RegisterAttendeeActivity"
             android:exported="false" />
         <activity
+            android:name=".SettingsAttendee"
+            android:exported="false" />
+        <activity
+            android:name=".SettingsOrganiser"
+            android:exported="false" />
+        <activity
+            android:name=".EventDefActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.login.LoginActivity"
             android:exported="true" />
+        <activity
+            android:name=".Map"
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="UniVerse">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

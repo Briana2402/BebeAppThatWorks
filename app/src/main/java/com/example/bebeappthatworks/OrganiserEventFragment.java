@@ -1,43 +1,43 @@
 package com.example.bebeappthatworks;
 
-import static com.google.android.gms.tasks.Tasks.await;
+        import static com.google.android.gms.tasks.Tasks.await;
 
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
+        import android.content.Context;
+        import android.content.Intent;
+        import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+        import androidx.annotation.NonNull;
+        import androidx.fragment.app.Fragment;
+        import androidx.fragment.app.FragmentManager;
+        import androidx.fragment.app.FragmentTransaction;
+        import androidx.navigation.NavController;
+        import androidx.navigation.Navigation;
+        import androidx.recyclerview.widget.GridLayoutManager;
+        import androidx.recyclerview.widget.LinearLayoutManager;
+        import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
+        import android.util.Log;
+        import android.view.LayoutInflater;
+        import android.view.View;
+        import android.view.ViewGroup;
+        import android.widget.Toast;
 
-import com.example.bebeappthatworks.ui.eventCreation.Event;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.example.bebeappthatworks.OneEventActivity;
+        import com.example.bebeappthatworks.ui.eventCreation.Event;
+        import com.google.android.gms.tasks.OnCompleteListener;
+        import com.google.android.gms.tasks.Task;
+        import com.google.firebase.firestore.FirebaseFirestore;
+        import com.google.firebase.firestore.QueryDocumentSnapshot;
+        import com.google.firebase.firestore.QuerySnapshot;
+        import com.example.bebeappthatworks.OneEventActivity;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+        import java.util.ArrayList;
+        import java.util.List;
+        import java.util.Objects;
 
 /**
  * A fragment representing a list of Items.
  */
-public class EventsFragment extends Fragment {
+public class OrganiserEventFragment extends Fragment {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -60,7 +60,7 @@ public class EventsFragment extends Fragment {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public EventsFragment() {
+    public OrganiserEventFragment() {
     }
 
 
@@ -91,17 +91,17 @@ public class EventsFragment extends Fragment {
                                 adapter = new EventAdapter(allEvents);
                                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                                 recyclerView.setAdapter(adapter);
-                               // recyclerView.setAdapter(new MyItemRecyclerViewAdapter(allEvents));
+                                // recyclerView.setAdapter(new MyItemRecyclerViewAdapter(allEvents));
 
                                 adapter.setOnItemClickListener(new EventAdapter.OnItemClickListener() {
                                     @Override
                                     public void onItemClick(int count, Event event ) {
                                         // Handle item click here, e.g., launch details activity/fragment
-                                        SingleEventFree newEvent =  new SingleEventFree();
+                                        OneEventFragment newEvent =  new OneEventFragment();
                                         if(Objects.equals(event.getEventType(), "Free")) {
                                             //SingleEventFree register = new SingleEventFree();
-                                            SingleEventFree newRegister = newEvent.newInstance(allEventsId.get(count));
-                                            SingleEventFree fragment = newRegister;
+                                            OneEventFragment newRegister = newEvent.newInstance(allEventsId.get(count));
+                                            OneEventFragment fragment = newRegister;
 //                                            SingleEventFree newEventParam = newEvent.newInstance(allEventsId.get(count));
 //                                            Fragment fragment = newEventParam;
 //
@@ -134,10 +134,6 @@ public class EventsFragment extends Fragment {
                                             fragmentTransaction.commit();
                                         }
 
-
-
-
-
                                     }
                                 });
                             }
@@ -147,4 +143,5 @@ public class EventsFragment extends Fragment {
                 });
         return view;
     }
+
 }

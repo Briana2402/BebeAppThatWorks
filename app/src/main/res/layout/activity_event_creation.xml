@@ -52,8 +52,6 @@
             android:id="@+id/button_capture"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:text="."
-            android:textColor="#1F1650"
             android:layout_marginStart="280dp"
             android:layout_marginTop="180dp"
             android:background="#00FFFFFF"
@@ -93,13 +91,13 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp"
+            android:paddingTop="15dp"
             android:paddingBottom="2dp">
 
             <EditText
                 android:id="@+id/idEdtEventName"
                 android:layout_width="300dp"
-                android:layout_height="50dp"
+                android:layout_height="38dp"
                 android:background="#9A8FAF"
                 android:hint="@string/Enter_Event_name"
                 android:imeActionLabel="@string/action_sign_in_short"
@@ -113,7 +111,7 @@
             <EditText
                 android:id="@+id/idEdtEventLocation"
                 android:layout_width="300dp"
-                android:layout_height="50dp"
+                android:layout_height="38dp"
                 android:layout_marginTop="10dp"
                 android:background="#9A8FAF"
                 android:hint="@string/Enter_Event_location"
@@ -127,7 +125,7 @@
             <EditText
                 android:id="@+id/idEdtEventDuration"
                 android:layout_width="300dp"
-                android:layout_height="50dp"
+                android:layout_height="40dp"
                 android:layout_marginTop="10dp"
                 android:background="#9A8FAF"
                 android:hint="@string/Enter_Event_duration"
@@ -140,7 +138,7 @@
             <EditText
                 android:id="@+id/idEdtEventCapacity"
                 android:layout_width="300dp"
-                android:layout_height="50dp"
+                android:layout_height="40dp"
                 android:layout_marginTop="10dp"
                 android:background="#9A8FAF"
                 android:hint="@string/Enter_Event_capacity"
@@ -153,7 +151,7 @@
             <EditText
                 android:id="@+id/idEdtEventDate"
                 android:layout_width="300dp"
-                android:layout_height="50dp"
+                android:layout_height="40dp"
                 android:layout_marginTop="10dp"
                 android:background="#9A8FAF"
                 android:hint="@string/Enter_Event_date"
@@ -166,7 +164,7 @@
             <EditText
                 android:id="@+id/idEdtEventDescription"
                 android:layout_width="300dp"
-                android:layout_height="50dp"
+                android:layout_height="40dp"
                 android:layout_marginTop="10dp"
                 android:background="#9A8FAF"
                 android:hint="@string/Enter_Event_description"
@@ -179,7 +177,7 @@
             <EditText
                 android:id="@+id/linkPaid"
                 android:layout_width="300dp"
-                android:layout_height="50dp"
+                android:layout_height="40dp"
                 android:layout_marginTop="10dp"
                 android:background="#9A8FAF"
                 android:hint="@string/event_link"
