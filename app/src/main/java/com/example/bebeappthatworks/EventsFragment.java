@@ -116,16 +116,16 @@ public class EventsFragment extends Fragment {
                                             fragmentTransaction.addToBackStack(null);
                                             fragmentTransaction.commit();
                                         } else {
-                                            InterestedInEvent interested = new InterestedInEvent();
-                                            InterestedInEvent newInterest = interested.newInstance(allEventsId.get(count));
-                                            Fragment fragment = newInterest;
-                                            //SingleEventFree newEventParam = newEvent.newInstance(allEventsId.get(count));
-                                            //Fragment fragment = newEventParam;
-
-                                            //Toast.makeText(getActivity(), "Clicked on event: " + event.getEventName(), Toast.LENGTH_SHORT).show();
-                                            //adapter.getItemCount();
-//                                            Log.i("test",String.valueOf(count));
-//                                            Log.i("testID",String.valueOf(allEventsId.get(count)));
+                                            SingleEventPaid newEvent =  new SingleEventPaid();
+                                            SingleEventPaid newEventParam = newEvent.newInstance(allEventsId.get(count));
+                                            Fragment fragment = newEventParam;
+//                                            SingleEventFree newEventParam = newEvent.newInstance(allEventsId.get(count));
+//                                            Fragment fragment = newEventParam;
+//
+//                                            Toast.makeText(getActivity(), "Clicked on event: " + event.getEventName(), Toast.LENGTH_SHORT).show();
+//                                            //adapter.getItemCount();
+//                                            Log.i("test",event.getEventType());
+//                                            //Log.i("testID",String.valueOf(allEventsId.get(count)));
 
                                             FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                                             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
