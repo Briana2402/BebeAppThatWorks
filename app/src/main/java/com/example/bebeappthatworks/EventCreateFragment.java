@@ -154,7 +154,7 @@ public class EventCreateFragment extends Fragment {
         eventLinkEdt = view.findViewById(R.id.linkPaid);
         eventLinkEdt.setVisibility(View.INVISIBLE);
 
-        imageView = view.findViewById(R.id.cover_image);
+        imageView = view.findViewById(R.id.event_cover);
         // getting our instance
         // from Firebase Firestore.
         db = FirebaseFirestore.getInstance();
@@ -169,7 +169,7 @@ public class EventCreateFragment extends Fragment {
         eventDateEdt = view.findViewById(R.id.idEdtEventDate);
         submitEventBtn = view.findViewById(R.id.idBtnSubmitEvent);
         CheckBox paidEvent = (CheckBox) view.findViewById(R.id.checkBox);
-        captureImageButton = view.findViewById(R.id.event_cover);
+        captureImageButton = view.findViewById(R.id.button_capture);
 
         paidEvent.setOnClickListener(new View.OnClickListener() {
             @Override

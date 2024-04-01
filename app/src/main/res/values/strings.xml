@@ -55,4 +55,6 @@
     <string name="in_the_benining">begin your journey...</string>
     <string name="mderegister">Deregister</string>
     <string name="mregister">Register</string>
+    <string name="edelete">Delete event</string>
+    <string name="esave">Save event</string>
 </resources>

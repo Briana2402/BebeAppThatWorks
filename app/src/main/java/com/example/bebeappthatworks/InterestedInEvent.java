@@ -3,17 +3,26 @@ package com.example.bebeappthatworks;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.bebeappthatworks.ui.eventCreation.Event;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -33,7 +42,8 @@ public class InterestedInEvent extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     //private String mParam2;
-    String event_id;
+    public String eventID;
+    public List<Event> theEvent = new ArrayList<>();
     private String ARGM1 = "param1";
     View view;
 
@@ -65,7 +75,7 @@ public class InterestedInEvent extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            event_id = getArguments().getString(ARGM1);
+            eventID = getArguments().getString(ARGM1);
             //mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
@@ -74,17 +84,38 @@ public class InterestedInEvent extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_interested_in_event, container, false);
-
+        view = inflater.inflate(R.layout.interested_event_recycler, container, false);
         Button button = view.findViewById(R.id.buttonInterested);
-        button.setOnClickListener(new View.OnClickListener() {
+
+        DocumentReference docRef = db.collection("Events").document(eventID);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
-            public void onClick(View view) {
-                //Log.i("gets here", event_id.toString());
-                Map<String, String> data = new HashMap<>();
-                data.put("type", "interested");
-                //data.put("type of event", event_type);
-                db.collection("Attendees").document(mAuth.getCurrentUser().getUid()).collection("my events").document(event_id).set(data);
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    theEvent.add(document.toObject(Event.class));
+
+                    /*
+                    button.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            //Log.i("gets here", event_id.toString());
+                            Map<String, String> data = new HashMap<>();
+                            data.put("type", "interested");
+                            //data.put("type of event", event_type);
+                            db.collection("Attendees").document(mAuth.getCurrentUser().getUid())
+                                    .collection("my events").document(eventID).set(data);
+                        }
+                    });
+
+                     */
+
+                    if (view instanceof RecyclerView) {
+                        RecyclerView recyclerView = (RecyclerView) view;
+                        recyclerView.setAdapter(new RecyclerViewOrganiser(theEvent));
+                    }
+                }
+
             }
         });
 

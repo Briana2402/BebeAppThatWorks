@@ -1,69 +1,98 @@
 package com.example.bebeappthatworks;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
 import com.example.bebeappthatworks.ui.eventCreation.Event;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link SingleEventFree#newInstance} factory method to
+ * create an instance of this fragment.
+ */
 public class OneEventFragment extends Fragment {
 
-    public final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static String ARGM1 = "param1";
+    public String eventID;
 
-    public List<Event> allEvents = new ArrayList<>();
-    public List<Event> theEvent = new ArrayList<>();
+    private Event event;
 
     View view;
 
+    public List<Event> theEvent = new ArrayList<>();
+
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
     public OneEventFragment() {
+        // Required empty public constructor
     }
 
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1
+     * @return A new instance of fragment SingleEvent.
+     */
+    // TODO: Rename and change types and number of parameters
+    public OneEventFragment newInstance(String param1) {
+        OneEventFragment fragment = new OneEventFragment();
+        Bundle args = new Bundle();
+        args.putString(ARGM1, param1);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        //Log.i("TEROG",ARGM1);
         super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            eventID = getArguments().getString(ARGM1);
+        }
+        //Log.i("TEROG",eventID);
 
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.register_button, container, false);
+        // Inflate the layout for this fragment
+        view = inflater.inflate(R.layout.organiser_event_recycler, container, false);
 
-        db.collection("Events")
-                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                allEvents.add(document.toObject(Event.class));
-                            }
-                            theEvent.add(allEvents.get(0));
-                            if (view instanceof RecyclerView) {
-                                RecyclerView recyclerView = (RecyclerView) view;
-                                recyclerView.setAdapter(new OneEventRecyclerView(theEvent));
-                            }
+        DocumentReference docRef = db.collection("Events").document(eventID);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    theEvent.add(document.toObject(Event.class));
 
-                        }
+                    if (view instanceof RecyclerView) {
+                        RecyclerView recyclerView = (RecyclerView) view;
+                        recyclerView.setAdapter(new Recycler_View_noButtons(theEvent));
                     }
-                });
+                }
 
-
+            }
+        });
         return view;
     }
-
-
 }

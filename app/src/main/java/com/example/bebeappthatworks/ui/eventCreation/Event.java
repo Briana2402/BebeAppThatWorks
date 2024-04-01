@@ -25,6 +25,8 @@ public class Event {
 
     private String creator_id;
 
+
+
     public Event() {
         // empty constructor
         // required for Firebase.
