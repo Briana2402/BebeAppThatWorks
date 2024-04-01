@@ -156,16 +156,16 @@
                 android:src="@drawable/location"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/button3"
-                app:layout_constraintTop_toTopOf="@+id/button3" />
+                app:layout_constraintStart_toStartOf="@+id/pula"
+                app:layout_constraintTop_toTopOf="@+id/pula" />
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/pula"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:background="#00FFFFFF"
-                android:text="df"
-                android:textColor="#00FFFFFF"
+                android:text="."
+                android:textColor="@color/white"
                 android:onClick="openMaps"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
