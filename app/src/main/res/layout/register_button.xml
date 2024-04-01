@@ -164,6 +164,8 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:background="#00FFFFFF"
+                android:text="df"
+                android:textColor="#00FFFFFF"
                 android:onClick="openMaps"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
