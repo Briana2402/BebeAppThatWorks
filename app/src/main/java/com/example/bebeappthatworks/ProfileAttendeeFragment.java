@@ -56,7 +56,7 @@ public class ProfileAttendeeFragment extends Fragment {
     private static final int REQUEST_IMAGE_CAPTURE = 2;
     private ImageView profile_pic;
     private String imageUrl;
-    private Button captureImageButton;
+    private Button profilepicBtn;
     private FirebaseFirestore db;
 
     private FirebaseAuth mAuth;
@@ -102,7 +102,7 @@ public class ProfileAttendeeFragment extends Fragment {
 
         Button myButton = view.findViewById(R.id.LOGOUTBUTTONATTENDEE);
         profile_pic = view.findViewById(R.id.imageView4);
-        captureImageButton = view.findViewById(R.id.button_capture);
+        profilepicBtn = view.findViewById(R.id.addprofilepic);
         myButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -137,7 +137,7 @@ public class ProfileAttendeeFragment extends Fragment {
             }
         });
 
-        captureImageButton.setOnClickListener(new View.OnClickListener() {
+        profilepicBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Call your captureImage method or perform your action here
