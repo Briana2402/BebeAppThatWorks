@@ -16,7 +16,6 @@
         android:layout_marginStart="19dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="19dp"
-        android:layout_marginBottom="19dp"
         app:cardBackgroundColor="@color/event_card"
         app:cardCornerRadius="25dp">
 
@@ -63,7 +62,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="MissingConstraints"/>
+                tools:ignore="MissingConstraints" />
 
             <TextView
                 android:id="@+id/name"
@@ -108,8 +107,8 @@
                 android:id="@+id/scrollable"
                 android:layout_width="fill_parent"
                 android:layout_height="200dp"
-                android:scrollbars="vertical"
                 android:fillViewport="true"
+                android:scrollbars="vertical"
                 app:layout_constraintStart_toEndOf="@id/location"
                 app:layout_constraintTop_toBottomOf="@+id/location">
 
@@ -122,8 +121,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="@dimen/text_margin"
                     android:textAppearance="?attr/textAppearanceListItem"
-                    android:textColor="@color/white"
-                     />
+                    android:textColor="@color/white" />
             </ScrollView>
 
 
@@ -145,8 +143,8 @@
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="10dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
                 android:textAppearance="?attr/textAppearanceListItem"
                 android:textColor="@color/white"
                 app:layout_constraintStart_toStartOf="parent"
