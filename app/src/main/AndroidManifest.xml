@@ -60,12 +60,6 @@
             android:name=".ui.register.RegisterAttendeeActivity"
             android:exported="false" />
         <activity
-            android:name=".SettingsAttendee"
-            android:exported="false" />
-        <activity
-            android:name=".SettingsOrganiser"
-            android:exported="false" />
-        <activity
             android:name=".ui.login.LoginActivity"
             android:exported="true" />
         <activity

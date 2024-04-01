@@ -1,44 +1,57 @@
 package com.example.bebeappthatworks;
 
-import android.os.Bundle;
-import android.view.Window;
-import android.view.WindowManager;
+import static com.google.android.gms.tasks.Tasks.await;
 
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-public class GuestActivity extends AppCompatActivity {
-    com.example.bebeappthatworks.databinding.ActivityGuestBinding binding;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.example.bebeappthatworks.databinding.GuestLayoutBinding;
+import com.example.bebeappthatworks.databinding.OrganiserLayoutBinding;
+import com.example.bebeappthatworks.ui.eventCreation.Event;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.example.bebeappthatworks.OneEventActivity;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * A fragment representing a list of Items.
+ */
+public class GuestActivity extends OrganiserActivity {
+
+    GuestLayoutBinding binding;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.guest_layout); // Set the layout file for this activity
-
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-
-        binding = com.example.bebeappthatworks.databinding.ActivityGuestBinding.inflate(getLayoutInflater());
+        binding = GuestLayoutBinding.inflate(getLayoutInflater());
+        //EdgeToEdge.enable(this);
         setContentView(binding.getRoot());
 
-        GuestFragment fragment = new GuestFragment();
-        replaceFragment(fragment);
+
 
     }
 
-    public void replaceFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.navigation_host_fragment_content_main, fragment);
-        fragmentTransaction.commit();
-
-    }
 
 }
