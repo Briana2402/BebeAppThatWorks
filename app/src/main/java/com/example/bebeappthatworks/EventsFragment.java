@@ -99,9 +99,9 @@ public class EventsFragment extends Fragment {
                                         // Handle item click here, e.g., launch details activity/fragment
                                         SingleEventFree newEvent =  new SingleEventFree();
                                         if(Objects.equals(event.getEventType(), "Free")) {
-                                            RegisterForEvent register = new RegisterForEvent();
-                                            RegisterForEvent newRegister = register.newInstance(allEventsId.get(count));
-                                            Fragment fragment = newRegister;
+                                            //SingleEventFree register = new SingleEventFree();
+                                            SingleEventFree newRegister = newEvent.newInstance(allEventsId.get(count));
+                                            SingleEventFree fragment = newRegister;
 //                                            SingleEventFree newEventParam = newEvent.newInstance(allEventsId.get(count));
 //                                            Fragment fragment = newEventParam;
 //

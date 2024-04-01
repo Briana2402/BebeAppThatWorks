@@ -62,12 +62,12 @@ public class SingleEventFree extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Log.i("TEROG",ARGM1);
+        //Log.i("TEROG",ARGM1);
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            eventID = getArguments().getString(ARGM1);
-        }
-        Log.i("TEROG",eventID);
+        //if (getArguments() != null) {
+        eventID = getArguments().getString(ARGM1);
+        //}
+        //Log.i("TEROG",eventID);
 
     }
 
@@ -76,7 +76,7 @@ public class SingleEventFree extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_single_event, container, false);
-        DocumentReference docRef = db.collection("Events").document(eventID.toString());
+        DocumentReference docRef = db.collection("Events").document(eventID);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
