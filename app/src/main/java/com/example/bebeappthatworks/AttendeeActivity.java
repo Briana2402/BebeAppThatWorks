@@ -62,7 +62,7 @@ public class AttendeeActivity extends AppCompatActivity {
     }
 
     public void buttonPlease(View v) {
-        Intent intent = new Intent(AttendeeActivity.this, OneEventActivity.class);
+        Intent intent = new Intent(this, EventDefActivity.class);
         startActivity(intent);
     }
 

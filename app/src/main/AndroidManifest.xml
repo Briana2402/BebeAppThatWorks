@@ -63,8 +63,14 @@
             android:name=".SettingsOrganiser"
             android:exported="false" />
         <activity
+            android:name=".EventDefActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.login.LoginActivity"
             android:exported="true" />
+        <activity
+            android:name=".Map"
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
