@@ -40,7 +40,6 @@ public class OneEventActivity extends AppCompatActivity {
 
         OneEventFragment fragment = new OneEventFragment();
         replaceFragment(fragment);
-
     }
 
     public void replaceFragment(Fragment fragment) {
@@ -48,7 +47,6 @@ public class OneEventActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.navigation_one_event_fragment, fragment);
         fragmentTransaction.commit();
-
     }
 
 }

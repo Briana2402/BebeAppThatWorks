@@ -68,7 +68,6 @@ public class OneEventRecyclerView extends RecyclerView.Adapter<OneEventRecyclerV
             }
         });
 
-
     }
 
     @Override
