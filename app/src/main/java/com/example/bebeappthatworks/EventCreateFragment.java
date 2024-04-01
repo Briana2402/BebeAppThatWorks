@@ -1,29 +1,67 @@
 package com.example.bebeappthatworks;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Bundle;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import android.app.Activity;
+
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.util.Log;
+import android.view.View;
 import android.text.TextUtils;
+import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import com.example.bebeappthatworks.MainActivity;
+import android.Manifest;
+import com.example.bebeappthatworks.R;
 import com.example.bebeappthatworks.ui.eventCreation.Event;
+import com.example.bebeappthatworks.ui.eventCreation.EventCreationActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Objects;
+import java.util.UUID;
+
+import com.example.bebeappthatworks.R;
+import com.example.bebeappthatworks.forgotPassword.ForgotPasswordActivity;
+import com.example.bebeappthatworks.ui.login.LoginActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.storage.UploadTask;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -49,9 +87,7 @@ public class EventCreateFragment extends Fragment {
 
     // creating variable for button
     private Button submitEventBtn;
-
-    private Button captureCoverBtn;
-
+    private Button captureImageButton;
     private CheckBox paidEvent;
 
     // creating a strings for storing
@@ -67,6 +103,7 @@ public class EventCreateFragment extends Fragment {
     private static final int REQUEST_IMAGE_CAPTURE = 2;
 
     private ImageView imageView;
+    private Uri imageUri;
 
     /**
      * Use this factory method to create a new instance of
@@ -107,7 +144,13 @@ public class EventCreateFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_event_create, container, false);
 
-        super.onCreate(savedInstanceState);
+//        super.onCreate(savedInstanceState);
+//        if (savedInstanceState == null) {
+//            getFragmentManager().beginTransaction()
+//                    .setReorderingAllowed(true)
+//                    .add(R.id.camera_fragment, use_camera.class, null)
+//                    .commit();
+//        }
         eventLinkEdt = view.findViewById(R.id.linkPaid);
         eventLinkEdt.setVisibility(View.INVISIBLE);
 
@@ -125,8 +168,8 @@ public class EventCreateFragment extends Fragment {
         eventDurationEdt = view.findViewById(R.id.idEdtEventDuration);
         eventDateEdt = view.findViewById(R.id.idEdtEventDate);
         submitEventBtn = view.findViewById(R.id.idBtnSubmitEvent);
-        captureCoverBtn = view.findViewById(R.id.button_capture);
         CheckBox paidEvent = (CheckBox) view.findViewById(R.id.checkBox);
+        captureImageButton = view.findViewById(R.id.event_cover);
 
         paidEvent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -183,12 +226,20 @@ public class EventCreateFragment extends Fragment {
                         eventDateEdt.setError("Please enter Event Date");
                     } else {
                         // calling method to add data to Firebase Firestore.
+                        Log.i("imageUrl", imageUrl);
                         addDataToFirestore(eventName, eventDescription, eventDuration, eventDate, eventLocation, eventCapacity,imageUrl, eventType, eventLink, creator);
                     }
                 }
             }
         });
 
+        captureImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Call your captureImage method or perform your action here
+                captureImage(v);
+            }
+        });
         return view;
     }
 
@@ -227,65 +278,88 @@ public class EventCreateFragment extends Fragment {
         });
     }
 
+    public void captureImage(View view) {
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA_PERMISSION_CODE);
+            return;
+        }
 
-//
-//    public void captureImage(View view) {
-//        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-//                != PackageManager.PERMISSION_GRANTED) {
-//            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA},
-//                    REQUEST_CAMERA_PERMISSION_CODE);
-//            return;
-//        }
-//
-//        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//
-//        startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
-//    }
-//
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
-//            try {
-//                assert data != null;
-//                Uri imageUri = data.getData();
-//                Bitmap imageBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
-//                imageView.setImageBitmap(imageBitmap);
-//                // Save the full-size image to a file
-//                saveImageToFile(imageBitmap);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//                Toast.makeText(this, "Failed to load image", Toast.LENGTH_SHORT).show();
-//            }
-//
-//        } else if (resultCode == RESULT_CANCELED) {
-//            // Handle the case where the user cancels taking a picture
-//            Toast.makeText(this, "Picture was not taken", Toast.LENGTH_SHORT).show();
-//        } else {
-//            // Handle other cases, such as if there's an error
-//            Toast.makeText(this, "Failed to capture image", Toast.LENGTH_SHORT).show();
-//        }
-//    }
-//
-//    private void saveImageToFile(Bitmap bitmap) {
-//        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-//        imageUrl = null;
-//        if (storageDir != null) {
-//            String fileName = "IMG_" + System.currentTimeMillis() + ".jpg";
-//            System.out.print(fileName);
-//            File imageFile = new File(storageDir, fileName);
-//            try {
-//                FileOutputStream fos = new FileOutputStream(imageFile);
-//                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-//                fos.close();
-//                imageUrl = imageFile.getAbsolutePath(); // Get the file URI
-//                System.out.print(imageUrl);
-//                Toast.makeText(this, "Image saved: " + imageUrl, Toast.LENGTH_SHORT).show();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//                Toast.makeText(this, "Failed to save image", Toast.LENGTH_SHORT).show();
-//            }
-//        }
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
+            if (data != null && data.getExtras() != null) {
+                Bundle extras = data.getExtras();
+                Bitmap imageBitmap = (Bitmap) extras.get("data");
+                //Uri imageUri = data.getData();
+                //Bitmap imageBitmap = (Bitmap) data.getExtras().get("data");
+                if (imageBitmap != null) {
+                    imageView.setImageBitmap(imageBitmap);
+                    uploadImageToFirebase(imageBitmap);
+                    // Save the full-size image to a file
+                } else {
+                    Toast.makeText(getContext(), "Failed to load image", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(getContext(), "Failed to capture image", Toast.LENGTH_SHORT).show();
+            }
+        } else if (resultCode == Activity.RESULT_CANCELED) {
+            // Handle the case where the user cancels taking a picture
+            Toast.makeText(getContext(), "Picture was not taken", Toast.LENGTH_SHORT).show();
+        } else {
+            // Handle other cases, such as if there's an error
+            Toast.makeText(getContext(), "Failed to capture image", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    private void uploadImageToFirebase(Bitmap imageBitmap) {
+        // Firebase Storage reference
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference("images/" + UUID.randomUUID().toString());
+
+        // Convert Bitmap to byte array
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] data = baos.toByteArray();
+
+        // Upload task
+        UploadTask uploadTask = storageRef.putBytes(data);
+
+        // Register observers to handle success, failure, and progress
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle upload failure
+                Toast.makeText(getContext(), "Image upload failed!", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                // Get the download URL after successful upload
+                imageUrl = storageRef.getDownloadUrl().toString();
+                storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
+                {
+                    @Override
+                    public void onSuccess(Uri downloadUrl)
+                    {
+                        Log.i("imageUrl", imageUrl);
+                    }
+                });
+            }
+        });
+    }
+//    private String getImageUrl(Bitmap imageBitmap) {
+//        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+//        imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+//        String fileName = "IMG_" + System.currentTimeMillis() + ".jpg";
+//        String path = MediaStore.Images.Media.insertImage(requireContext().getContentResolver(),
+//                imageBitmap, fileName,null);
+//        Uri uri = Uri.parse(path);
+//        return uri.toString();
 //    }
 }

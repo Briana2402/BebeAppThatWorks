@@ -1,13 +1,15 @@
 package com.example.bebeappthatworks;
 
+import android.content.Context;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.example.bebeappthatworks.ui.eventCreation.Event;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -19,16 +21,28 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OneEventFragment extends Fragment {
+/**
+ * create an instance of this fragment.
+ */
+public class GuestFragment extends Fragment {
+
+    // TODO: Customize parameter argument names
+    private static final String ARG_COLUMN_COUNT = "column-count";
+    // TODO: Customize parameters
+    private int mColumnCount = 1;
 
     public final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public List<Event> allEvents = new ArrayList<>();
-    public List<Event> theEvent = new ArrayList<>();
+
 
     View view;
 
-    public OneEventFragment() {
+    /**
+     * Mandatory empty constructor for the fragment manager to instantiate the
+     * fragment (e.g. upon screen orientation changes).
+     */
+    public GuestFragment() {
     }
 
 
@@ -41,8 +55,9 @@ public class OneEventFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.register_button, container, false);
+        view = inflater.inflate(R.layout.fragment_events_list, container, false);
 
+        // Set the adapter
         db.collection("Events")
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -51,19 +66,15 @@ public class OneEventFragment extends Fragment {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 allEvents.add(document.toObject(Event.class));
                             }
-                            theEvent.add(allEvents.get(0));
                             if (view instanceof RecyclerView) {
+                                Context context = view.getContext();
                                 RecyclerView recyclerView = (RecyclerView) view;
-                                recyclerView.setAdapter(new OneEventRecyclerView(theEvent));
+                                recyclerView.setAdapter(new MyItemRecyclerViewAdapter(allEvents));
                             }
 
                         }
                     }
                 });
-
-
         return view;
     }
-
-
 }

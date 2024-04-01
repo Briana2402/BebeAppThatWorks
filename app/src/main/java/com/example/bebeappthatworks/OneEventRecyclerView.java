@@ -4,11 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.bebeappthatworks.databinding.LayoutOneEventBinding;
+import com.example.bebeappthatworks.databinding.RegisterButtonBinding;
 //import com.example.bebeappthatworks.placeholder.PlaceholderContent.PlaceholderItem;
 import com.example.bebeappthatworks.ui.eventCreation.Event;
 
@@ -24,8 +25,14 @@ public class OneEventRecyclerView extends RecyclerView.Adapter<OneEventRecyclerV
     private final List<Event> mValues;
     private Event event;
 
+    private OnItemClickListener onItemClickListener;
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.onItemClickListener = listener;
+    }
+
     public OneEventRecyclerView(List<Event> items) {
-        mValues = items;
+        this.mValues = items;
     }
 
 
@@ -33,7 +40,7 @@ public class OneEventRecyclerView extends RecyclerView.Adapter<OneEventRecyclerV
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        return new ViewHolder(LayoutOneEventBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
+        return new ViewHolder(RegisterButtonBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
 
     }
 
@@ -52,12 +59,25 @@ public class OneEventRecyclerView extends RecyclerView.Adapter<OneEventRecyclerV
         holder.mDescription.setText(event.getEventDescription());
         holder.mCapacity.setText(event.getEventMaxCapacity());
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onItemClickListener != null) {
+                    onItemClickListener.onItemClick(event);
+                }
+            }
+        });
+
 
     }
 
     @Override
     public int getItemCount() {
         return mValues.size();
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(Event event);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -74,7 +94,7 @@ public class OneEventRecyclerView extends RecyclerView.Adapter<OneEventRecyclerV
         //public PlaceholderItem mItem;
 
 
-        public ViewHolder(@NonNull LayoutOneEventBinding binding) {
+        public ViewHolder(@NonNull RegisterButtonBinding binding) {
             super(binding.getRoot());
             //mIdView = binding.itemNumber;
             mImageView = binding.content;

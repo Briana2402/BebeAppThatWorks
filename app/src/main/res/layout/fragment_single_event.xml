@@ -10,7 +10,8 @@
     android:layout_marginRight="0dp"
     app:layoutManager="LinearLayoutManager"
     android:background="@drawable/bg_with_stars"
-    tools:context=".OneEventActivity"
+    tools:context=".SingleEventFree"
     tools:showIn="@layout/register_button">
 
 </androidx.recyclerview.widget.RecyclerView>
+

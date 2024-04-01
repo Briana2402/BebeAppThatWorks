@@ -1,25 +1,41 @@
 package com.example.bebeappthatworks;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.bebeappthatworks.R;
-import com.example.bebeappthatworks.forgotPassword.ForgotPasswordActivity;
-import com.example.bebeappthatworks.ui.login.LoginActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.UUID;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,9 +51,12 @@ public class ProfileAttendeeFragment extends Fragment {
 
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private static final int REQUEST_CAMERA_PERMISSION_CODE = 1;
 
+    private static final int REQUEST_IMAGE_CAPTURE = 2;
+    private ImageView profile_pic;
+    private String imageUrl;
+    private Button profilepicBtn;
     private FirebaseFirestore db;
 
     private FirebaseAuth mAuth;
@@ -68,12 +87,9 @@ public class ProfileAttendeeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-
-
+//        if (getArguments() != null) {
+//            mParam1 = getArguments().getString(ARG_PARAM1);
+//        }
 
     }
 
@@ -85,6 +101,8 @@ public class ProfileAttendeeFragment extends Fragment {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
         Button myButton = view.findViewById(R.id.LOGOUTBUTTONATTENDEE);
+        profile_pic = view.findViewById(R.id.imageView4);
+        profilepicBtn = view.findViewById(R.id.addprofilepic);
         myButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -119,6 +137,99 @@ public class ProfileAttendeeFragment extends Fragment {
             }
         });
 
+        profilepicBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Call your captureImage method or perform your action here
+                captureImage(v);
+            }
+        });
+        ImageView settingsButtonAttendee = (ImageView) view.findViewById(R.id.SettingsAttendee);
+        settingsButtonAttendee.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(), SettingsAttendee.class);
+                startActivity(i);
+            }
+        });
+
         return view;
     }
+
+    public void captureImage(View view) {
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA_PERMISSION_CODE);
+            return;
+        }
+
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK) {
+            if (data != null && data.getExtras() != null) {
+                Bundle extras = data.getExtras();
+                Bitmap imageBitmap = (Bitmap) extras.get("data");
+                //Uri imageUri = data.getData();
+                //Bitmap imageBitmap = (Bitmap) data.getExtras().get("data");
+                if (imageBitmap != null) {
+                    profile_pic.setImageBitmap(imageBitmap);
+                    uploadImageToFirebase(imageBitmap);
+                    // Save the full-size image to a file
+                } else {
+                    Toast.makeText(getContext(), "Failed to load image", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(getContext(), "Failed to capture image", Toast.LENGTH_SHORT).show();
+            }
+        } else if (resultCode == Activity.RESULT_CANCELED) {
+            // Handle the case where the user cancels taking a picture
+            Toast.makeText(getContext(), "Picture was not taken", Toast.LENGTH_SHORT).show();
+        } else {
+            // Handle other cases, such as if there's an error
+            Toast.makeText(getContext(), "Failed to capture image", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    private void uploadImageToFirebase(Bitmap imageBitmap) {
+        // Firebase Storage reference
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference("images/" + UUID.randomUUID().toString());
+
+        // Convert Bitmap to byte array
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] data = baos.toByteArray();
+
+        // Upload task
+        UploadTask uploadTask = storageRef.putBytes(data);
+
+        // Register observers to handle success, failure, and progress
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle upload failure
+                Toast.makeText(getContext(), "Image upload failed!", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                // Get the download URL after successful upload
+                imageUrl = storageRef.getDownloadUrl().toString();
+                storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
+                {
+                    @Override
+                    public void onSuccess(Uri downloadUrl)
+                    {
+                        Log.i("imageUrl", imageUrl);
+                    }
+                });
+            }
+        });
+    }
+
 }
