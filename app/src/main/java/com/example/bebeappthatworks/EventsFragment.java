@@ -2,6 +2,7 @@ package com.example.bebeappthatworks;
 
 import static com.google.android.gms.tasks.Tasks.await;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,7 +25,10 @@ import android.widget.Toast;
 
 import com.example.bebeappthatworks.ui.eventCreation.Event;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -54,6 +58,10 @@ public class EventsFragment extends Fragment {
     private List<Event> eventList;
     private EventAdapter adapter;
 
+    public final FirebaseAuth mAuth = FirebaseAuth.getInstance();;
+
+    private boolean tryTest;
+
     View view;
 
     /**
@@ -67,6 +75,7 @@ public class EventsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //tryTest = false;
 
     }
 
@@ -91,17 +100,15 @@ public class EventsFragment extends Fragment {
                                 adapter = new EventAdapter(allEvents);
                                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                                 recyclerView.setAdapter(adapter);
-                               // recyclerView.setAdapter(new MyItemRecyclerViewAdapter(allEvents));
-
+                                // recyclerView.setAdapter(new MyItemRecyclerViewAdapter(allEvents));
                                 adapter.setOnItemClickListener(new EventAdapter.OnItemClickListener() {
                                     @Override
-                                    public void onItemClick(int count, Event event ) {
+                                    public void onItemClick(int count, Event event) {
                                         // Handle item click here, e.g., launch details activity/fragment
-                                        SingleEventFree newEvent =  new SingleEventFree();
-                                        if(Objects.equals(event.getEventType(), "Free")) {
-                                            RegisterForEvent register = new RegisterForEvent();
-                                            RegisterForEvent newRegister = register.newInstance(allEventsId.get(count));
-                                            Fragment fragment = newRegister;
+                                            if (Objects.equals(event.getEventType(), "Free")) {
+                                                RegisterForEvent register = new RegisterForEvent();
+                                                RegisterForEvent newRegister = register.newInstance(allEventsId.get(count));
+                                                Fragment fragment = newRegister;
 //                                            SingleEventFree newEventParam = newEvent.newInstance(allEventsId.get(count));
 //                                            Fragment fragment = newEventParam;
 //
@@ -110,32 +117,29 @@ public class EventsFragment extends Fragment {
 //                                            Log.i("test",event.getEventType());
 //                                            //Log.i("testID",String.valueOf(allEventsId.get(count)));
 
-                                            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                                            fragmentTransaction.replace(R.id.navigation_host_fragment_content_main,fragment);
-                                            fragmentTransaction.addToBackStack(null);
-                                            fragmentTransaction.commit();
-                                        } else {
-                                            InterestedInEvent interested = new InterestedInEvent();
-                                            InterestedInEvent newInterest = interested.newInstance(allEventsId.get(count));
-                                            Fragment fragment = newInterest;
-                                            //SingleEventFree newEventParam = newEvent.newInstance(allEventsId.get(count));
-                                            //Fragment fragment = newEventParam;
+                                                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                                fragmentTransaction.replace(R.id.navigation_host_fragment_content_main, fragment);
+                                                fragmentTransaction.addToBackStack(null);
+                                                fragmentTransaction.commit();
+                                            } else {
+                                                InterestedInEvent interested = new InterestedInEvent();
+                                                InterestedInEvent newInterest = interested.newInstance(allEventsId.get(count));
+                                                Fragment fragment = newInterest;
+                                                //SingleEventFree newEventParam = newEvent.newInstance(allEventsId.get(count));
+                                                //Fragment fragment = newEventParam;
 
-                                            //Toast.makeText(getActivity(), "Clicked on event: " + event.getEventName(), Toast.LENGTH_SHORT).show();
-                                            //adapter.getItemCount();
+                                                //Toast.makeText(getActivity(), "Clicked on event: " + event.getEventName(), Toast.LENGTH_SHORT).show();
+                                                //adapter.getItemCount();
 //                                            Log.i("test",String.valueOf(count));
 //                                            Log.i("testID",String.valueOf(allEventsId.get(count)));
 
-                                            FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                                            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                                            fragmentTransaction.replace(R.id.navigation_host_fragment_content_main,fragment);
-                                            fragmentTransaction.addToBackStack(null);
-                                            fragmentTransaction.commit();
-                                        }
-
-
-
+                                                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                                fragmentTransaction.replace(R.id.navigation_host_fragment_content_main, fragment);
+                                                fragmentTransaction.addToBackStack(null);
+                                                fragmentTransaction.commit();
+                                            }
 
 
                                     }
