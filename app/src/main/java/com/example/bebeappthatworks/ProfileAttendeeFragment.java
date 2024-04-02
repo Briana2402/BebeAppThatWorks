@@ -105,7 +105,6 @@ public class ProfileAttendeeFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_profile_attendee, container, false);
         db = FirebaseFirestore.getInstance();
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        name = view.findViewById(R.id.textName);
         email = view.findViewById(R.id.emailAttendee);
         profile_pic = view.findViewById(R.id.imageView4);
         docRef = db.collection("Attendees").document((mAuth.getCurrentUser().getUid()));

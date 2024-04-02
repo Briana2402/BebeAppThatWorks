@@ -5,19 +5,20 @@
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_stars"
+    android:background="@drawable/background_stars_horizontal"
     tools:context=".ProfileAttendeeFragment">
 
     <ImageView
         android:id="@+id/imageView4"
-        android:layout_width="220dp"
-        android:layout_height="220dp"
-        android:layout_marginTop="68dp"
+        android:layout_width="182dp"
+        android:layout_height="172dp"
+        android:layout_marginTop="32dp"
         android:background="@drawable/circle_background"
         android:clipToOutline="true"
         android:scaleType="centerCrop"
         android:src="@drawable/profileicon"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.152"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,42 +32,42 @@
         app:layout_constraintEnd_toEndOf="@+id/imageView4"
         app:layout_constraintBottom_toBottomOf="@+id/imageView4" />
 
-    <TextView
-        android:id="@+id/emailAttendee"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="email@attendee.com"
-        android:textColor="#AFABAB"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4"
-        app:layout_constraintVertical_bias="0.061" />
-
     <Button
         android:id="@+id/deleteAccountAttendeeBtn"
         android:layout_width="145dp"
         android:layout_height="48dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginBottom="108dp"
         android:backgroundTint="#EC4646"
         android:text="Delete account"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/LOGOUTBUTTONATTENDEE" />
+        app:layout_constraintHorizontal_bias="0.009"
+        app:layout_constraintStart_toEndOf="@+id/LOGOUTBUTTONATTENDEE"
+        app:layout_constraintTop_toBottomOf="@+id/emailAttendee"
+        app:layout_constraintVertical_bias="0.231" />
 
     <Button
         android:id="@+id/LOGOUTBUTTONATTENDEE"
         android:layout_width="145dp"
-        android:layout_height="48dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="108dp"
+        android:layout_height="wrap_content"
         android:text="Log out"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/deleteAccountAttendeeBtn"
-        app:layout_constraintHorizontal_bias="0.382"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/imageView4"
+        app:layout_constraintTop_toBottomOf="@+id/emailAttendee"
+        app:layout_constraintVertical_bias="0.231" />
+
+    <TextView
+        android:id="@+id/emailAttendee"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:text="email@attendee.com"
+        android:textColor="#AFABAB"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.711"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
