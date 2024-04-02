@@ -144,7 +144,7 @@ public class ProfileAttendeeFragment extends Fragment {
                 captureImage(v);
             }
         });
-        ImageView settingsButtonAttendee = (ImageView) view.findViewById(R.id.SettingsAttendee);
+        ImageView settingsButtonAttendee = (ImageView) view.findViewById(R.id.SettingsAttendeeButton);
         settingsButtonAttendee.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

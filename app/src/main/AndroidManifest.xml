@@ -34,7 +34,7 @@
             android:label="@string/title_activity_one_event"
             android:theme="@style/Theme.BebeAppThatWorks" />
         <activity
-            android:name=".ui.SettingsAttendee"
+            android:name="SettingsAttendee"
             android:exported="false" />
         <activity
             android:name=".SettingsOrganiser"
@@ -52,10 +52,6 @@
         <activity
             android:name=".forgotPassword.ForgotPasswordActivity"
             android:exported="false" />
-        <activity
-            android:name=".EditProfileFragment"
-            android:exported="false"
-            android:theme="@style/Theme.BebeAppThatWorks" />
         <activity
             android:name=".ui.register.RegisterAttendeeActivity"
             android:exported="false" />
