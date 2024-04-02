@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_with_stars"
+    tools:context=".ProfileOrganiserFragment">
+
+    <ImageView
+        android:id="@+id/imageViewOrganiserProfileImage"
+        android:layout_width="168dp"
+        android:layout_height="168dp"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/circle_background"
+        android:clipToOutline="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/profileicon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.127"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/addprofilepicOrganiser"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="end|bottom"
+        android:background="@drawable/add_photo"
+        android:backgroundTint="#FFA500"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewOrganiserProfileImage"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewOrganiserProfileImage" />
+
+
+    <TextView
+        android:id="@+id/emailOrganiser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="email@organiser.com"
+        android:textColor="#AFABAB"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.717"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.218" />
+
+    <Button
+        android:id="@+id/deleteAccountOrganiserBtn"
+        android:layout_width="145dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginBottom="108dp"
+        android:backgroundTint="#EC4646"
+        android:text="Delete account"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/emailOrganiser"
+        app:layout_constraintVertical_bias="0.661" />
+
+    <Button
+        android:id="@+id/LOGOUTBUTTONORGANISER"
+        android:layout_width="145dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="120dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="108dp"
+        android:text="Log out"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/deleteAccountOrganiserBtn"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/imageViewOrganiserProfileImage"
+        app:layout_constraintTop_toBottomOf="@+id/emailOrganiser"
+        app:layout_constraintVertical_bias="0.661" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
