@@ -115,7 +115,7 @@ public class ProfileAttendeeFragment extends Fragment {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     attendee = document.toObject(Attendee.class);
-                    name.setText("my name is Jeff");
+                    //name.setText("my name is Jeff");
                     email.setText(attendee.getEmail());
                     try {
                         if (attendee.getProfileUrl() != null) {

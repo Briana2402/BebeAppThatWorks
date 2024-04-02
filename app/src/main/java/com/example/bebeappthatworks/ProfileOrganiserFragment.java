@@ -1,24 +1,30 @@
 package com.example.bebeappthatworks;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -42,9 +48,14 @@ public class ProfileOrganiserFragment extends Fragment {
     private String mParam2;
 
     private FirebaseFirestore db;
-
+    private ImageView profile_pic;
     private FirebaseAuth mAuth;
+    private TextView email;
+
+    private Organiser organiser;
+
     View view;
+    DocumentReference docRef;
 
     public ProfileOrganiserFragment() {
         // Required empty public constructor
@@ -77,12 +88,47 @@ public class ProfileOrganiserFragment extends Fragment {
         }
     }
 
+    private void setImage(String imageUrl, ImageView imageView, Context context) {
+        if (imageUrl==null){
+            Log.i("null", "IMAGEURL IS NULL");
+        } else {
+            Log.i("imageUrl:", imageUrl);
+        }
+        Glide.with(context)
+                .load(imageUrl)
+                .into(imageView);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_profile_organiser, container, false);
         db = FirebaseFirestore.getInstance();
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
+        email = view.findViewById(R.id.emailOrganiser);
+        profile_pic = view.findViewById(R.id.imageView4);
+        docRef = db.collection("Organisers").document((mAuth.getCurrentUser().getUid()));
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+           @Override
+           public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+               if (task.isSuccessful()) {
+                   DocumentSnapshot document = task.getResult();
+                   organiser = document.toObject(Organiser.class);
+                   //name.setText("my name is Jeff");
+                   email.setText(organiser.getEmail());
+                   try {
+                       if (organiser.getProfileUrl() != null) {
+                           setImage(organiser.getProfileUrl(), profile_pic, getContext());
+                       }
+                   } catch (NullPointerException e) {
+                       // This catch block likely won't be reached as the null check happens before accessing attendee.getProfileUrl()
+                       Log.i("Error", "Unexpected null pointer exception", e); // Log the error for debugging
+                   }
+               }
+           }
+       });
+
 
         Button logOutButton = view.findViewById(R.id.LOGOUTBUTTONORGANISER);
         logOutButton.setOnClickListener(new View.OnClickListener() {
@@ -133,14 +179,14 @@ public class ProfileOrganiserFragment extends Fragment {
             }
         });
 
-        ImageView settingsButtonOrganiser = (ImageView) view.findViewById(R.id.SettingsOrganiser);
-        settingsButtonOrganiser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getActivity(), SettingsOrganiser.class);
-                startActivity(i);
-            }
-        });
+//        ImageView settingsButtonOrganiser = (ImageView) view.findViewById(R.id.SettingsOrganiser);
+//        settingsButtonOrganiser.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent i = new Intent(getActivity(), SettingsOrganiser.class);
+//                startActivity(i);
+//            }
+//        });
 
         return view;
     }

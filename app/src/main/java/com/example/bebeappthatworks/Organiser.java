@@ -2,54 +2,32 @@ package com.example.bebeappthatworks;
 
 import com.example.bebeappthatworks.ui.eventCreation.Event;
 
-public class Organiser{
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
-    public String id;
-
-    public Event event;
-
+public class Organiser extends User{
+    private String email, password, name, profileUrl;
+    private ArrayList<Event> MyEvents  = new ArrayList<Event>();
     public Organiser(){
-
     }
 
-    public Organiser(String id, Event event){
-        this.id = id;
-        this.event = event;
+    public Organiser(String email, String name, String password, String profileUrl){
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.profileUrl = profileUrl;
     }
 
-//    public void addEvent(Event event) {
-//        FirebaseFirestore db = FirebaseFirestore.getInstance();
-//        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-//        CollectionReference dbOrg = db.collection("Organisers");
-//
-//
-//
-//        dbOrg.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-//            @Override
-//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-//                if (task.isSuccessful()) {
-//                    for (QueryDocumentSnapshot organiser : task.getResult()) {
-//                        //myEvents.add(event.toObject(Event.class));
-//                        if(organiser.getId().toString() == mAuth.getUid().toString()) {
-//                            Event array = new Event();
-//
-//                        }
-//                    }
-//                }
-//            }
-//        });
-//
-//        myEvents.add(event);
-//
-//
-//        dbOrg.document(mAuth.getUid().toString())
-//                .set("created events", myEvents)
-//                .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                    @Override
-//                    public void onSuccess(Void aVoid) {
-//                        Log.i("organiser array", "updated");
-//                        //Toast.makeText(Organiser.this, "Your Event has been added to Firebase Firestore", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//    }
+    public String getName() {
+        return name;
+    }
+
+    public String getProfileUrl() {
+        return profileUrl;
+    }
+
+    public void setProfileUrl(String profileUrl) {
+        this.profileUrl = profileUrl;
+    }
+
 }
