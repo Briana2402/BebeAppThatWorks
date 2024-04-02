@@ -88,7 +88,6 @@ public class SingleEventFree extends Fragment {
                         recyclerView.setAdapter(new OneEventRecyclerView(theEvent));
                     }
                 }
-
             }
         });
         return view;

@@ -8,37 +8,6 @@
     android:background="@drawable/bg_with_stars"
     tools:context=".ProfileAttendeeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
-    <Button
-        android:id="@+id/deleteAccountAttendeeBtn"
-        android:layout_width="145dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginBottom="60dp"
-        android:backgroundTint="#EC4646"
-        android:text="Delete account"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/LOGOUTBUTTONATTENDEE"
-        app:layout_constraintTop_toBottomOf="@+id/textView5"
-        app:layout_constraintVertical_bias="0.155" />
-
-    <Button
-        android:id="@+id/LOGOUTBUTTONATTENDEE"
-        android:layout_width="145dp"
-        android:layout_height="48dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="60dp"
-        android:text="Log out"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/deleteAccountAttendeeBtn"
-        app:layout_constraintHorizontal_bias="0.382"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5"
-        app:layout_constraintVertical_bias="0.155" />
-
     <ImageView
         android:id="@+id/imageView4"
         android:layout_width="220dp"
@@ -52,7 +21,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <Button
         android:id="@+id/addprofilepic"
         android:layout_width="48dp"
@@ -60,12 +28,21 @@
         android:layout_gravity="end|bottom"
         android:background="@drawable/add_photo"
         android:backgroundTint="#FFA500"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/imageView4"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView4" />
+
+    <TextView
+        android:id="@+id/textName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Name"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.771"
+        app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.342" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 
     <TextView
         android:id="@+id/emailAttendee"
@@ -78,49 +55,31 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+        app:layout_constraintTop_toBottomOf="@+id/textName" />
 
-    <TextView
-        android:id="@+id/textViewDescriptionAttendee"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Organiser Description"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp"
+    <Button
+        android:id="@+id/deleteAccountAttendeeBtn"
+        android:layout_width="145dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginBottom="108dp"
+        android:backgroundTint="#EC4646"
+        android:text="Delete account"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.109"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailAttendee" />
+        app:layout_constraintStart_toEndOf="@+id/LOGOUTBUTTONATTENDEE" />
 
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="330dp"
-        android:layout_height="191dp"
-        android:layout_marginTop="8dp"
-        android:background="#3B2474"
-        android:paddingLeft="10dp"
-        android:paddingTop="10dp"
-        android:paddingEnd="10dp"
-        android:paddingRight="10dp"
-        android:text="It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites"
-        android:textAlignment="viewStart"
-        android:textColor="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewDescriptionAttendee" />
-
-    <ImageView
-        android:id="@+id/SettingsAttendeeButton"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:src="@android:drawable/ic_menu_edit"
-        app:layout_constraintBottom_toTopOf="@+id/textViewDescriptionAttendee"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.114"
-        app:layout_constraintStart_toEndOf="@+id/emailAttendee"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4"
-        app:layout_constraintVertical_bias="0.459" />
+    <Button
+        android:id="@+id/LOGOUTBUTTONATTENDEE"
+        android:layout_width="145dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="108dp"
+        android:text="Log out"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/deleteAccountAttendeeBtn"
+        app:layout_constraintHorizontal_bias="0.382"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
