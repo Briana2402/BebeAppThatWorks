@@ -1,7 +1,7 @@
 package com.example.bebeappthatworks;
 
 public class User {
-    public String email, role;
+    public String email, role, name;
 
     public User() {
         // empty constructor
@@ -13,4 +13,23 @@ public class User {
         this.role = role;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public String getName() {
+        return name;
+    }
 }
