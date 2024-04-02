@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@drawable/bg_with_stars"
+    tools:context=".OneEventActivity">
+
+
+    <Button
+        android:id="@+id/buttonRegister"
+        android:layout_width="251dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center"
+        android:layout_marginStart="165dp"
+
+
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="169dp"
+        android:text="Register"
+        android:textSize="34sp" />
+
+    <Button
+        android:id="@+id/buttonDeregister"
+        android:layout_width="243dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_gravity="center"
+        android:layout_marginStart="120dp"
+        android:layout_marginTop="406dp"
+        android:layout_marginEnd="518dp"
+        android:backgroundTint="#C50D0D"
+        android:text="Deregister"
+        android:textSize="34sp" />
+
+    <Button
+        android:id="@+id/buttonSeeDetails"
+        android:layout_width="274dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/buttonDeregister"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="844dp"
+        android:layout_marginTop="173dp"
+        android:layout_marginEnd="162dp"
+        android:layout_marginBottom="222dp"
+        android:text="See details"
+        android:textSize="34sp" />
+
+</RelativeLayout>
