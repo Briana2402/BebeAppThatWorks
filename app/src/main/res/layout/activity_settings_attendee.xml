@@ -36,7 +36,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
             <ImageView
@@ -44,7 +44,7 @@
                 android:layout_height="100dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
-                android:src="@drawable/profileicon"/>
+                android:src="@drawable/profileicon" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -54,7 +54,7 @@
                 android:text="User Name"
                 android:textColor="@color/white"
                 android:textSize="24dp"
-                android:textStyle="italic"/>
+                android:textStyle="italic" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -63,96 +63,20 @@
                 android:text="attendee@email.com"
                 android:textColor="@color/white"
                 android:textSize="14dp"
-                android:textStyle="italic"/>
+                android:textStyle="italic" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:layout_marginTop="20dp"
-                android:paddingStart="20dp"
                 android:layout_gravity="center"
+                android:layout_marginTop="20dp"
                 android:background="@color/white"
-                android:text="Edit Profile"
-                android:paddingEnd="20dp" />
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:text="Edit Profile" />
 
         </LinearLayout>
     </ScrollView>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
-        android:layout_width="match_parent"
-        android:layout_height="257dp"
-        android:layout_gravity="center"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginEnd="20dp"
-        app:cardBackgroundColor="#421B61"
-        app:cardCornerRadius="25dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.531"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
-        tools:ignore="MissingConstraints">
-
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="374dp"
-            android:paddingTop="25dp"
-            android:paddingBottom="25dp">
-
-            <EditText
-                android:id="@+id/username"
-                android:layout_width="300dp"
-                android:layout_height="59dp"
-                android:background="#9A8FAF"
-                android:hint="@string/prompt_email"
-                android:inputType="textEmailAddress"
-                android:paddingStart="10dp"
-                android:selectAllOnFocus="true"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.491"
-
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <EditText
-                android:id="@+id/password"
-                android:layout_width="300dp"
-                android:layout_height="54dp"
-                android:layout_marginTop="20dp"
-                android:background="#9A8FAF"
-                android:hint="@string/prompt_password"
-                android:imeActionLabel="@string/action_sign_in_short"
-                android:imeOptions="actionDone"
-                android:inputType="textPassword"
-                android:paddingStart="10dp"
-                android:selectAllOnFocus="true"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-
-                app:layout_constraintTop_toBottomOf="@+id/username" />
-
-            <EditText
-                android:id="@+id/passwordConfirmAttendee"
-                android:layout_width="300dp"
-                android:layout_height="54dp"
-                android:layout_marginTop="20dp"
-                android:background="#9A8FAF"
-                android:hint="@string/confirm_password_attendee"
-                android:imeActionLabel="@string/action_sign_in_short"
-                android:imeOptions="actionDone"
-                android:inputType="textPassword"
-                android:paddingStart="10dp"
-                android:selectAllOnFocus="true"
-
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.491"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/password" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
 
     <ImageView
         android:id="@+id/imageView2"
