@@ -3,6 +3,8 @@ package com.example.bebeappthatworks;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -84,6 +86,21 @@ public class InterestedInEvent extends Fragment {
                 data.put("type", "interested");
                 //data.put("type of event", event_type);
                 db.collection("Attendees").document(mAuth.getCurrentUser().getUid()).collection("my events").document(event_id).set(data);
+            }
+        });
+
+        Button details = view.findViewById(R.id.buttonSeeDetailsPaid);
+        details.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                OnlyEventView newEvent = new OnlyEventView();
+                OnlyEventView newEventFinal = newEvent.newInstance(event_id);
+                Fragment fragment = newEventFinal;
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.navigation_host_fragment_content_main, fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
             }
         });
 

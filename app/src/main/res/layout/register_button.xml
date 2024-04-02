@@ -28,4 +28,15 @@
         android:layout_marginStart="150dp"
         android:layout_width="136dp"
         android:text="Deregister" />
+
+    <Button
+        android:id="@+id/buttonSeeDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/buttonDeregister"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="149dp"
+        android:layout_marginBottom="-82dp"
+        android:text="See details" />
+
 </RelativeLayout>
