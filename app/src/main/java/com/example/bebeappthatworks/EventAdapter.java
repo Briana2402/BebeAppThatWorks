@@ -46,7 +46,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
     @Override
     public void onBindViewHolder(@NonNull EventViewHolder holder, int position) {
         Event event = eventList.get(position);
-        //holder.mImageView.setImageResource(R.mipmap.ic_launcher_foreground);
+        holder.mImageView.setImageResource(R.mipmap.ic_launcher_foreground);
         setImage(event.getImageUrl(), holder.mImageView, holder.itemView.getContext());
         holder.mName.setText(event.getEventName());
         holder.mLocation.setText(event.getEventLocation());
