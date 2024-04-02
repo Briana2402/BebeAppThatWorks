@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@drawable/bg_with_stars"
+    tools:context=".OneEventActivity">
+
+
+    <Button
+        android:id="@+id/buttonRegister"
+        android:layout_width="136dp"
+        android:layout_height="48dp"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="100dp"
+
+
+        android:text="Register" />
+
+    <Button
+        android:id="@+id/buttonDeregister"
+        android:layout_width="136dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="330dp"
+        android:layout_marginTop="160dp"
+        android:layout_marginEnd="5dp"
+        android:backgroundTint="#C50D0D"
+        android:text="Deregister" />
+
+    <Button
+        android:id="@+id/buttonSeeDetails"
+        android:layout_width="136dp"
+        android:layout_height="48dp"
+        android:layout_alignBottom="@+id/buttonDeregister"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="10dp"
+
+        android:layout_marginEnd="112dp"
+        android:layout_marginBottom="64dp"
+        android:text="See details" />
+
+</RelativeLayout>
