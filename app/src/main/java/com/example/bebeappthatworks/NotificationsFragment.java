@@ -47,21 +47,6 @@ public class NotificationsFragment extends Fragment {
     private NotificationAdapter adapter;
 
     private FirebaseAuth mAuth;
-
-
-    View view;
-    public final FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-    public List<Notification> allNotifications = new ArrayList<>();
-    public int count = 0;
-
-    private RecyclerView recyclerView;
-    private List<Notification> notificationList;
-    private NotificationAdapter adapter;
-
-    private FirebaseAuth mAuth;
-
-
     View view;
 
     public NotificationsFragment() {
