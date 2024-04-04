@@ -137,6 +137,15 @@ public class ProfileAttendeeFragment extends Fragment {
             }
         });
 
+        Button openSettings = (Button) view.findViewById(R.id.openSettings);
+        openSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(), SettingsAttendee.class);
+                startActivity(i);
+            }
+        });
+
         Button deleteAccountBtn = view.findViewById(R.id.deleteAccountAttendeeBtn);
         deleteAccountBtn.setOnClickListener(new View.OnClickListener() {
             @Override
