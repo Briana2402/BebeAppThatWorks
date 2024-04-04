@@ -95,14 +95,14 @@ public class EventsFragmentOrganizer extends Fragment {
                                 adapter.setOnItemClickListener(new EventAdapter.OnItemClickListener() {
                                     @Override
                                     public void onItemClick(int count, Event event) {
-                                      OnlyEventView newEvent = new OnlyEventView();
-                                      OnlyEventView newEventFinal = newEvent.newInstance(allEventsId.get(count));
-                                      Fragment fragment = newEventFinal;
-                                      FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                                      FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                                      fragmentTransaction.replace(R.id.navigation_host_fragment_content_main, fragment);
-                                      fragmentTransaction.addToBackStack(null);
-                                      fragmentTransaction.commit();
+                                        OnlyEventView newEvent = new OnlyEventView();
+                                        OnlyEventView newEventFinal = newEvent.newInstance(allEventsId.get(count));
+                                        Fragment fragment = newEventFinal;
+                                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                        fragmentTransaction.replace(R.id.navigation_host_fragment_content_main, fragment);
+                                        fragmentTransaction.addToBackStack(null);
+                                        fragmentTransaction.commit();
 
 
                                     }
