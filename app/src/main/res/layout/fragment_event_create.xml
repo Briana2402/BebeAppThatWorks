@@ -101,7 +101,7 @@
         <EditText
             android:id="@+id/idEdtEventName"
             android:layout_width="300dp"
-            android:layout_height="48dp"
+            android:layout_height="40dp"
             android:background="#9A8FAF"
             android:hint="@string/Enter_Event_name"
             android:imeActionLabel="@string/action_sign_in_short"
@@ -115,7 +115,7 @@
         <EditText
             android:id="@+id/idEdtEventLocation"
             android:layout_width="300dp"
-            android:layout_height="48dp"
+            android:layout_height="40dp"
             android:layout_marginTop="5dp"
             android:background="#9A8FAF"
             android:hint="@string/Enter_Event_location"
@@ -129,7 +129,7 @@
         <EditText
             android:id="@+id/idEdtEventDuration"
             android:layout_width="300dp"
-            android:layout_height="48dp"
+            android:layout_height="40dp"
             android:layout_marginTop="5dp"
             android:background="#9A8FAF"
             android:hint="@string/Enter_Event_duration"
@@ -142,7 +142,7 @@
         <EditText
             android:id="@+id/idEdtEventCapacity"
             android:layout_width="300dp"
-            android:layout_height="48dp"
+            android:layout_height="40dp"
             android:layout_marginTop="5dp"
             android:background="#9A8FAF"
             android:hint="@string/Enter_Event_capacity"
@@ -155,7 +155,7 @@
         <EditText
             android:id="@+id/idEdtEventDate"
             android:layout_width="300dp"
-            android:layout_height="48dp"
+            android:layout_height="40dp"
             android:layout_marginTop="5dp"
             android:background="#9A8FAF"
             android:hint="@string/Enter_Event_date"
@@ -168,7 +168,7 @@
         <EditText
             android:id="@+id/idEdtEventDescription"
             android:layout_width="300dp"
-            android:layout_height="48dp"
+            android:layout_height="40dp"
             android:layout_marginTop="5dp"
             android:background="#9A8FAF"
             android:hint="@string/Enter_Event_description"
@@ -181,7 +181,7 @@
         <EditText
             android:id="@+id/linkPaid"
             android:layout_width="300dp"
-            android:layout_height="48dp"
+            android:layout_height="40dp"
             android:layout_marginTop="5dp"
             android:background="#9A8FAF"
             android:hint="@string/event_link"
@@ -197,7 +197,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="7dp"
-            android:layout_marginEnd="48dp"
             android:onClick="captureImage"
             android:text="Create Event"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -209,11 +208,13 @@
             android:id="@+id/checkBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
             android:layout_marginTop="7dp"
+            android:layout_marginEnd="20dp"
             android:text="Paid Event"
             android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/idBtnSubmitEvent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linkPaid" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
