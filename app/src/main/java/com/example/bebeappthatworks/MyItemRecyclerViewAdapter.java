@@ -30,18 +30,13 @@ import java.util.List;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link Event}.
- * TODO: Replace the implementation with code for your data type.
  */
 public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecyclerViewAdapter.ViewHolder> {
 
     private final List<Event> mValues;
-    private Event event;
-
     public MyItemRecyclerViewAdapter(List<Event> items) {
         mValues = items;
     }
-
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -50,12 +45,9 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
 
     }
 
+    //method for binding the event with the fetched information
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
-
-        //mValues.addAll(AttendeeActivity.allEvents);
-
-
         Event event = mValues.get(position);
         holder.mImageView.setImageResource(R.mipmap.ic_launcher_foreground);
         holder.mName.setText(event.getEventName());
@@ -64,13 +56,6 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
         holder.mTime.setText(event.getEventTime());
         holder.mDescription.setText(event.getEventDescription());
         holder.mCapacity.setText(event.getEventMaxCapacity());
-
-        /*
-        //holder.mItem = mValues.get(position);
-        //holder.mIdView.setText(mValues.get(position).id);
-
-
-         */
     }
 
     @Override

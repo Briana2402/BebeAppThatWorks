@@ -2,27 +2,15 @@ package com.example.bebeappthatworks;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
-import com.example.bebeappthatworks.ui.eventCreation.Event;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,16 +19,10 @@ import java.util.List;
  */
 public class MyEventOrganizer extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static String ARGM1 = "param1";
     public String eventID;
 
-    private Event event;
-
     View view;
-
-    public List<Event> theEvent = new ArrayList<>();
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     public MyEventOrganizer() {
@@ -51,7 +33,7 @@ public class MyEventOrganizer extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1
+     * @param param1 id of the event
      * @return A new instance of fragment SingleEvent.
      */
     // TODO: Rename and change types and number of parameters
@@ -65,13 +47,10 @@ public class MyEventOrganizer extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Log.i("TEROG",ARGM1);
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             eventID = getArguments().getString(ARGM1);
         }
-        Log.i("TEROG",eventID);
-
     }
 
     @Override
@@ -88,8 +67,7 @@ public class MyEventOrganizer extends Fragment {
             @Override
             public void onClick(View view) {
                 CancelEventFragment newEvent = new CancelEventFragment();
-                CancelEventFragment newEventFinal = newEvent.newInstance(eventID);
-                Fragment fragment = newEventFinal;
+                Fragment fragment = newEvent.newInstance(eventID);
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.navigation_host_fragment_content_main, fragment);

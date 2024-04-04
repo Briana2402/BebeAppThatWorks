@@ -12,56 +12,33 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Bundle;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 
-import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
-import android.view.View;
 import android.text.TextUtils;
-import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
-import com.example.bebeappthatworks.MainActivity;
 import android.Manifest;
-import com.example.bebeappthatworks.R;
 import com.example.bebeappthatworks.ui.eventCreation.Event;
-import com.example.bebeappthatworks.ui.eventCreation.EventCreationActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Objects;
 import java.util.UUID;
-
-import com.example.bebeappthatworks.R;
-import com.example.bebeappthatworks.forgotPassword.ForgotPasswordActivity;
-import com.example.bebeappthatworks.ui.login.LoginActivity;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.UploadTask;
 
 /**
@@ -72,12 +49,9 @@ import com.google.firebase.storage.UploadTask;
  */
 public class EventCreateFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    //The fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -85,11 +59,6 @@ public class EventCreateFragment extends Fragment {
 
     // creating variables for our edit text
     private EditText eventNameEdt, eventDurationEdt, eventDescriptionEdt, eventLocationEdt, eventCapacityEdt, eventDateEdt, eventLinkEdt;
-
-    // creating variable for button
-    private Button submitEventBtn;
-    private Button captureImageButton;
-    private CheckBox paidEvent;
 
     // creating a strings for storing
     // our values from edittext fields.
@@ -106,7 +75,6 @@ public class EventCreateFragment extends Fragment {
     private static final int REQUEST_IMAGE_CAPTURE = 2;
 
     private ImageView imageView;
-    private Uri imageUri;
 
     /**
      * Use this factory method to create a new instance of
@@ -116,7 +84,6 @@ public class EventCreateFragment extends Fragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment EventCreateFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static EventCreateFragment newInstance(String param1, String param2) {
         EventCreateFragment fragment = new EventCreateFragment();
         Bundle args = new Bundle();
@@ -141,19 +108,12 @@ public class EventCreateFragment extends Fragment {
 
     }
 
+    //Creating the view for the event
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_event_create, container, false);
-
-//        super.onCreate(savedInstanceState);
-//        if (savedInstanceState == null) {
-//            getFragmentManager().beginTransaction()
-//                    .setReorderingAllowed(true)
-//                    .add(R.id.camera_fragment, use_camera.class, null)
-//                    .commit();
-//        }
         eventLinkEdt = view.findViewById(R.id.linkPaid);
         eventLinkEdt.setVisibility(View.INVISIBLE);
 
@@ -170,9 +130,10 @@ public class EventCreateFragment extends Fragment {
         eventCapacityEdt = view.findViewById(R.id.idEdtEventCapacity);
         eventDurationEdt = view.findViewById(R.id.idEdtEventDuration);
         eventDateEdt = view.findViewById(R.id.idEdtEventDate);
-        submitEventBtn = view.findViewById(R.id.idBtnSubmitEvent);
+        // creating variable for button
+        Button submitEventBtn = view.findViewById(R.id.idBtnSubmitEvent);
         CheckBox paidEvent = (CheckBox) view.findViewById(R.id.checkBox);
-        captureImageButton = view.findViewById(R.id.event_cover);
+        Button captureImageButton = view.findViewById(R.id.event_cover);
 
         paidEvent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -240,6 +201,8 @@ public class EventCreateFragment extends Fragment {
             }
         });
 
+
+        //Button to take picture
         captureImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -375,36 +338,5 @@ public class EventCreateFragment extends Fragment {
                 });
             }
         });
-
-//        uploadTask.addOnFailureListener(new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception exception) {
-//                // Handle upload failure
-//                Toast.makeText(getContext(), "Image upload failed!", Toast.LENGTH_SHORT).show();
-//            }
-//        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//            @Override
-//            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                // Get the download URL after successful upload
-//                imageUrl = storageRef.getDownloadUrl().toString();
-//                storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
-//                {
-//                    @Override
-//                    public void onSuccess(Uri downloadUrl)
-//                    {
-//                        Log.i("imageUrl", imageUrl);
-//                    }
-//                });
-//            }
-//        });
     }
-//    private String getImageUrl(Bitmap imageBitmap) {
-//        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-//        imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-//        String fileName = "IMG_" + System.currentTimeMillis() + ".jpg";
-//        String path = MediaStore.Images.Media.insertImage(requireContext().getContentResolver(),
-//                imageBitmap, fileName,null);
-//        Uri uri = Uri.parse(path);
-//        return uri.toString();
-//    }
 }

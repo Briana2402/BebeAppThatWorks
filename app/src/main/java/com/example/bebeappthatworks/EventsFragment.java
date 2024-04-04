@@ -53,9 +53,6 @@ public class EventsFragment extends Fragment {
     public List<Event> allEvents = new ArrayList<>();
     public List<String> allEventsId = new ArrayList<>();
     public int count = 0;
-
-    private RecyclerView recyclerView;
-    private List<Event> eventList;
     private EventAdapter adapter;
 
     public final FirebaseAuth mAuth = FirebaseAuth.getInstance();;
@@ -94,21 +91,22 @@ public class EventsFragment extends Fragment {
                                 allEvents.add(document.toObject(Event.class));
                                 allEventsId.add(document.getId().toString());
                             }
+                            //setting the adapter
                             if (view instanceof RecyclerView) {
                                 Context context = view.getContext();
                                 RecyclerView recyclerView = (RecyclerView) view;
                                 adapter = new EventAdapter(allEvents);
                                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                                 recyclerView.setAdapter(adapter);
-                                // recyclerView.setAdapter(new MyItemRecyclerViewAdapter(allEvents));
                                 adapter.setOnItemClickListener(new EventAdapter.OnItemClickListener() {
                                     @Override
                                     public void onItemClick(int count, Event event) {
                                         // Handle item click here, e.g., launch details activity/fragment
                                             if (Objects.equals(event.getEventType(), "Free")) {
                                                 RegisterForEvent register = new RegisterForEvent();
+                                                Fragment fragment = register.newInstance(allEventsId.get(count));
                                                 RegisterForEvent newRegister = register.newInstance(allEventsId.get(count));
-                                                Fragment fragment = newRegister;
+                                                fragment = newRegister;
 
                                                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                                                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -127,16 +125,7 @@ public class EventsFragment extends Fragment {
                                                 fragmentTransaction2.commit();
                                             } else {
                                                 InterestedInEvent interested = new InterestedInEvent();
-                                                InterestedInEvent newInterest = interested.newInstance(allEventsId.get(count));
-                                                Fragment fragment = newInterest;
-                                                //SingleEventFree newEventParam = newEvent.newInstance(allEventsId.get(count));
-                                                //Fragment fragment = newEventParam;
-
-                                                //Toast.makeText(getActivity(), "Clicked on event: " + event.getEventName(), Toast.LENGTH_SHORT).show();
-                                                //adapter.getItemCount();
-//                                            Log.i("test",String.valueOf(count));
-//                                            Log.i("testID",String.valueOf(allEventsId.get(count)));
-
+                                                Fragment fragment = interested.newInstance(allEventsId.get(count));
                                                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                                                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                                                 fragmentTransaction.replace(R.id.navigation_host_fragment_content_main, fragment);

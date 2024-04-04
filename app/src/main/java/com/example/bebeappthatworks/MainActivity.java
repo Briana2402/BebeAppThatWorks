@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
             FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
             db = FirebaseFirestore.getInstance();
-            if (firebaseUser != null) { //TODO based on user!!!
+            if (firebaseUser != null) {
                 db.collection("Attendees").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @SuppressLint("NotifyDataSetChanged")
                     @Override
@@ -42,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
                         if(!queryDocumentSnapshots.isEmpty()) {
                             List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
                             for(DocumentSnapshot d : list) {
-                                //Log.i(d.getId(),mAuth.getCurrentUser().getUid());
                                 if(d.getId().toString().equals(firebaseUser.getUid().toString())){
                                     Intent intent = new Intent(MainActivity.this, AttendeeActivity.class);
                                     startActivity(intent);
@@ -91,9 +90,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         loginButton = (Button) findViewById(R.id.Login); //login button
-        guestButton = (Button) findViewById(R.id.Guest); //login button
-        registerButton = (Button) findViewById(R.id.button4); //login button
-        registerOrganiser = (Button) findViewById(R.id.button5); //login button
+        guestButton = (Button) findViewById(R.id.Guest); //guestbutton
+        registerButton = (Button) findViewById(R.id.button4); //register attendee button
+        registerOrganiser = (Button) findViewById(R.id.button5); //register organiser button
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override

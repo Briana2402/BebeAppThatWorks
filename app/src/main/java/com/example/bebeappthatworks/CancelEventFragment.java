@@ -16,22 +16,18 @@ import android.widget.Button;
 
 import com.example.bebeappthatworks.ui.eventCreation.Event;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
+
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link SingleEventFree#newInstance} factory method to
@@ -39,17 +35,15 @@ import java.util.Map;
  */
 public class CancelEventFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    //The fragment initialization parameters
     private static String ARGM1 = "param1";
     public String eventID;
 
     public String eventName;
 
     private Event event;
-
     View view;
-
+    //Firebase instance for fetching
     private boolean sent;
 
     public List<Event> allAttendees = new ArrayList<>();
@@ -63,10 +57,9 @@ public class CancelEventFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1
+     * @param param1 id of event to be canceled
      * @return A new instance of fragment SingleEvent.
      */
-    // TODO: Rename and change types and number of parameters
     public CancelEventFragment newInstance(String param1) {
         CancelEventFragment fragment = new CancelEventFragment();
         Bundle args = new Bundle();
@@ -77,13 +70,10 @@ public class CancelEventFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Log.i("TEROG",ARGM1);
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             eventID = getArguments().getString(ARGM1);
         }
-        Log.i("TEROG",eventID);
-
     }
 
     @Override
@@ -91,6 +81,7 @@ public class CancelEventFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_cancel_event, container, false);
+        //Path refrence of the event document in Firestore
         DocumentReference docRef = db.collection("Events").document(eventID.toString());
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -106,9 +97,11 @@ public class CancelEventFragment extends Fragment {
 
         Button cancel = view.findViewById(R.id.cancelEvent);
 
+        //When the cancel button is pressed, the event is deleted from the database
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //selecting the event that will be deleted
                 sendNotification();
                 db.collection("Events").document(eventID.toString()).delete();
                 MyEventsFragment fragment = new MyEventsFragment();
@@ -119,7 +112,6 @@ public class CancelEventFragment extends Fragment {
                 fragmentTransaction.commit();
             }
         });
-
         return view;
     }
 
@@ -166,10 +158,5 @@ public class CancelEventFragment extends Fragment {
                         Log.e("not document", "Error getting documents: ", task.getException());
                     }
                 });
-//        CollectionReference citiesRef = db.collection("Attendees").;
-//
-//        citiesRef.whereIn("country", Arrays.asList("USA", "Japan"));
-
-
     }
 }
