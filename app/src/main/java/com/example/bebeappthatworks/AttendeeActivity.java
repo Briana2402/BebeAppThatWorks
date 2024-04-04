@@ -80,4 +80,10 @@ public class AttendeeActivity extends AppCompatActivity {
         fragmentTransaction.commit();
 
     }
+
+    public void openMaps(View v) {
+        Intent intent = new Intent(this, com.example.bebeappthatworks.Map.class);
+        startActivity(intent);
+    }
+
 }

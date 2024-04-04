@@ -53,5 +53,9 @@ public class GuestActivity extends OrganiserActivity {
 
     }
 
+    public void openMaps(View v) {
+        Intent intent = new Intent(this, com.example.bebeappthatworks.Map.class);
+        startActivity(intent);
+    }
 
 }

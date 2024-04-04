@@ -1,16 +1,24 @@
 package com.example.bebeappthatworks;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Switch;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
 import com.example.bebeappthatworks.R;
+import com.example.bebeappthatworks.ui.login.LoginActivity;
 
 public class SettingsAttendee extends AppCompatActivity {
+
+    Button backtoprofile;
+    Button updatesettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,5 +30,17 @@ public class SettingsAttendee extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        backtoprofile = (Button) findViewById(R.id.backtoprofile);
+
+
+//        backtoprofile.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent i = new Intent(context, OrganiserActivity.class);
+//                startActivity(i);
+//            }
+//        });
+
     }
 }

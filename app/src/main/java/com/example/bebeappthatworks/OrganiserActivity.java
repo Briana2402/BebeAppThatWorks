@@ -1,6 +1,8 @@
 package com.example.bebeappthatworks;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -47,5 +49,9 @@ public class OrganiserActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.navigation_host_fragment_content_main, fragment);
         fragmentTransaction.commit();
 
+    }
+    public void openMaps(View v) {
+        Intent intent = new Intent(this, com.example.bebeappthatworks.Map.class);
+        startActivity(intent);
     }
 }
