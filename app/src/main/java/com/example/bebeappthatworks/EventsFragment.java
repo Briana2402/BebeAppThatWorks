@@ -108,11 +108,24 @@ public class EventsFragment extends Fragment {
                                             if (Objects.equals(event.getEventType(), "Free")) {
                                                 RegisterForEvent register = new RegisterForEvent();
                                                 Fragment fragment = register.newInstance(allEventsId.get(count));
+                                                RegisterForEvent newRegister = register.newInstance(allEventsId.get(count));
+                                                Fragment fragment = newRegister;
+
                                                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                                                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                                                 fragmentTransaction.replace(R.id.navigation_host_fragment_content_main, fragment);
                                                 fragmentTransaction.addToBackStack(null);
                                                 fragmentTransaction.commit();
+
+                                                buttons_fragment bringbutts = new buttons_fragment();
+                                                buttons_fragment newbringbutts = bringbutts.newInstance(allEventsId.get(count));
+                                                Fragment fragment2 = newbringbutts;
+
+                                                FragmentManager fragmentManager2 = getActivity().getSupportFragmentManager();
+                                                FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
+                                                fragmentTransaction2.add(R.id.navigation_host_fragment_content_main, fragment2);
+                                                fragmentTransaction2.addToBackStack(null);
+                                                fragmentTransaction2.commit();
                                             } else {
                                                 InterestedInEvent interested = new InterestedInEvent();
                                                 Fragment fragment = interested.newInstance(allEventsId.get(count));

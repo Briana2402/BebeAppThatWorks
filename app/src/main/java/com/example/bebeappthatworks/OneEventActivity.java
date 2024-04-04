@@ -45,7 +45,7 @@ public class OneEventActivity extends AppCompatActivity {
     public void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.navigation_one_event_fragment, fragment);
+        fragmentTransaction.replace(R.id.navigation_one_fragment_content_main, fragment);
         fragmentTransaction.commit();
     }
 

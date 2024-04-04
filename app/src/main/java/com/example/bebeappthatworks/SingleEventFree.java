@@ -77,12 +77,15 @@ public class SingleEventFree extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_single_event, container, false);
         DocumentReference docRef = db.collection("Events").document(eventID.toString());
+        Log.d("ma ta","fara liniuta");
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                Log.d("help","pula");
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     theEvent.add(document.toObject(Event.class));
+                    Log.d("why","pula");
                     if (view instanceof RecyclerView) {
                         RecyclerView recyclerView = (RecyclerView) view;
                         recyclerView.setAdapter(new OneEventRecyclerView(theEvent));
