@@ -53,9 +53,6 @@ public class EventsFragment extends Fragment {
     public List<Event> allEvents = new ArrayList<>();
     public List<String> allEventsId = new ArrayList<>();
     public int count = 0;
-
-    private RecyclerView recyclerView;
-    private List<Event> eventList;
     private EventAdapter adapter;
 
     public final FirebaseAuth mAuth = FirebaseAuth.getInstance();;
@@ -109,7 +106,7 @@ public class EventsFragment extends Fragment {
                                                 RegisterForEvent register = new RegisterForEvent();
                                                 Fragment fragment = register.newInstance(allEventsId.get(count));
                                                 RegisterForEvent newRegister = register.newInstance(allEventsId.get(count));
-                                                Fragment fragment = newRegister;
+                                                fragment = newRegister;
 
                                                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                                                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

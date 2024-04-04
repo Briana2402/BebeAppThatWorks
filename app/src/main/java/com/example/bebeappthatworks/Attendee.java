@@ -9,8 +9,6 @@ public class Attendee extends User{
 
     //fields for the attendee profile
     private String email, password, name, profileUrl;
-    //array with all the events that an attendee is signed up for
-    private ArrayList<Event> MyEvents  = new ArrayList<Event>();
 
     //empty constructor needed for Firebase to work
     public Attendee(){

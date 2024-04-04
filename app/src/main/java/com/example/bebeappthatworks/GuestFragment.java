@@ -26,9 +26,6 @@ import java.util.List;
  */
 public class GuestFragment extends Fragment {
 
-    private static final String ARG_COLUMN_COUNT = "column-count";
-    private int mColumnCount = 1;
-
     public final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public List<Event> allEvents = new ArrayList<>();

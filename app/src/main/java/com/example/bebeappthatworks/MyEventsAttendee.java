@@ -70,7 +70,6 @@ public class MyEventsAttendee extends Fragment {
                     //creates an  array with all the ids of the events that the logged in user is registered for
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         events_id.add(document.getId().toString());
-                        //Log.i("miauuu", document.getId().toString());
                         event_id = document.getId().toString();
                         DocumentReference docRef = db.collection("Events").document(event_id);
                         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {

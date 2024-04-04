@@ -33,9 +33,11 @@ import java.util.regex.Pattern;
 
 public class RegisterAttendeeActivity extends AppCompatActivity {
 
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+
     private boolean isPasswordValid(String password) {
 
-        Pattern specailCharPatten = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
+        Pattern specialCharPatten = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
         Pattern UpperCasePatten = Pattern.compile("[A-Z ]");
         Pattern lowerCasePatten = Pattern.compile("[a-z ]");
         int numberOfNumbers = 0;
@@ -50,7 +52,7 @@ public class RegisterAttendeeActivity extends AppCompatActivity {
             }
         }
 
-        return password != null && password.trim().length() > 5 && specailCharPatten.matcher(password).find() && UpperCasePatten.matcher(password).find() && lowerCasePatten.matcher(password).find() && digits;
+        return password != null && password.trim().length() > 5 && specialCharPatten.matcher(password).find() && UpperCasePatten.matcher(password).find() && lowerCasePatten.matcher(password).find() && digits;
     }
 
     // A placeholder username validation check
@@ -65,39 +67,24 @@ public class RegisterAttendeeActivity extends AppCompatActivity {
         }
     }
 
-    //private RegisterViewModel registerViewModel;
-
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//        //check if user if already logged in, if yes, open main activity
-//        FirebaseUser currentUser = mAuth.getCurrentUser();
-//        if(currentUser != null){
-//            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-//            startActivity(intent);
-//            finish();
-//        }
-//    }
-private FirebaseFirestore db;
     @SuppressLint("MissingInflatedId")
     @Override
     public void onCreate(Bundle savedInstanceState) {
         EditText editTextEmail, editTextPassword, editTextCP;
         Button backButton;
         Button registerButton;
-        FirebaseAuth mAuth;
+
         super.onCreate(savedInstanceState);
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        //getSupportActionBar().hide();
 
         setContentView(R.layout.activity_register_attendee);
-        db = FirebaseFirestore.getInstance();
+
 
 
         backButton = (Button) findViewById(R.id.backToMain); //back button
-        mAuth = FirebaseAuth.getInstance();
+
         registerButton =(Button) findViewById(R.id.btn_register);
         editTextEmail = findViewById(R.id.username);
         editTextPassword = findViewById(R.id.password);
@@ -112,8 +99,8 @@ private FirebaseFirestore db;
                 password = editTextPassword.getText().toString();
                 confPass = editTextCP.getText().toString();
 
-                CollectionReference dbAttendees = db.collection("Attendees");
-                //checks if email and password are empty
+
+                //checks if email, password are empty and if password and confirm password are equal
                 if(TextUtils.isEmpty(email)) {
                     Toast.makeText(RegisterAttendeeActivity.this, "Enter email", Toast.LENGTH_SHORT).show();
                     return;
@@ -140,33 +127,12 @@ private FirebaseFirestore db;
                     Toast.makeText(RegisterAttendeeActivity.this, "Confirm password invalid", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
                 //creates a user
-                mAuth.createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    //if user is added to auth db
-                                    //FirebaseUser user = mAuth.getUid();
-                                    User user = new User(email, "attendee");
-                                    //adds user to Firestore with he same uid
-                                    dbAttendees.document(mAuth.getCurrentUser().getUid()).set(user);
-                                    Toast.makeText(RegisterAttendeeActivity.this, "Account created",
-                                            Toast.LENGTH_SHORT).show();
-
-                                } else {
-                                    // If sign in fails, display a message to the user.
-                                    Toast.makeText(RegisterAttendeeActivity.this, "Account creation failed.",
-                                           Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
-
-
-
+                createAttendee(email, password);
             }
         });
+
+
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -175,5 +141,33 @@ private FirebaseFirestore db;
                 startActivity(intent);
             }
         });
+    }
+
+    //method to create an account and add it to Auth in Firebase
+    private void createAttendee(String email, String password) {
+        FirebaseAuth mAuth;
+        mAuth = FirebaseAuth.getInstance();
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            //if user is added to auth db
+                            //FirebaseUser user = mAuth.getUid();
+                            User user = new User(email, "attendee");
+                            //adds user to Firestore with he same uid
+                            CollectionReference dbAttendees = db.collection("Attendees");
+                            dbAttendees.document(mAuth.getCurrentUser().getUid()).set(user);
+                            //display a message if the account creation worked
+                            Toast.makeText(RegisterAttendeeActivity.this, "Account created",
+                                    Toast.LENGTH_SHORT).show();
+
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Toast.makeText(RegisterAttendeeActivity.this, "Account creation failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 }
