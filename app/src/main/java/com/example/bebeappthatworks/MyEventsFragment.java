@@ -101,6 +101,7 @@ public class MyEventsFragment extends Fragment {
                         adapter.setOnItemClickListener(new EventAdapter.OnItemClickListener() {
                             @Override
                             public void onItemClick(int count, Event event ) {
+                                Log.d("FOUND","IT");
                                 // Handle item click here, e.g., launch details activity/fragment
                                 MyEventOrganizer eventTest = new MyEventOrganizer();
                                 MyEventOrganizer eventFinal = eventTest.newInstance(allEventsId.get(count));
@@ -110,9 +111,6 @@ public class MyEventsFragment extends Fragment {
                                 fragmentTransaction.replace(R.id.navigation_host_fragment_content_main,fragment);
                                 fragmentTransaction.addToBackStack(null);
                                 fragmentTransaction.commit();
-
-
-
 
                             }
                         });
