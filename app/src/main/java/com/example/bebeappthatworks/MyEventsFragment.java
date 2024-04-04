@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.bebeappthatworks.ui.eventCreation.Event;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -111,6 +112,16 @@ public class MyEventsFragment extends Fragment {
                                 fragmentTransaction.replace(R.id.navigation_host_fragment_content_main,fragment);
                                 fragmentTransaction.addToBackStack(null);
                                 fragmentTransaction.commit();
+
+                                EventButton add_button = new EventButton();
+                                EventButton new_button = add_button.newInstance(allEventsId.get(count));
+                                Fragment fragment2 = new_button;
+                                FragmentManager fragmentManager2 = getActivity().getSupportFragmentManager();
+                                FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
+                                fragmentTransaction2.add(R.id.navigation_host_fragment_content_main, fragment2);
+                                fragmentTransaction2.addToBackStack(null);
+                                fragmentTransaction2.commit();
+
 
                             }
                         });

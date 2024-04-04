@@ -1,11 +1,13 @@
 package com.example.bebeappthatworks;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
@@ -37,6 +39,8 @@ public class MyEventOrganizer extends Fragment {
     public String eventID;
 
     private Event event;
+
+    private EventAdapter adapter;
 
     View view;
 
@@ -78,23 +82,22 @@ public class MyEventOrganizer extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_my_event_organizer, container, false);
-        DocumentReference docRef = db.collection("Events").document(eventID.toString());
+        view = inflater.inflate(R.layout.fragment_one_event, container, false);
 
-
-        Button edit = view.findViewById(R.id.editEvent);
-
-        edit.setOnClickListener(new View.OnClickListener() {
+        DocumentReference docRef = db.collection("Events").document(eventID);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
-            public void onClick(View view) {
-                CancelEventFragment newEvent = new CancelEventFragment();
-                CancelEventFragment newEventFinal = newEvent.newInstance(eventID);
-                Fragment fragment = newEventFinal;
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.navigation_host_fragment_content_main, fragment);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    theEvent.add(document.toObject(Event.class));
+                    Context context = view.getContext();
+                    RecyclerView recyclerView = (RecyclerView) view;
+                    adapter = new EventAdapter(theEvent);
+                    recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                    recyclerView.setAdapter(adapter);
+                }
+
             }
         });
 
