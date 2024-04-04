@@ -9,7 +9,7 @@
     tools:context=".ProfileAttendeeFragment">
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/imageViewAttendeeProfileImage"
         android:layout_width="314dp"
         android:layout_height="312dp"
         android:layout_marginTop="124dp"
@@ -22,14 +22,14 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/addprofilepic"
+        android:id="@+id/addprofilepicAttendee"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_gravity="end|bottom"
         android:background="@drawable/add_photo"
         android:backgroundTint="#FFA500"
-        app:layout_constraintEnd_toEndOf="@+id/imageView4"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView4" />
+        app:layout_constraintEnd_toEndOf="@+id/imageViewAttendeeProfileImage"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewAttendeeProfileImage" />
 
     <TextView
         android:id="@+id/emailAttendee"
@@ -41,7 +41,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView4"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewAttendeeProfileImage"
         app:layout_constraintVertical_bias="0.061" />
 
     <Button
