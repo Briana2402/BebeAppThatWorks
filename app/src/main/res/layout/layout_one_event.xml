@@ -5,7 +5,6 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@drawable/bg_with_stars"
     tools:context=".OneEventActivity">
 
     <androidx.cardview.widget.CardView
@@ -160,27 +159,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
-
-    <Button
-        android:id="@+id/buttonRegister"
-        android:layout_width="136dp"
-        android:layout_height="48dp"
-        android:layout_alignParentStart="true"
-        android:layout_gravity="center"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="520dp"
-        android:text="Register" />
-
-    <Button
-        android:id="@+id/buttonDeregister"
-        android:layout_width="136dp"
-        android:layout_height="48dp"
-        android:layout_alignParentEnd="true"
-        android:layout_gravity="center"
-        android:layout_marginStart="150dp"
-        android:layout_marginTop="520dp"
-        android:layout_marginEnd="50dp"
-        android:text="Deregister" />
 
 
 </RelativeLayout>

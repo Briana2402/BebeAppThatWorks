@@ -35,7 +35,7 @@ import java.util.Map;
  * Use the {@link RegisterForEvent#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class RegisterForEvent extends Fragment {
+public class buttons_fragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -57,7 +57,7 @@ public class RegisterForEvent extends Fragment {
 
     View view;
 
-    public RegisterForEvent() {
+    public buttons_fragment() {
         // Required empty public constructor
     }
 
@@ -69,8 +69,8 @@ public class RegisterForEvent extends Fragment {
      * @return A new instance of fragment RegisterForEvent.
      */
     // TODO: Rename and change types and number of parameters
-    public static RegisterForEvent newInstance(String param1) {
-        RegisterForEvent fragment = new RegisterForEvent();
+    public static buttons_fragment newInstance(String param1) {
+        buttons_fragment fragment = new buttons_fragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         //args.putString(ARG_PARAM2, type);
@@ -95,8 +95,7 @@ public class RegisterForEvent extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        /*
-        view = inflater.inflate(R.layout.layout_one_event, container, false);
+        view = inflater.inflate(R.layout.them_buttons, container, false);
 
         Button button = view.findViewById(R.id.buttonRegister);
         button.setOnClickListener(new View.OnClickListener() {
@@ -122,24 +121,7 @@ public class RegisterForEvent extends Fragment {
                 db.collection("Attendees").document(mAuth.getCurrentUser().getUid()).collection("my events").document(event_id).delete();
             }
         });
-        */
-        view = inflater.inflate(R.layout.fragment_only_event_view, container, false);
-        DocumentReference docRef = db.collection("Events").document(event_id);
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    theEvent.add(document.toObject(Event.class));
-                    Context context = view.getContext();
-                    RecyclerView recyclerView = (RecyclerView) view;
-                    adapter = new EventAdapter(theEvent);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                    recyclerView.setAdapter(adapter);
-                }
 
-            }
-        });
         return view;
     }
 }
