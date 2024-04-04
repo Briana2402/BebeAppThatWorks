@@ -1,29 +1,16 @@
 package com.example.bebeappthatworks;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.bebeappthatworks.databinding.AttendeeLayoutBinding;
-import com.example.bebeappthatworks.ui.eventCreation.Event;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class AttendeeActivity extends AppCompatActivity {
 
@@ -37,15 +24,14 @@ public class AttendeeActivity extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 
+        //Initialising the binding functionality
         binding = AttendeeLayoutBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        //EventsFragment fragment = new EventsFragment();
         replaceFragment(new EventsFragment());
 
-//        MyEventsAttendee myevents = new MyEventsAttendee();
-//        replaceFragment(myevents);
 
+        //Binding the fragments with the nav bar and the activity
         binding.bottomNavView.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
 
@@ -65,15 +51,9 @@ public class AttendeeActivity extends AppCompatActivity {
 
     }
 
-    public void buttonPlease(View v) {
-//        v.getContext();
-//        Log.i("test", String.valueOf(v.getContext()));
-        Intent intent = new Intent(AttendeeActivity.this, OneEventActivity.class);
-        startActivity(intent);
-    }
 
-
-    public void replaceFragment(Fragment fragment) {
+    //Method for replacing the fragments when a new button is pressed on the nav bar
+    private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.navigation_host_fragment_content_main, fragment);

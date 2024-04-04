@@ -21,19 +21,14 @@ import java.util.Map;
  * A simple {@link Fragment} subclass.
  * Use the {@link InterestedInEvent#newInstance} factory method to
  * create an instance of this fragment.
- * Class for paid events but it's still a work in progress and will have to be changed at least in the UI part
- * Also these are my 6am thoughts so forgive the long comment tmrw me will forget what I did
+ * Class for paid events in order for the user to be added as interested in the Firestore
  */
 public class InterestedInEvent extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    //setting the needed fields
     private static final String ARG_PARAM1 = "param1";
-    //private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
-    //private String mParam2;
     String event_id;
     private String ARGM1 = "param1";
     View view;
@@ -49,7 +44,7 @@ public class InterestedInEvent extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
+     * @param param1 id of the events to be added.
      * @return A new instance of fragment InterestedInEvent.
      */
     // TODO: Rename and change types and number of parameters
@@ -57,7 +52,6 @@ public class InterestedInEvent extends Fragment {
         InterestedInEvent fragment = new InterestedInEvent();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
-        //args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -67,7 +61,6 @@ public class InterestedInEvent extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             event_id = getArguments().getString(ARGM1);
-            //mParam2 = getArguments().getString(ARG_PARAM2);
         }
     }
 
@@ -94,10 +87,6 @@ public class InterestedInEvent extends Fragment {
         dereg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Log.i("gets here", event_id.toString());
-                //Map<String, String> data = new HashMap<>();
-                //data.put("type", "deregistered");
-                //data.put("type of event", event_type);
                 db.collection("Attendees").document(mAuth.getCurrentUser().getUid()).collection("my events").document(event_id).delete();
             }
         });
@@ -107,8 +96,7 @@ public class InterestedInEvent extends Fragment {
             @Override
             public void onClick(View view) {
                 OnlyEventView newEvent = new OnlyEventView();
-                OnlyEventView newEventFinal = newEvent.newInstance(event_id);
-                Fragment fragment = newEventFinal;
+                Fragment fragment = newEvent.newInstance(event_id);
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.navigation_host_fragment_content_main, fragment);

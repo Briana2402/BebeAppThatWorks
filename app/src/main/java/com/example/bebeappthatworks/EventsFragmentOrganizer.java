@@ -1,6 +1,5 @@
 package com.example.bebeappthatworks;
 
-import static com.google.android.gms.tasks.Tasks.await;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -26,16 +25,12 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * A fragment representing a list of Items.
  */
 public class EventsFragmentOrganizer extends Fragment {
-
-    // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
     private int mColumnCount = 1;
 
     public final FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -43,14 +38,10 @@ public class EventsFragmentOrganizer extends Fragment {
     public List<Event> allEvents = new ArrayList<>();
     public List<String> allEventsId = new ArrayList<>();
     public int count = 0;
-
-    private RecyclerView recyclerView;
-    private List<Event> eventList;
     private EventAdapter adapter;
 
     private FirebaseAuth mAuth;
 
-    private boolean tryTest;
 
     View view;
 
@@ -65,7 +56,6 @@ public class EventsFragmentOrganizer extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //tryTest = false;
 
     }
 
@@ -75,7 +65,7 @@ public class EventsFragmentOrganizer extends Fragment {
         view = inflater.inflate(R.layout.fragment_events_list, container, false);
         mAuth = FirebaseAuth.getInstance();
 
-        // Set the adapter
+        // Fetch the event from Firebase
         db.collection("Events")
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -91,13 +81,11 @@ public class EventsFragmentOrganizer extends Fragment {
                                 adapter = new EventAdapter(allEvents);
                                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                                 recyclerView.setAdapter(adapter);
-                                // recyclerView.setAdapter(new MyItemRecyclerViewAdapter(allEvents));
                                 adapter.setOnItemClickListener(new EventAdapter.OnItemClickListener() {
                                     @Override
                                     public void onItemClick(int count, Event event) {
                                       OnlyEventView newEvent = new OnlyEventView();
-                                      OnlyEventView newEventFinal = newEvent.newInstance(allEventsId.get(count));
-                                      Fragment fragment = newEventFinal;
+                                        Fragment fragment = newEvent.newInstance(allEventsId.get(count));
                                       FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                                       FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                                       fragmentTransaction.replace(R.id.navigation_host_fragment_content_main, fragment);

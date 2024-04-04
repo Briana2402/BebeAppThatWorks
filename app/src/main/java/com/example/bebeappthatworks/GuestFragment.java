@@ -26,16 +26,12 @@ import java.util.List;
  */
 public class GuestFragment extends Fragment {
 
-    // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
     private int mColumnCount = 1;
 
     public final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public List<Event> allEvents = new ArrayList<>();
-
-
     View view;
 
     /**
@@ -57,11 +53,12 @@ public class GuestFragment extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_events_list, container, false);
 
-        // Set the adapter
+        // Fetch all the events for the main page
         db.collection("Events")
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        //set the adapter
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 allEvents.add(document.toObject(Event.class));

@@ -29,17 +29,12 @@ import java.util.List;
  */
 public class CancelEventFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    //The fragment initialization parameters
     private static String ARGM1 = "param1";
     public String eventID;
-
-    private Event event;
-
     View view;
 
-    public List<Event> theEvent = new ArrayList<>();
-
+    //Firebase instance for fetching
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     public CancelEventFragment() {
         // Required empty public constructor
@@ -49,10 +44,9 @@ public class CancelEventFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1
+     * @param param1 id of event to be canceled
      * @return A new instance of fragment SingleEvent.
      */
-    // TODO: Rename and change types and number of parameters
     public CancelEventFragment newInstance(String param1) {
         CancelEventFragment fragment = new CancelEventFragment();
         Bundle args = new Bundle();
@@ -63,13 +57,10 @@ public class CancelEventFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Log.i("TEROG",ARGM1);
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             eventID = getArguments().getString(ARGM1);
         }
-        Log.i("TEROG",eventID);
-
     }
 
     @Override
@@ -77,18 +68,18 @@ public class CancelEventFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_cancel_event, container, false);
+        //Path refrence of the event document in Firestore
         DocumentReference docRef = db.collection("Events").document(eventID.toString());
-
-
         Button cancel = view.findViewById(R.id.cancelEvent);
 
+        //When the cancel button is pressed, the event is deleted from the database
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //selecting the event that will be deleted
                 db.collection("Events").document(eventID.toString()).delete();
             }
         });
-
         return view;
     }
 }
