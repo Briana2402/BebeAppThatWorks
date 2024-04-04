@@ -65,15 +65,13 @@ public class RegisterForEvent extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
+     * @param param1 the event that was clicked
      * @return A new instance of fragment RegisterForEvent.
      */
-    // TODO: Rename and change types and number of parameters
     public static RegisterForEvent newInstance(String param1) {
         RegisterForEvent fragment = new RegisterForEvent();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
-        //args.putString(ARG_PARAM2, type);
         fragment.setArguments(args);
         return fragment;
     }
@@ -95,36 +93,16 @@ public class RegisterForEvent extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        /*
-        view = inflater.inflate(R.layout.layout_one_event, container, false);
-
-        Button button = view.findViewById(R.id.buttonRegister);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Log.i("gets here", event_id.toString());
-                Map<String, String> data = new HashMap<>();
-                data.put("type", "registered");
-                //data.put("type of event", event_type);
-                db.collection("Attendees").document(mAuth.getCurrentUser().getUid()).collection("my events").document(event_id).set(data);
-            }
-        });
-        Button details = view.findViewById(R.id.buttonSeeDetails);
-        Button dereg = view.findViewById(R.id.buttonDeregister);
-
-        dereg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                db.collection("Attendees").document(mAuth.getCurrentUser().getUid()).collection("my events").document(event_id).delete();
-            }
-        });
-        */
         view = inflater.inflate(R.layout.fragment_only_event_view, container, false);
+        //specifies the path where to get the event
         DocumentReference docRef = db.collection("Events").document(event_id);
+
+        //fetches the event from the database
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
+                    //sets the adapter and the event currently clicked
                     DocumentSnapshot document = task.getResult();
                     theEvent.add(document.toObject(Event.class));
                     Context context = view.getContext();
@@ -133,7 +111,6 @@ public class RegisterForEvent extends Fragment {
                     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                     recyclerView.setAdapter(adapter);
                 }
-
             }
         });
         return view;

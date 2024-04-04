@@ -38,24 +38,15 @@ import java.util.Objects;
  * create an instance of this fragment.
  */
 public class NotificationsFragment extends Fragment {
-
-    // TODO: Customize parameter argument names
-    private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
-    private int mColumnCount = 1;
-
     public final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public List<Notification> allNotifications = new ArrayList<>();
     public int count = 0;
 
     private RecyclerView recyclerView;
-    private List<Notification> notificationList;
     private NotificationAdapter adapter;
 
     private FirebaseAuth mAuth;
-
-
     View view;
 
     public NotificationsFragment() {
