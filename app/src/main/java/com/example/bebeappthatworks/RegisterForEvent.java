@@ -95,6 +95,34 @@ public class RegisterForEvent extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        /*
+        view = inflater.inflate(R.layout.layout_one_event, container, false);
+
+        Button button = view.findViewById(R.id.buttonRegister);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Log.i("gets here", event_id.toString());
+                Map<String, String> data = new HashMap<>();
+                data.put("type", "registered");
+                //data.put("type of event", event_type);
+                db.collection("Attendees").document(mAuth.getCurrentUser().getUid()).collection("my events").document(event_id).set(data);
+            }
+        });
+        Button details = view.findViewById(R.id.buttonSeeDetails);
+        Button dereg = view.findViewById(R.id.buttonDeregister);
+
+        dereg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Log.i("gets here", event_id.toString());
+                //Map<String, String> data = new HashMap<>();
+                //data.put("type", "deregistered");
+                //data.put("type of event", event_type);
+                db.collection("Attendees").document(mAuth.getCurrentUser().getUid()).collection("my events").document(event_id).delete();
+            }
+        });
+        */
         view = inflater.inflate(R.layout.fragment_only_event_view, container, false);
         DocumentReference docRef = db.collection("Events").document(event_id);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
