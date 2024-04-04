@@ -1,5 +1,6 @@
 package com.example.bebeappthatworks;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -7,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
@@ -23,7 +25,9 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -41,6 +45,9 @@ public class RegisterForEvent extends Fragment {
     // TODO: Rename and change types of parameters
     private String ARGM1 = "param1";
     private String event_type;
+    private EventAdapter adapter;
+
+    public List<Event> theEvent = new ArrayList<>();
 
     //public Button button;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -88,7 +95,8 @@ public class RegisterForEvent extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.register_button, container, false);
+        view = inflater.inflate(R.layout.layout_one_event, container, false);
+
 
         Button button = view.findViewById(R.id.buttonRegister);
         button.setOnClickListener(new View.OnClickListener() {
@@ -112,22 +120,6 @@ public class RegisterForEvent extends Fragment {
                 //data.put("type", "deregistered");
                 //data.put("type of event", event_type);
                 db.collection("Attendees").document(mAuth.getCurrentUser().getUid()).collection("my events").document(event_id).delete();
-            }
-        });
-
-
-
-        details.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                OnlyEventView newEvent = new OnlyEventView();
-                OnlyEventView newEventFinal = newEvent.newInstance(event_id);
-                Fragment fragment = newEventFinal;
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.navigation_host_fragment_content_main, fragment);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
             }
         });
 

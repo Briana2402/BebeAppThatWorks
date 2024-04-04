@@ -111,6 +111,17 @@ public class EventsFragment extends Fragment {
                                                 Fragment fragment = newRegister;
 //                                            SingleEventFree newEventParam = newEvent.newInstance(allEventsId.get(count));
 //                                            Fragment fragment = newEventParam;
+
+                                                /*
+                                                OnlyEventView newEvent = new OnlyEventView();
+                OnlyEventView newEventFinal = newEvent.newInstance(event_id);
+                Fragment fragment = newEventFinal;
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.navigation_host_fragment_content_main, fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+                                                 */
 //
 //                                            Toast.makeText(getActivity(), "Clicked on event: " + event.getEventName(), Toast.LENGTH_SHORT).show();
 //                                            //adapter.getItemCount();
