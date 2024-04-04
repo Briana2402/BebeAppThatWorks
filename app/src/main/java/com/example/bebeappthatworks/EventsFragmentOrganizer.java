@@ -48,7 +48,7 @@ public class EventsFragmentOrganizer extends Fragment {
     private List<Event> eventList;
     private EventAdapter adapter;
 
-    public final FirebaseAuth mAuth = FirebaseAuth.getInstance();;
+    private FirebaseAuth mAuth;
 
     private boolean tryTest;
 
@@ -73,6 +73,7 @@ public class EventsFragmentOrganizer extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_events_list, container, false);
+        mAuth = FirebaseAuth.getInstance();
 
         // Set the adapter
         db.collection("Events")

@@ -4,8 +4,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
@@ -29,7 +27,7 @@ import java.util.List;
  * Use the {@link SingleEventFree#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MyEventOrganizer extends Fragment {
+public class CancelEventFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -43,7 +41,7 @@ public class MyEventOrganizer extends Fragment {
     public List<Event> theEvent = new ArrayList<>();
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    public MyEventOrganizer() {
+    public CancelEventFragment() {
         // Required empty public constructor
     }
 
@@ -55,8 +53,8 @@ public class MyEventOrganizer extends Fragment {
      * @return A new instance of fragment SingleEvent.
      */
     // TODO: Rename and change types and number of parameters
-    public MyEventOrganizer newInstance(String param1) {
-        MyEventOrganizer fragment = new MyEventOrganizer();
+    public CancelEventFragment newInstance(String param1) {
+        CancelEventFragment fragment = new CancelEventFragment();
         Bundle args = new Bundle();
         args.putString(ARGM1, param1);
         fragment.setArguments(args);
@@ -78,23 +76,16 @@ public class MyEventOrganizer extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_my_event_organizer, container, false);
+        view = inflater.inflate(R.layout.fragment_cancel_event, container, false);
         DocumentReference docRef = db.collection("Events").document(eventID.toString());
 
 
-        Button edit = view.findViewById(R.id.editEvent);
+        Button cancel = view.findViewById(R.id.cancelEvent);
 
-        edit.setOnClickListener(new View.OnClickListener() {
+        cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CancelEventFragment newEvent = new CancelEventFragment();
-                CancelEventFragment newEventFinal = newEvent.newInstance(eventID);
-                Fragment fragment = newEventFinal;
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.navigation_host_fragment_content_main, fragment);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
+                db.collection("Events").document(eventID.toString()).delete();
             }
         });
 

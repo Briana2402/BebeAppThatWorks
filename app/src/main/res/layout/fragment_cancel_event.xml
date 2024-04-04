@@ -10,12 +10,12 @@
 
 
     <Button
-        android:id="@+id/editEvent"
+        android:id="@+id/cancelEvent"
         android:layout_width="136dp"
         android:layout_height="48dp"
         android:layout_gravity="center"
         android:layout_marginStart="150dp"
         android:layout_marginTop="78dp"
         android:layout_marginEnd="5dp"
-        android:text="Edit" />
+        android:text="Cancel event" />
 </RelativeLayout>
