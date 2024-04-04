@@ -212,7 +212,7 @@ public class ProfileAttendeeFragment extends Fragment {
                 .into(imageView);
     }
 
-    public void captureImage(View view) {
+    private void captureImage(View view) {
         if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA_PERMISSION_CODE);
