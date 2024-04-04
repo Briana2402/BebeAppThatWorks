@@ -2,6 +2,7 @@ package com.example.bebeappthatworks;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -13,9 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,7 +26,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.bebeappthatworks.ui.eventCreation.Event;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -41,9 +39,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -60,7 +55,7 @@ public class ProfileAttendeeFragment extends Fragment {
     private ImageView profile_pic;
     private String imageUrl;
     private Attendee attendee;
-    private Button profilepicBtn;
+    private Button profilepicBtnAttendee;
     private FirebaseFirestore db;
     private TextView email;
     private TextView name;
@@ -99,15 +94,16 @@ public class ProfileAttendeeFragment extends Fragment {
 
     }
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_profile_attendee, container, false);
         db = FirebaseFirestore.getInstance();
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        name = view.findViewById(R.id.textName);
         email = view.findViewById(R.id.emailAttendee);
-        profile_pic = view.findViewById(R.id.imageView4);
+        profile_pic = view.findViewById(R.id.imageViewAttendeeProfileImage);
         docRef = db.collection("Attendees").document((mAuth.getCurrentUser().getUid()));
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -115,7 +111,7 @@ public class ProfileAttendeeFragment extends Fragment {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     attendee = document.toObject(Attendee.class);
-                    name.setText("my name is Jeff");
+                    //name.setText("my name is Jeff");
                     email.setText(attendee.getEmail());
                     try {
                         if (attendee.getProfileUrl() != null) {
@@ -130,8 +126,7 @@ public class ProfileAttendeeFragment extends Fragment {
         });
 
         Button myButton = view.findViewById(R.id.LOGOUTBUTTONATTENDEE);
-        profilepicBtn = view.findViewById(R.id.addprofilepic);
-
+        profilepicBtnAttendee = view.findViewById(R.id.addprofilepicAttendee);
 
         myButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -167,23 +162,37 @@ public class ProfileAttendeeFragment extends Fragment {
             }
         });
 
-        profilepicBtn.setOnClickListener(new View.OnClickListener() {
+        profilepicBtnAttendee.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Call your captureImage method or perform your action here
+                showDialog();
+            }
+        });
+
+        return view;
+    }
+
+    private void showDialog() {
+        Dialog dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.popup);
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.popup_background);
+        Button cameraBtn = dialog.findViewById(R.id.buttonCamera);
+        Button galleryBtn = dialog.findViewById(R.id.buttonGallery);
+        cameraBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Call your captureImage method
+                dialog.dismiss();
                 captureImage(v);
             }
         });
-//        ImageView settingsButtonAttendee = (ImageView) view.findViewById(R.id.SettingsAttendee);
-//        settingsButtonAttendee.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent i = new Intent(getActivity(), SettingsAttendee.class);
-//                startActivity(i);
-//            }
-//        });
-
-        return view;
+        galleryBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 
     private void setImage(String imageUrl, ImageView imageView, Context context) {
@@ -196,6 +205,7 @@ public class ProfileAttendeeFragment extends Fragment {
                 .load(imageUrl)
                 .into(imageView);
     }
+
     public void captureImage(View view) {
         if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
