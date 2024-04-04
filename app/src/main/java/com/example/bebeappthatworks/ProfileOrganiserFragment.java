@@ -2,6 +2,7 @@ package com.example.bebeappthatworks;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -120,7 +121,7 @@ public class ProfileOrganiserFragment extends Fragment {
                 .load(imageUrl)
                 .into(imageView);
     }
-    public void captureImage(View view) {
+    private void captureImage(View view) {
         if (ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA_PERMISSION_CODE);
@@ -129,6 +130,29 @@ public class ProfileOrganiserFragment extends Fragment {
 
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
+    }
+
+    private void showDialog() {
+        Dialog dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.popup);
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.popup_background);
+        Button cameraBtn = dialog.findViewById(R.id.buttonCamera);
+        Button galleryBtn = dialog.findViewById(R.id.buttonGallery);
+        cameraBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Call your captureImage method
+                dialog.dismiss();
+                captureImage(v);
+            }
+        });
+        galleryBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 
     @Override
@@ -241,7 +265,7 @@ public class ProfileOrganiserFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // Call your captureImage method or perform your action here
-                captureImage(v);
+                showDialog();
             }
         });
 
