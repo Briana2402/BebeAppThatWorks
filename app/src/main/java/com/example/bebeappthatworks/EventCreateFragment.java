@@ -64,40 +64,33 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.UploadTask;
 
 /**
- * A simple {@link Fragment} subclass.
+ * A simple {@link Fragment} subclass to create events for organisers.
  * Use the {@link EventCreateFragment#newInstance} factory method to
  * create an instance of this fragment.
- *
+ * @pre Organzier account is logged in.
+ * @post Event is created by organizer.
  */
 public class EventCreateFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
+    //Used view.
     View view;
 
-    // creating variables for our edit text
+    //Initialising used EditText components.
     private EditText eventNameEdt, eventDurationEdt, eventDescriptionEdt, eventLocationEdt, eventCapacityEdt, eventDateEdt, eventLinkEdt;
 
-    // creating variable for button
+    // creating variable for buttons.
     private Button submitEventBtn;
     private Button captureImageButton;
-    private CheckBox paidEvent;
 
-    // creating a strings for storing
-    // our values from edittext fields.
+    // Creating a strings for storing values from EditText fields.
     private String eventLocation, eventDate, eventName, eventDescription, eventCapacity, eventDuration, eventType, imageUrl, eventLink;
 
-    // creating a variable
-    // for firebasefirestore.
+    private CheckBox paidEvent;
+
+    //Initialising instance of Firebase database.
     private FirebaseFirestore db;
 
+    //Initialising instance of Firebase authentification.
     private FirebaseAuth mAuth;
 
     private static final int REQUEST_CAMERA_PERMISSION_CODE = 1;
@@ -110,18 +103,10 @@ public class EventCreateFragment extends Fragment {
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment EventCreateFragment.
      */
-    // TODO: Rename and change types and number of parameters
-    public static EventCreateFragment newInstance(String param1, String param2) {
+    public static EventCreateFragment newInstance() {
         EventCreateFragment fragment = new EventCreateFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
     }
 
@@ -131,12 +116,7 @@ public class EventCreateFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
 
     }
 
@@ -145,24 +125,14 @@ public class EventCreateFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_event_create, container, false);
-
-//        super.onCreate(savedInstanceState);
-//        if (savedInstanceState == null) {
-//            getFragmentManager().beginTransaction()
-//                    .setReorderingAllowed(true)
-//                    .add(R.id.camera_fragment, use_camera.class, null)
-//                    .commit();
-//        }
-        eventLinkEdt = view.findViewById(R.id.linkPaid);
-        eventLinkEdt.setVisibility(View.INVISIBLE);
-
-        imageView = view.findViewById(R.id.cover_image);
-        // getting our instance
-        // from Firebase Firestore.
+        // getting our instance from Firebase Firestore.
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
 
-        // initializing our edittext and buttons
+        //Initializing the EditText fields, checkbox and ImageView.
+        eventLinkEdt = view.findViewById(R.id.linkPaid);
+        eventLinkEdt.setVisibility(View.INVISIBLE);
+        imageView = view.findViewById(R.id.cover_image);
         eventNameEdt = view.findViewById(R.id.idEdtEventName);
         eventDescriptionEdt = view.findViewById(R.id.idEdtEventDescription);
         eventLocationEdt = view.findViewById(R.id.idEdtEventLocation);
@@ -170,13 +140,13 @@ public class EventCreateFragment extends Fragment {
         eventDurationEdt = view.findViewById(R.id.idEdtEventDuration);
         eventDateEdt = view.findViewById(R.id.idEdtEventDate);
         submitEventBtn = view.findViewById(R.id.idBtnSubmitEvent);
-        CheckBox paidEvent = (CheckBox) view.findViewById(R.id.checkBox);
+        paidEvent = (CheckBox) view.findViewById(R.id.checkBox);
         captureImageButton = view.findViewById(R.id.event_cover);
 
+        //Code for Checkbox paidEvent to check type of event and show or hide eventLink field.
         paidEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if(paidEvent.isChecked()){
                     eventType = "Paid";
                     eventLinkEdt.setVisibility(View.VISIBLE);
@@ -189,7 +159,7 @@ public class EventCreateFragment extends Fragment {
         });
 
 
-        // adding on click listener for button
+        // adding on click listener for event submitting button.
         submitEventBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -203,6 +173,7 @@ public class EventCreateFragment extends Fragment {
                 eventCapacity = eventCapacityEdt.getText().toString();
                 String creator = mAuth.getCurrentUser().getUid().toString();
 
+                //Check if event is free or paid.
                 if(paidEvent.isChecked()){
                     eventType = "Paid";
                 } else {
@@ -214,7 +185,7 @@ public class EventCreateFragment extends Fragment {
                     eventLink = eventLinkEdt.getText().toString();
                 }
 
-                // validating the text fields if empty or not.
+                // validating the mandatory text fields.
                 if (TextUtils.isEmpty(eventName)) {
                     eventNameEdt.setError("Please enter Event Name");
                 } else if (TextUtils.isEmpty(eventDescription)) {
@@ -232,7 +203,7 @@ public class EventCreateFragment extends Fragment {
                     if (TextUtils.isEmpty(eventDate)) {
                         eventDateEdt.setError("Please enter Event Date");
                     } else {
-                        // calling method to add data to Firebase Firestore.
+                        // calling method to add data to Firebase Firestore if all mandatory fields are filled.
                         addDataToFirestore(eventName, eventDescription, eventDuration, eventDate, eventLocation, eventCapacity,imageUrl, eventType, eventLink, creator);
                     }
                 }
@@ -250,27 +221,42 @@ public class EventCreateFragment extends Fragment {
     }
 
 
+    /**
+     * Sends the information of the created event to a document in firebase databse Events collection.
+     *
+     * @param eventName Inputted event name.
+     * @param eventDescription Inputted event description.
+     * @param eventDuration Inputted event duration.
+     * @param eventDate Inputted event date.
+     * @param eventLocation Inputted event location.
+     * @param eventCapacity Inputted event capacity.
+     * @param imageUrl Inputted event image.
+     * @param eventType Selected event type.
+     * @param eventLink Inputted event link.
+     * @param creator Inputted event creator.
+     *
+     * @pre All mandatory fields are inputted.
+     * @post Event instance is created in Firebase database under "Events" collection and either also under "PaidEvents"
+     * or "FreeEvents".
+     */
     private void addDataToFirestore(String eventName, String eventDescription, String eventDuration, String eventDate, String eventLocation, String eventCapacity, String imageUrl, String eventType, String eventLink, String creator ) {
 
-        // creating a collection reference
-        // for our Firebase Firestore database.
+        //Creating collection references for the events collection, the paid events collection and the free events collection.
         CollectionReference dbEvents = db.collection("Events");
         CollectionReference dbFreeEvents = db.collection("FreeEvents");
         CollectionReference dbPaidEvents = db.collection("PaidEvents");
 
-        // adding our data to our courses object class.
+        // Create Event object and add it to the correct collections in Firebase database.
         Event events = new Event(eventLocation, eventDuration, eventName, eventDate, eventCapacity, eventDescription, imageUrl, eventType, eventLink, creator);
         if(eventType.equals("Free")){
             dbFreeEvents.add(events);
         } else if(eventType.equals("Paid")){
             dbPaidEvents.add(events);
         }
-        // below method is use to add data to Firebase Firestore.
         dbEvents.add(events).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
-                // after the data addition is successful
-                // we are displaying a success toast message.
+                // after the data addition is successful, we are displaying a success toast message.
                 Toast.makeText(getActivity(), "Your Event has been added to Firebase Firestore", Toast.LENGTH_SHORT).show();
 
             }
@@ -352,35 +338,5 @@ public class EventCreateFragment extends Fragment {
             }
         });
 
-//        uploadTask.addOnFailureListener(new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception exception) {
-//                // Handle upload failure
-//                Toast.makeText(getContext(), "Image upload failed!", Toast.LENGTH_SHORT).show();
-//            }
-//        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//            @Override
-//            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                // Get the download URL after successful upload
-//                imageUrl = storageRef.getDownloadUrl().toString();
-//                storageRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>()
-//                {
-//                    @Override
-//                    public void onSuccess(Uri downloadUrl)
-//                    {
-//                        Log.i("imageUrl", imageUrl);
-//                    }
-//                });
-//            }
-//        });
     }
-//    private String getImageUrl(Bitmap imageBitmap) {
-//        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-//        imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-//        String fileName = "IMG_" + System.currentTimeMillis() + ".jpg";
-//        String path = MediaStore.Images.Media.insertImage(requireContext().getContentResolver(),
-//                imageBitmap, fileName,null);
-//        Uri uri = Uri.parse(path);
-//        return uri.toString();
-//    }
 }

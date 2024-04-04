@@ -148,6 +148,15 @@ public class CancelEventFragment extends Fragment {
                 });
     }
 
+
+    /**
+     * Button functionality that deletes a created event from the database when pressed.
+     *
+     * @param button Button pressed to delete event.
+     * @pre Event was created by logged in account.
+     * @post Event is deleted from database and app events pages and notifications are sent to registerd
+     * attendees.
+     */
     private void deleteEvent(Button button){
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -164,6 +173,15 @@ public class CancelEventFragment extends Fragment {
         });
     }
 
+
+    /**
+     * Fetches the document containing the information of the event with document id ID.
+     *
+     * @param ID ID of document to be fetched.
+     * @pre A document in collction "Events" with given ID.
+     * @post Document data is saved in an Event object.
+     *
+     */
     private void getEvent(String ID){
         DocumentReference docRef = db.collection("Events").document(ID.toString());
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
