@@ -47,4 +47,5 @@
 
     <string name="more_details">More Details</string>
     <string name="title_activity_one_event">OneEventActivity</string>
+    <string name="event_link">Enter event link</string>
 </resources>

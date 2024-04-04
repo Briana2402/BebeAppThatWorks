@@ -80,7 +80,7 @@ public class OnlyEventView extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_only_event_view, container, false);
-        DocumentReference docRef = db.collection("Events").document(eventID.toString());
+        DocumentReference docRef = db.collection("Events").document(eventID);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -96,6 +96,7 @@ public class OnlyEventView extends Fragment {
 
             }
         });
+
         return view;
     }
 }
