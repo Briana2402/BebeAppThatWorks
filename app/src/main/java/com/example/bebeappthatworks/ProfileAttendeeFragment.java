@@ -131,6 +131,15 @@ public class ProfileAttendeeFragment extends Fragment {
             }
         });
 
+        Button openSettings = (Button) view.findViewById(R.id.openSettings);
+        openSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(), SettingsAttendee.class);
+                startActivity(i);
+            }
+        });
+
         Button myButton = view.findViewById(R.id.LOGOUTBUTTONATTENDEE);
         profilepicBtn = view.findViewById(R.id.addprofilepic);
 
