@@ -39,22 +39,24 @@ import java.util.Map;
  */
 public class CancelEventFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    //Parameter to get the event id needed through constructor.
     private static String ARGM1 = "param1";
+
+    //Parameter to save the event id needed.
     public String eventID;
 
+    //Parameter to save the event name needed.
     public String eventName;
 
+    //Parameter to save instance of type Event.
     private Event event;
 
+    //Used view.
     View view;
 
-    private boolean sent;
-
-    public List<Event> allAttendees = new ArrayList<>();
-
+    //Initializing a firebase instance.
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+
     public CancelEventFragment() {
         // Required empty public constructor
     }
@@ -63,10 +65,9 @@ public class CancelEventFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1
-     * @return A new instance of fragment SingleEvent.
+     * @param param1 provided event ID parameter.
+     * @return A new instance of fragment CancelEvent.
      */
-    // TODO: Rename and change types and number of parameters
     public CancelEventFragment newInstance(String param1) {
         CancelEventFragment fragment = new CancelEventFragment();
         Bundle args = new Bundle();
@@ -75,15 +76,13 @@ public class CancelEventFragment extends Fragment {
         return fragment;
     }
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Log.i("TEROG",ARGM1);
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             eventID = getArguments().getString(ARGM1);
         }
-        Log.i("TEROG",eventID);
-
     }
 
     @Override
@@ -91,6 +90,7 @@ public class CancelEventFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_cancel_event, container, false);
+
         DocumentReference docRef = db.collection("Events").document(eventID.toString());
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -105,20 +105,7 @@ public class CancelEventFragment extends Fragment {
 
 
         Button cancel = view.findViewById(R.id.cancelEvent);
-
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sendNotification();
-                db.collection("Events").document(eventID.toString()).delete();
-                MyEventsFragment fragment = new MyEventsFragment();
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.navigation_host_fragment_content_main, fragment);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
-            }
-        });
+        deleteEvent(cancel);
 
         return view;
     }
@@ -166,10 +153,26 @@ public class CancelEventFragment extends Fragment {
                         Log.e("not document", "Error getting documents: ", task.getException());
                     }
                 });
-//        CollectionReference citiesRef = db.collection("Attendees").;
-//
-//        citiesRef.whereIn("country", Arrays.asList("USA", "Japan"));
 
 
     }
+
+    public void deleteEvent(Button button){
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendNotification();
+                db.collection("Events").document(eventID.toString()).delete();
+                MyEventsFragment fragment = new MyEventsFragment();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.navigation_host_fragment_content_main, fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
+    }
 }
+
+
+
