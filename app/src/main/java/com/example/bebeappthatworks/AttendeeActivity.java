@@ -1,6 +1,8 @@
 package com.example.bebeappthatworks;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -60,4 +62,10 @@ public class AttendeeActivity extends AppCompatActivity {
         fragmentTransaction.commit();
 
     }
+
+    public void openMaps(View v) {
+        Intent intent = new Intent(this, com.example.bebeappthatworks.Map.class);
+        startActivity(intent);
+    }
+
 }
