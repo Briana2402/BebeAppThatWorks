@@ -98,6 +98,8 @@ public class EventCreateFragment extends Fragment {
     // for firebasefirestore.
     private FirebaseFirestore db;
 
+    private FirebaseAuth mAuth;
+
     private static final int REQUEST_CAMERA_PERMISSION_CODE = 1;
 
     private static final int REQUEST_IMAGE_CAPTURE = 2;
@@ -158,7 +160,7 @@ public class EventCreateFragment extends Fragment {
         // getting our instance
         // from Firebase Firestore.
         db = FirebaseFirestore.getInstance();
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
 
         // initializing our edittext and buttons
         eventNameEdt = view.findViewById(R.id.idEdtEventName);
@@ -221,12 +223,16 @@ public class EventCreateFragment extends Fragment {
                     eventDurationEdt.setError("Please enter Event Duration");
                 } else if (TextUtils.isEmpty(eventLocation)) {
                     eventLocationEdt.setError("Please enter Event Location");
+                } else if (paidEvent.isChecked() && TextUtils.isEmpty(eventLink)) {
+                    eventLinkEdt.setError("Please enter Event link");
+                    Toast.makeText(getActivity(), "Please enter Event link", Toast.LENGTH_SHORT).show();
+                } else if (TextUtils.isEmpty(eventLocation)) {
+                    eventLocationEdt.setError("Please enter Event Location");
                 } else {
                     if (TextUtils.isEmpty(eventDate)) {
                         eventDateEdt.setError("Please enter Event Date");
                     } else {
                         // calling method to add data to Firebase Firestore.
-                        Log.i("imageUrl", imageUrl);
                         addDataToFirestore(eventName, eventDescription, eventDuration, eventDate, eventLocation, eventCapacity,imageUrl, eventType, eventLink, creator);
                     }
                 }
