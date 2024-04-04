@@ -6,73 +6,69 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_with_stars"
-    tools:context=".ProfileOrganiserFragment">
+    tools:context=".ProfileAttendeeFragment">
 
     <ImageView
-        android:id="@+id/imageViewOrganiserProfileImage"
-        android:layout_width="220dp"
-        android:layout_height="220dp"
-        android:layout_marginTop="88dp"
+        android:id="@+id/imageViewAttendeeProfileImage"
+        android:layout_width="314dp"
+        android:layout_height="312dp"
+        android:layout_marginTop="124dp"
         android:background="@drawable/circle_background"
         android:clipToOutline="true"
         android:scaleType="centerCrop"
         android:src="@drawable/profileicon"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/addprofilepicOrganiser"
+        android:id="@+id/addprofilepicAttendee"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_gravity="end|bottom"
         android:background="@drawable/add_photo"
         android:backgroundTint="#FFA500"
-        app:layout_constraintEnd_toEndOf="@+id/imageViewOrganiserProfileImage"
-        app:layout_constraintBottom_toBottomOf="@+id/imageViewOrganiserProfileImage" />
-
+        app:layout_constraintEnd_toEndOf="@+id/imageViewAttendeeProfileImage"
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewAttendeeProfileImage" />
 
     <TextView
-        android:id="@+id/emailOrganiser"
+        android:id="@+id/emailAttendee"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="email@organiser.com"
+        android:text="email@attendee.com"
         android:textColor="#AFABAB"
-        android:textSize="20sp"
+        android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewOrganiserProfileImage"
-        app:layout_constraintVertical_bias="0.081" />
+        app:layout_constraintTop_toBottomOf="@+id/imageViewAttendeeProfileImage"
+        app:layout_constraintVertical_bias="0.061" />
 
     <Button
-        android:id="@+id/deleteAccountOrganiserBtn"
-        android:layout_width="145dp"
-        android:layout_height="48dp"
+        android:id="@+id/deleteAccountAttendeeBtn"
+        android:layout_width="236dp"
+        android:layout_height="68dp"
         android:layout_marginStart="1dp"
-        android:layout_marginBottom="108dp"
+        android:layout_marginBottom="164dp"
         android:backgroundTint="#EC4646"
         android:text="Delete account"
         android:textColor="@color/white"
+        android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/LOGOUTBUTTONORGANISER"
-        app:layout_constraintTop_toBottomOf="@+id/emailOrganiser"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintStart_toEndOf="@+id/LOGOUTBUTTONATTENDEE" />
 
     <Button
-        android:id="@+id/LOGOUTBUTTONORGANISER"
-        android:layout_width="145dp"
-        android:layout_height="48dp"
+        android:id="@+id/LOGOUTBUTTONATTENDEE"
+        android:layout_width="236dp"
+        android:layout_height="68dp"
         android:layout_marginEnd="1dp"
-        android:layout_marginBottom="108dp"
+        android:layout_marginBottom="164dp"
         android:text="Log out"
+        android:textSize="34sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/deleteAccountOrganiserBtn"
+        app:layout_constraintEnd_toStartOf="@+id/deleteAccountAttendeeBtn"
         app:layout_constraintHorizontal_bias="0.382"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailOrganiser"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#2C1854"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context=".EventCreateFragment"
+    tools:layout_editor_absoluteX="172dp"
+    tools:layout_editor_absoluteY="-13dp">
+
+    <ImageView
+        android:id="@+id/cover_image"
+        android:layout_width="103dp"
+        android:layout_height="84dp"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/text_margin"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/placeholder_view_vector"
+        android:textAppearance="?attr/textAppearanceListItem"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="5dp" />
+
+    <EditText
+        android:id="@+id/idEdtEventName"
+        android:layout_width="300dp"
+        android:layout_height="20dp"
+        android:background="#9A8FAF"
+        android:hint="@string/Enter_Event_name"
+        android:imeActionLabel="@string/action_sign_in_short"
+        android:selectAllOnFocus="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.85"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <EditText
+        android:id="@+id/idEdtEventLocation"
+        android:layout_width="300dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="8dp"
+        android:background="#9A8FAF"
+        android:hint="@string/Enter_Event_location"
+        android:selectAllOnFocus="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.85"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/idEdtEventName" />
+
+    <EditText
+        android:id="@+id/idEdtEventDescription"
+        android:layout_width="300dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="8dp"
+        android:background="#9A8FAF"
+        android:hint="@string/Enter_Event_description"
+        android:selectAllOnFocus="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.85"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/idEdtEventDate" />
+
+    <EditText
+        android:id="@+id/idEdtEventDuration"
+        android:layout_width="300dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="8dp"
+        android:background="#9A8FAF"
+        android:hint="@string/Enter_Event_duration"
+        android:selectAllOnFocus="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.85"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/idEdtEventLocation" />
+
+    <EditText
+        android:id="@+id/idEdtEventCapacity"
+        android:layout_width="300dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="8dp"
+        android:background="#9A8FAF"
+        android:hint="@string/Enter_Event_capacity"
+        android:selectAllOnFocus="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.85"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/idEdtEventDuration" />
+
+    <EditText
+        android:id="@+id/idEdtEventDate"
+        android:layout_width="300dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="4dp"
+        android:background="#9A8FAF"
+        android:hint="@string/Enter_Event_date"
+        android:selectAllOnFocus="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.85"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/idEdtEventCapacity" />
+
+    <Button
+        android:id="@+id/event_cover"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="end|bottom"
+        android:layout_marginEnd="524dp"
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/add_photo"
+        android:backgroundTint="#FFA500"
+        app:layout_constraintBottom_toBottomOf="@id/cover_image"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <EditText
+        android:id="@+id/linkPaid"
+        android:layout_width="240dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="160dp"
+        android:background="#9A8FAF"
+        android:hint="Enter event link"
+        android:selectAllOnFocus="true"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
+
+    <Button
+        android:id="@+id/idBtnSubmitEvent"
+        android:layout_width="133dp"
+        android:layout_height="39dp"
+        android:layout_marginBottom="112dp"
+        android:text="Create Event"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.758"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/idEdtEventDescription"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="24dp"
+        android:text="Paid Event"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toStartOf="@+id/idEdtEventDate"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cover_image" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

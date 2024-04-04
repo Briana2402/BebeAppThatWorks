@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/container"
-    android:background="@drawable/background_stars"
+    android:background="@drawable/background_stars_horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -17,83 +17,81 @@
         android:id="@+id/password"
         android:layout_width="304dp"
         android:layout_height="54dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
         android:background="#9A8FAF"
         android:hint="@string/prompt_password"
         android:imeActionLabel="@string/action_sign_in_short"
         android:imeOptions="actionDone"
         android:inputType="textPassword"
         android:selectAllOnFocus="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
 
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toBottomOf="@+id/username" />
 
     <EditText
         android:id="@+id/passwordConfirmAttendee"
         android:layout_width="304dp"
         android:layout_height="54dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
         android:background="#9A8FAF"
         android:hint="@string/confirm_password_attendee"
         android:imeActionLabel="@string/action_sign_in_short"
         android:imeOptions="actionDone"
         android:inputType="textPassword"
-        android:selectAllOnFocus="true"
 
+        android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toBottomOf="@+id/password" />
 
     <EditText
         android:id="@+id/username"
         android:layout_width="304dp"
         android:layout_height="59dp"
-        android:layout_marginTop="360dp"
+        android:layout_marginTop="44dp"
         android:background="#9A8FAF"
         android:hint="@string/prompt_email"
         android:inputType="textEmailAddress"
         android:selectAllOnFocus="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
 
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btn_register"
         android:layout_width="136dp"
         android:layout_height="48dp"
-        android:layout_marginStart="5dp"
+        android:layout_marginStart="2dp"
         android:text="@string/register"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.549"
         app:layout_constraintStart_toEndOf="@+id/backToMain"
         app:layout_constraintTop_toBottomOf="@+id/passwordConfirmAttendee"
-        app:layout_constraintVertical_bias="0.619" />
+        app:layout_constraintVertical_bias="0.459" />
 
     <Button
         android:id="@+id/backToMain"
         android:layout_width="136dp"
         android:layout_height="48dp"
-        android:layout_marginEnd="5dp"
+        android:layout_marginStart="308dp"
         android:text="@string/back"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btn_register"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordConfirmAttendee"
-        app:layout_constraintVertical_bias="0.619" />
+        app:layout_constraintVertical_bias="0.465" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="255dp"
         android:layout_height="245dp"
-        app:layout_constraintBottom_toTopOf="@+id/username"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.53"
+        app:layout_constraintVertical_bias="0.318"
         app:srcCompat="@drawable/profileicon" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
