@@ -107,10 +107,6 @@ public class RegisterForEvent extends Fragment {
         dereg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Log.i("gets here", event_id.toString());
-                //Map<String, String> data = new HashMap<>();
-                //data.put("type", "deregistered");
-                //data.put("type of event", event_type);
                 db.collection("Attendees").document(mAuth.getCurrentUser().getUid()).collection("my events").document(event_id).delete();
             }
         });
