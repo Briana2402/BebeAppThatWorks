@@ -10,12 +10,12 @@
         <item
             android:id="@+id/MyEvents"
             android:icon="@drawable/myevents"
-            android:title="My Events"/>
+            android:title="Created Events"/>
 
         <item
             android:id="@+id/Notifications"
             android:icon="@drawable/newevent"
-            android:title="New Event"/>
+            android:title="Create Event"/>
 
         <item
             android:id="@+id/Profile"
