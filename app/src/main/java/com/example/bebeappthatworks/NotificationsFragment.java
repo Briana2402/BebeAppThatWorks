@@ -78,7 +78,7 @@ public class NotificationsFragment extends Fragment {
         // Inflate the layout for this fragment
         mAuth = FirebaseAuth.getInstance();
         view = inflater.inflate(R.layout.notifications_adapter, container, false);
-        CollectionReference attendeeRef = db.collection("Attendees").document(mAuth.getCurrentUser().getUid().toString()).collection("my notifications");
+        CollectionReference attendeeRef = db.collection("Attendees").document(mAuth.getCurrentUser().getUid()).collection("my notifications");
         attendeeRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {

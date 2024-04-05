@@ -34,7 +34,7 @@ public class MyEventsAttendee extends Fragment {
 
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
-    private static String ARGM1 = "param1";
+    private static final String ARGM1 = "param1";
 
     public final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -45,7 +45,7 @@ public class MyEventsAttendee extends Fragment {
 
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
-    public String event_id = new String();
+    public String event_id = "";
 
     View view;
 
@@ -78,7 +78,7 @@ public class MyEventsAttendee extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_my_events_attendee, container, false);
 
-        CollectionReference eventsRef = db.collection("Attendees").document(mAuth.getCurrentUser().getUid().toString()).collection("my events");
+        CollectionReference eventsRef = db.collection("Attendees").document(mAuth.getCurrentUser().getUid()).collection("my events");
 
         eventsRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override

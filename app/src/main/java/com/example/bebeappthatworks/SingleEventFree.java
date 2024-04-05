@@ -30,7 +30,7 @@ public class SingleEventFree extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static String ARGM1 = "param1";
+    private static final String ARGM1 = "param1";
     public String eventID;
 
     private Event event;
@@ -76,7 +76,7 @@ public class SingleEventFree extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_single_event, container, false);
-        DocumentReference docRef = db.collection("Events").document(eventID.toString());
+        DocumentReference docRef = db.collection("Events").document(eventID);
         Log.d("ma ta","fara liniuta");
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
