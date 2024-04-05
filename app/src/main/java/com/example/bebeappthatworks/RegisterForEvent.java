@@ -65,15 +65,13 @@ public class RegisterForEvent extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
+     * @param param1 the event that was clicked
      * @return A new instance of fragment RegisterForEvent.
      */
-    // TODO: Rename and change types and number of parameters
     public static RegisterForEvent newInstance(String param1) {
         RegisterForEvent fragment = new RegisterForEvent();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
-        //args.putString(ARG_PARAM2, type);
         fragment.setArguments(args);
         return fragment;
     }
@@ -96,11 +94,15 @@ public class RegisterForEvent extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_only_event_view, container, false);
+        //specifies the path where to get the event
         DocumentReference docRef = db.collection("Events").document(event_id);
+
+        //fetches the event from the database
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
+                    //sets the adapter and the event currently clicked
                     DocumentSnapshot document = task.getResult();
                     theEvent.add(document.toObject(Event.class));
                     Context context = view.getContext();
@@ -109,7 +111,6 @@ public class RegisterForEvent extends Fragment {
                     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                     recyclerView.setAdapter(adapter);
                 }
-
             }
         });
         return view;

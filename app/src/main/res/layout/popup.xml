@@ -18,15 +18,15 @@
         android:layout_marginStart="82dp"
         android:layout_marginTop="48dp"
         android:layout_marginEnd="268dp"
-        android:text="Camera" />
+        android:text="Take Photo" />
 
     <Button
         android:id="@+id/buttonGallery"
-        android:layout_width="136dp"
-        android:layout_height="48dp"
+        android:layout_width="131dp"
+        android:layout_height="61dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginStart="82dp"
         android:layout_marginTop="100dp"
         android:layout_marginEnd="268dp"
-        android:text="Gallery" />
+        android:text="Import photo from library" />
 </RelativeLayout>

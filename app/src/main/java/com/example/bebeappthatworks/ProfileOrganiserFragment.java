@@ -2,6 +2,7 @@ package com.example.bebeappthatworks;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -65,8 +66,11 @@ public class ProfileOrganiserFragment extends Fragment {
 
     private FirebaseFirestore db;
     private ImageView profile_pic;
-    private FirebaseAuth mAuth;
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance() ;
     private TextView email;
+    private TextView username;
+
+    private TextView description;
     private Button profilepicBtnOrganiser;
     private String imageUrl;
 
@@ -120,7 +124,7 @@ public class ProfileOrganiserFragment extends Fragment {
                 .load(imageUrl)
                 .into(imageView);
     }
-    public void captureImage(View view) {
+    private void captureImage(View view) {
         if (ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA_PERMISSION_CODE);
@@ -129,6 +133,29 @@ public class ProfileOrganiserFragment extends Fragment {
 
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
+    }
+
+    private void showDialog() {
+        Dialog dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.popup);
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.popup_background);
+        Button cameraBtn = dialog.findViewById(R.id.buttonCamera);
+        Button galleryBtn = dialog.findViewById(R.id.buttonGallery);
+        cameraBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Call your captureImage method
+                dialog.dismiss();
+                captureImage(v);
+            }
+        });
+        galleryBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 
     @Override
@@ -210,8 +237,10 @@ public class ProfileOrganiserFragment extends Fragment {
         db = FirebaseFirestore.getInstance();
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
+        username = view.findViewById(R.id.usernameOrganiser);
         email = view.findViewById(R.id.emailOrganiser);
         profile_pic = view.findViewById(R.id.imageViewOrganiserProfileImage);
+        description = view.findViewById(R.id.descriptionOrganiser);
         docRef = db.collection("Organisers").document((mAuth.getCurrentUser().getUid()));
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
            @Override
@@ -220,7 +249,9 @@ public class ProfileOrganiserFragment extends Fragment {
                    DocumentSnapshot document = task.getResult();
                    organiser = document.toObject(Organiser.class);
                    //name.setText("my name is Jeff");
+                   username.setText(organiser.getUsername());
                    email.setText(organiser.getEmail());
+                   description.setText(organiser.getDescription());
                    try {
                        if (organiser.getProfileUrl() != null) {
                            setImage(organiser.getProfileUrl(), profile_pic, getContext());
@@ -241,7 +272,7 @@ public class ProfileOrganiserFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // Call your captureImage method or perform your action here
-                captureImage(v);
+                showDialog();
             }
         });
 
@@ -254,54 +285,74 @@ public class ProfileOrganiserFragment extends Fragment {
             }
         });
 
+        Button openSettings = (Button) view.findViewById(R.id.openSettings);
+        openSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(), SettingsOrganiser.class);
+                startActivity(i);
+            }
+        });
+
         Button deleteAccountBtn = view.findViewById(R.id.deleteAccountOrganiserBtn);
         deleteAccountBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                showDialogDelete();
+            }
+        });
+
+
+
+        Button settingsButtonOrganiser = (Button) view.findViewById(R.id.openSettingsOrganiser);
+        settingsButtonOrganiser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(), SettingsOrganiser.class);
+                startActivity(i);
+            }
+        });
+
+        return view;
+    }
+
+    private void showDialogDelete() {
+        Dialog dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.pop_up_delete);
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.popup_background);
+        Button cancelButton = dialog.findViewById(R.id.cancel_delete_button);
+        Button confirmButton = dialog.findViewById(R.id.confirm_delete_button);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Call your captureImage method
+                dialog.dismiss();
+            }
+        });
+        confirmButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth mAuth = FirebaseAuth.getInstance();
                 db.collection("Organisers").document((mAuth.getCurrentUser().getUid()))
-                        .delete()
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Toast.makeText(getActivity(), "Account has been deleted.", Toast.LENGTH_SHORT).show();
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(getActivity(), "Error deleting the account.", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-
-                CollectionReference eventsRef = db.collection("Events");
-
-                Query query = eventsRef.whereEqualTo("eventCreator", mAuth.getCurrentUser().getUid());
-
-                query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot queryEvents : task.getResult()) {
-                               eventsRef.document(queryEvents.getId()).delete();
-                            }
+                    .delete()
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(getActivity(), "Account has been deleted.", Toast.LENGTH_SHORT).show();
                         }
-                    }
-                });
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(getActivity(), "Error deleting the account.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
                 mAuth.getCurrentUser().delete();
                 Intent i = new Intent(getActivity(), MainActivity.class);
                 startActivity(i);
             }
         });
-
-//        ImageView settingsButtonOrganiser = (ImageView) view.findViewById(R.id.SettingsOrganiser);
-//        settingsButtonOrganiser.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent i = new Intent(getActivity(), SettingsOrganiser.class);
-//                startActivity(i);
-//            }
-//        });
-
-        return view;
+        dialog.show();
     }
 }

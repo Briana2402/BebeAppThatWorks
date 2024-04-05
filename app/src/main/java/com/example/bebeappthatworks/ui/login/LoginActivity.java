@@ -18,8 +18,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-//import com.example.bebeappthatworks.Home;
 import com.example.bebeappthatworks.AttendeeActivity;
 import com.example.bebeappthatworks.MainActivity;
 import com.example.bebeappthatworks.OrganiserActivity;
@@ -38,17 +36,16 @@ import java.util.List;
 
 
 public class LoginActivity extends AppCompatActivity {
-    private FirebaseFirestore db;
-    FirebaseAuth mAuth;
+    public FirebaseFirestore db;
+    public FirebaseAuth mAuth;
 
     private boolean tryTest;
-    //private LoginViewModel loginViewModel;
     @SuppressLint("MissingInflatedId")
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        //Variables neeeded for buttons and Firestore
         EditText editTextEmail, editTextPassword;
         Button backToMain;
-        Button backToLogin;
         Button loginButton;
         FirebaseAuth mAuth;
         super.onCreate(savedInstanceState);
@@ -56,17 +53,17 @@ public class LoginActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        //getSupportActionBar().hide();
 
         setContentView(R.layout.activity_login);
 
 
+        //Initialising the variables with the UI
         forgotPassword = (TextView) findViewById(R.id.forgotPassword);
         backToMain = (Button) findViewById(R.id.backToMain); //back button
         loginButton = (Button) findViewById(R.id.Loggingin);
         editTextEmail = findViewById(R.id.username);
         editTextPassword = findViewById(R.id.password);
-        mAuth = FirebaseAuth.getInstance();
+
 
 
 
@@ -74,68 +71,19 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String email, password;
+                //get the text
                 email = editTextEmail.getText().toString();
                 password = editTextPassword.getText().toString();
                 //checks if email and password are empty
-                if(TextUtils.isEmpty(email)) {
+                if (TextUtils.isEmpty(email)) {
                     Toast.makeText(LoginActivity.this, "Enter email", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if(TextUtils.isEmpty(password)) {
+                if (TextUtils.isEmpty(password)) {
                     Toast.makeText(LoginActivity.this, "Enter password", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
-                mAuth.signInWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    // Sign in success, update UI with the signed-in user's information
-                                    tryTest = false;
-                                    db.collection("Attendees").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                                        @SuppressLint("NotifyDataSetChanged")
-                                        @Override
-                                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                                            if(!queryDocumentSnapshots.isEmpty()) {
-                                                List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
-                                                for(DocumentSnapshot d : list) {
-                                                    //Log.i(d.getId(),mAuth.getCurrentUser().getUid());
-                                                    if(d.getId().toString().equals(mAuth.getCurrentUser().getUid().toString())){
-                                                        Intent intent = new Intent(LoginActivity.this, AttendeeActivity.class);
-                                                        startActivity(intent);
-                                                        Log.i("attendee", "yes");
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    });
-
-                                    db.collection("Organisers").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                                        @SuppressLint("NotifyDataSetChanged")
-                                        @Override
-                                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                                            if(!queryDocumentSnapshots.isEmpty()) {
-                                                List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
-                                                for(DocumentSnapshot d : list) {
-                                                    if(d.getId().toString().equals(mAuth.getCurrentUser().getUid().toString())){
-                                                        Intent intent = new Intent(LoginActivity.this, OrganiserActivity.class);
-                                                        startActivity(intent);
-                                                        Log.i("organizer", "yes");
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    });
-
-                                } else {
-                                    // If sign in fails, display a message to the user.
-                                    Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                            Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
-
+                loginUser(email, password);
             }
         });
 
@@ -155,12 +103,9 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
-
-
-
     }
+
+    //method to check if the user trying to log in is an attendee
     public boolean checkForBelongingAttendee() {
         tryTest = false;
         db.collection("Attendees").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -179,7 +124,7 @@ public class LoginActivity extends AppCompatActivity {
         });
         return tryTest;
     }
-
+    //method to check if the user trying to log in is an organiser
     public boolean checkForBelongingOrganisers() {
         tryTest = false;
         db.collection("Organisers").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -197,5 +142,34 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
         return tryTest;
+    }
+
+    //method to log in the user using the credentials entered in the specified fields and checking
+    //if they match an account existing in our database
+    private void loginUser(String email,String password) {
+        mAuth = FirebaseAuth.getInstance();
+        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    // Sign in success, update UI with the signed-in user's information
+                    tryTest = false;
+                    if(checkForBelongingAttendee()) {
+                        Intent intent = new Intent(LoginActivity.this, AttendeeActivity.class);
+                        startActivity(intent);
+                        Log.i("attendee", "yes");
+                    } else if(checkForBelongingOrganisers()) {
+                        Intent intent = new Intent(LoginActivity.this, OrganiserActivity.class);
+                        startActivity(intent);
+                        Log.i("organiser", "yes");
+                    }
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Toast.makeText(LoginActivity.this, "Authentication failed.",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
     }
 }

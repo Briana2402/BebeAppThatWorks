@@ -33,9 +33,6 @@ import java.util.Objects;
 
 
 public class MyEventsFragment extends Fragment {
-
-    private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
     private int mColumnCount = 1;
 
     public final FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -76,6 +73,7 @@ public class MyEventsFragment extends Fragment {
 
         Query query = eventsRef.whereEqualTo("eventCreator", mAuth.getCurrentUser().getUid());
 
+        //fetching the creator of the event in the event document
         query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -83,7 +81,6 @@ public class MyEventsFragment extends Fragment {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         myEvents.add(document.toObject(Event.class));
                         allEventsId.add(document.getId().toString());
-                        //Log.i("miauuu", "miau miau");
                     }
 
                     if (view instanceof RecyclerView) {
@@ -102,7 +99,6 @@ public class MyEventsFragment extends Fragment {
                         adapter.setOnItemClickListener(new EventAdapter.OnItemClickListener() {
                             @Override
                             public void onItemClick(int count, Event event ) {
-                                Log.d("FOUND","IT");
                                 // Handle item click here, e.g., launch details activity/fragment
                                 MyEventOrganizer eventTest = new MyEventOrganizer();
                                 MyEventOrganizer eventFinal = eventTest.newInstance(allEventsId.get(count));

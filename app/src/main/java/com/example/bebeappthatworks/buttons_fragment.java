@@ -42,14 +42,10 @@ public class buttons_fragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
+    // Needed variables for the methods for register/deregister
     private String ARGM1 = "param1";
-    private String event_type;
-    private EventAdapter adapter;
 
     public List<Event> theEvent = new ArrayList<>();
-
-    //public Button button;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
@@ -101,11 +97,7 @@ public class buttons_fragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Log.i("gets here", event_id.toString());
-                Map<String, String> data = new HashMap<>();
-                data.put("type", "registered");
-                //data.put("type of event", event_type);
-                db.collection("Attendees").document(mAuth.getCurrentUser().getUid()).collection("my events").document(event_id).set(data);
+                registerEvent();
             }
         });
         Button details = view.findViewById(R.id.buttonSeeDetails);
@@ -114,14 +106,20 @@ public class buttons_fragment extends Fragment {
         dereg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Log.i("gets here", event_id.toString());
-                //Map<String, String> data = new HashMap<>();
-                //data.put("type", "deregistered");
-                //data.put("type of event", event_type);
+                //Deleted the event id from the my events collection associated to the logged in user
                 db.collection("Attendees").document(mAuth.getCurrentUser().getUid()).collection("my events").document(event_id).delete();
             }
         });
 
         return view;
+    }
+
+    //Method to add the event to the my events collection in the user currently logged in
+    private void registerEvent() {
+        Map<String, String> data = new HashMap<>();
+        data.put("type", "registered");
+        //data.put("type of event", event_type);
+        db.collection("Attendees").document(mAuth.getCurrentUser().getUid()).collection("my events").document(event_id).set(data);
+
     }
 }

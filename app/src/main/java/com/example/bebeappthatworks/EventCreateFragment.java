@@ -1,5 +1,6 @@
 package com.example.bebeappthatworks;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -11,56 +12,33 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Bundle;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 
-import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
-import android.view.View;
 import android.text.TextUtils;
-import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
-import com.example.bebeappthatworks.MainActivity;
 import android.Manifest;
-import com.example.bebeappthatworks.R;
 import com.example.bebeappthatworks.ui.eventCreation.Event;
-import com.example.bebeappthatworks.ui.eventCreation.EventCreationActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Objects;
 import java.util.UUID;
-
-import com.example.bebeappthatworks.R;
-import com.example.bebeappthatworks.forgotPassword.ForgotPasswordActivity;
-import com.example.bebeappthatworks.ui.login.LoginActivity;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.storage.UploadTask;
 
 /**
@@ -98,11 +76,11 @@ public class EventCreateFragment extends Fragment {
     private static final int REQUEST_IMAGE_CAPTURE = 2;
 
     private ImageView imageView;
-    private Uri imageUri;
 
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
+     *
      * @return A new instance of fragment EventCreateFragment.
      */
     public static EventCreateFragment newInstance() {
@@ -120,6 +98,7 @@ public class EventCreateFragment extends Fragment {
 
     }
 
+    //Creating the view for the event
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -147,11 +126,11 @@ public class EventCreateFragment extends Fragment {
         paidEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(paidEvent.isChecked()){
+                if (paidEvent.isChecked()) {
                     eventType = "Paid";
                     eventLinkEdt.setVisibility(View.VISIBLE);
                 }
-                if(!paidEvent.isChecked()) {
+                if (!paidEvent.isChecked()) {
                     eventType = "Free";
                     eventLinkEdt.setVisibility(View.INVISIBLE);
                 }
@@ -174,14 +153,14 @@ public class EventCreateFragment extends Fragment {
                 String creator = mAuth.getCurrentUser().getUid().toString();
 
                 //Check if event is free or paid.
-                if(paidEvent.isChecked()){
+                if (paidEvent.isChecked()) {
                     eventType = "Paid";
                 } else {
                     eventType = "Free";
                     eventLink = "";
                 }
 
-                if(eventType.equals("Paid")){
+                if (eventType.equals("Paid")) {
                     eventLink = eventLinkEdt.getText().toString();
                 }
 
@@ -204,12 +183,14 @@ public class EventCreateFragment extends Fragment {
                         eventDateEdt.setError("Please enter Event Date");
                     } else {
                         // calling method to add data to Firebase Firestore if all mandatory fields are filled.
-                        addDataToFirestore(eventName, eventDescription, eventDuration, eventDate, eventLocation, eventCapacity,imageUrl, eventType, eventLink, creator);
+                        addDataToFirestore(eventName, eventDescription, eventDuration, eventDate, eventLocation, eventCapacity, imageUrl, eventType, eventLink, creator);
                     }
                 }
             }
         });
 
+
+        //Button to take picture
         captureImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -224,22 +205,21 @@ public class EventCreateFragment extends Fragment {
     /**
      * Sends the information of the created event to a document in firebase databse Events collection.
      *
-     * @param eventName Inputted event name.
+     * @param eventName        Inputted event name.
      * @param eventDescription Inputted event description.
-     * @param eventDuration Inputted event duration.
-     * @param eventDate Inputted event date.
-     * @param eventLocation Inputted event location.
-     * @param eventCapacity Inputted event capacity.
-     * @param imageUrl Inputted event image.
-     * @param eventType Selected event type.
-     * @param eventLink Inputted event link.
-     * @param creator Inputted event creator.
-     *
+     * @param eventDuration    Inputted event duration.
+     * @param eventDate        Inputted event date.
+     * @param eventLocation    Inputted event location.
+     * @param eventCapacity    Inputted event capacity.
+     * @param imageUrl         Inputted event image.
+     * @param eventType        Selected event type.
+     * @param eventLink        Inputted event link.
+     * @param creator          Inputted event creator.
      * @pre All mandatory fields are inputted.
      * @post Event instance is created in Firebase database under "Events" collection and either also under "PaidEvents"
      * or "FreeEvents".
      */
-    private void addDataToFirestore(String eventName, String eventDescription, String eventDuration, String eventDate, String eventLocation, String eventCapacity, String imageUrl, String eventType, String eventLink, String creator ) {
+    private void addDataToFirestore(String eventName, String eventDescription, String eventDuration, String eventDate, String eventLocation, String eventCapacity, String imageUrl, String eventType, String eventLink, String creator) {
 
         //Creating collection references for the events collection, the paid events collection and the free events collection.
         CollectionReference dbEvents = db.collection("Events");
@@ -248,9 +228,9 @@ public class EventCreateFragment extends Fragment {
 
         // Create Event object and add it to the correct collections in Firebase database.
         Event events = new Event(eventLocation, eventDuration, eventName, eventDate, eventCapacity, eventDescription, imageUrl, eventType, eventLink, creator);
-        if(eventType.equals("Free")){
+        if (eventType.equals("Free")) {
             dbFreeEvents.add(events);
-        } else if(eventType.equals("Paid")){
+        } else if (eventType.equals("Paid")) {
             dbPaidEvents.add(events);
         }
         dbEvents.add(events).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -337,6 +317,5 @@ public class EventCreateFragment extends Fragment {
                 });
             }
         });
-
     }
 }
