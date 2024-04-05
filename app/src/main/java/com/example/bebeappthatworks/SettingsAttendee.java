@@ -54,9 +54,16 @@ public class SettingsAttendee extends Fragment {
         db = FirebaseFirestore.getInstance();
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
+        Button backBtn = (Button) view.findViewById(R.id.backtoprofileAttendee);
         EditText editTextDescription = view.findViewById(R.id.description_fieldAttendee);
         EditText editTextUsername = view.findViewById(R.id.update_usernameAttendee);
         docRef = db.collection("Attendees").document((mAuth.getCurrentUser().getUid()));
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
         Button saveBtn = (Button) view.findViewById(R.id.save_changesAttendee);
         saveBtn.setOnClickListener(new View.OnClickListener() {

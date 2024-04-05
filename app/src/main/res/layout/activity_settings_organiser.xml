@@ -41,7 +41,7 @@
             android:textSize="20sp"></TextView>
 
         <EditText
-            android:id="@+id/description_field"
+            android:id="@+id/description_fieldOrganiser"
             android:layout_width="266dp"
             android:layout_height="66dp"
             android:layout_below="@+id/editDesc"
@@ -56,7 +56,7 @@
             android:id="@+id/textViewNoti"
             android:layout_width="wrap_content"
             android:layout_height="42dp"
-            android:layout_below="@+id/update_username"
+            android:layout_below="@+id/update_usernameOrganiser"
             android:layout_gravity="center"
             android:layout_marginStart="20dp"
             android:layout_marginTop="39dp"
@@ -68,7 +68,7 @@
             android:id="@+id/noti_toggle"
             android:layout_width="118dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/update_username"
+            android:layout_below="@+id/update_usernameOrganiser"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="43dp"
             android:layout_marginTop="28dp"
@@ -79,7 +79,7 @@
             android:id="@+id/updateUsername"
             android:layout_width="180dp"
             android:layout_height="38dp"
-            android:layout_below="@+id/description_field"
+            android:layout_below="@+id/description_fieldOrganiser"
             android:layout_gravity="center"
             android:layout_marginStart="20dp"
             android:layout_marginTop="50dp"
@@ -90,7 +90,7 @@
         </TextView>
 
         <EditText
-            android:id="@+id/update_username"
+            android:id="@+id/update_usernameOrganiser"
             android:layout_width="254dp"
             android:layout_height="48dp"
             android:layout_below="@+id/updateUsername"
@@ -104,7 +104,7 @@
         </EditText>
 
         <Button
-            android:id="@+id/backtoprofile"
+            android:id="@+id/backtoprofileOrganiser"
             android:layout_width="116dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textViewNoti"
@@ -117,7 +117,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
-            android:id="@+id/save_changes"
+            android:id="@+id/save_changesOrganiser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textViewNoti"
@@ -126,7 +126,7 @@
             android:layout_marginTop="40dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="108dp"
-            android:layout_toEndOf="@+id/backtoprofile"
+            android:layout_toEndOf="@+id/backtoprofileOrganiser"
             android:text="Update Settings"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
