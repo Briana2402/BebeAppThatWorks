@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@drawable/bg_with_stars"
+    tools:context=".OrganiserActivity">
+
+
+    <Button
+        android:id="@+id/editEvent"
+        android:layout_width="136dp"
+        android:layout_height="48dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_gravity="center"
+        android:layout_marginStart="136dp"
+        android:layout_marginTop="480dp"
+        android:layout_marginEnd="139dp"
+        android:text="Edit" />
+</RelativeLayout>

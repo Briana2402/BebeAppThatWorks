@@ -94,7 +94,7 @@ public class MyEventsFragmentAttendee extends Fragment {
                                     if (document.exists()) {
                                         // Map Firestore document to Event object
                                         myEvents.add(document.toObject(Event.class));
-                                        events_id.add(event_id);
+                                        events_id.add(document.getId());
                                         if (view instanceof RecyclerView) {
                                             Context context = view.getContext();
                                             RecyclerView recyclerView = (RecyclerView) view;

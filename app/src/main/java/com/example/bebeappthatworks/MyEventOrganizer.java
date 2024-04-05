@@ -11,6 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,10 +36,10 @@ import java.util.List;
  */
 public class MyEventOrganizer extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static String ARGM1 = "param1";
     public String eventID;
+    public List<Event> theEvent = new ArrayList<>();
+    private EventAdapter adapter;
 
     private Event event;
 
@@ -69,13 +72,10 @@ public class MyEventOrganizer extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Log.i("TEROG",ARGM1);
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             eventID = getArguments().getString(ARGM1);
         }
-        Log.i("TEROG",eventID);
-
     }
 
     @Override

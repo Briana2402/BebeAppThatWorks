@@ -117,8 +117,6 @@ public class MyEventsFragment extends Fragment {
                                 fragmentTransaction2.add(R.id.navigation_host_fragment_content_main, fragment2);
                                 fragmentTransaction2.addToBackStack(null);
                                 fragmentTransaction2.commit();
-
-
                             }
                         });
                     }

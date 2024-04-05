@@ -69,4 +69,10 @@ public class AttendeeActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void openGPSsettings(View v) {
+        Intent intent = new Intent(this, GPS_settings.class);
+        startActivity(intent);
+    }
+
+
 }
