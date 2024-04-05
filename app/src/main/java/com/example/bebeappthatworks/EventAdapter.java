@@ -14,18 +14,29 @@ import com.example.bebeappthatworks.ui.eventCreation.Event;
 
 import java.util.List;
 
+
+// Adapter class for RecyclerView to display events.
+
+/**
+ * Adapter class for RecyclerView to display events.
+ */
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHolder> {
-    private final List<Event> eventList;
+
+    //List containing events to be shown in recycler view.
+    private List<Event> eventList;
     private OnItemClickListener onItemClickListener;
 
     public EventAdapter(List<Event> eventList) {
         this.eventList = eventList;
     }
 
+
+    // Interface to handle events on click.
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.onItemClickListener = listener;
     }
 
+    // Method to create ViewHolder
     @NonNull
     @Override
     public EventViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -42,8 +53,9 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
      */
     @Override
     public void onBindViewHolder(@NonNull EventViewHolder holder, int position) {
+
+        //Set data of the event to TextViews for displaying.
         Event event = eventList.get(position);
-        //holder.mImageView.setImageResource(R.mipmap.ic_launcher_foreground);
         setImage(event.getImageUrl(), holder.mImageView, holder.itemView.getContext());
         holder.mName.setText(event.getEventName());
         holder.mLocation.setText(event.getEventLocation());
@@ -52,10 +64,13 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         holder.mCapacity.setText(event.getEventMaxCapacity());
         holder.mDate.setText(event.getEventDate());
 
+        // Set click listener for item view
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Get position of clicked item
                 int positionInArray = holder.getAdapterPosition();
+                // Check if position is valid and listener is set
                 if (positionInArray != RecyclerView.NO_POSITION && onItemClickListener != null) {
                     onItemClickListener.onItemClick(positionInArray, event);
                 }
@@ -63,19 +78,39 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         });
     }
 
-    //Pulling the picture from Firebase
+    /**
+     * Method to load image using Glide library
+     *
+     * @param imageUrl ImageUrl to pe sent to library.
+     * @param imageView Imageview wher eit cam from.
+     * @param context Context.
+     */
     private void setImage(String imageUrl, ImageView imageView, Context context) {
+        if (imageUrl==null){
+            Log.i("null", "Imageurl is null.");
+        } else {
+            Log.i("imageUrl:", imageUrl);
+        }
         Glide.with(context)
                 .load(imageUrl)
                 .into(imageView);
     }
 
+
+    /**
+     * Method to get total number of items in RecyclerView
+     *
+     * @pre eventList contains elements and RecyclerView was initialised
+     * @return eventList.size()
+     */
     @Override
     public int getItemCount() {
         return eventList.size();
     }
 
-
+    /**
+     * ViewHolder class to hold views of individual event item
+     */
     public static class EventViewHolder extends RecyclerView.ViewHolder {
         public final ImageView mImageView;
         public final TextView mName;

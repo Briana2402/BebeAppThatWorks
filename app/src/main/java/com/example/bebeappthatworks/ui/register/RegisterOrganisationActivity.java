@@ -35,7 +35,15 @@ import java.util.regex.Pattern;
 
 public class RegisterOrganisationActivity extends AppCompatActivity {
 
-
+     /*
+     * Function to check if an inputed password is valid
+     * In order for a password to be valid it should
+     * contain at least a special character, an upper
+     * cased letter, a lower case letter and 2 numbers.
+     *
+     * @param password - inputed password by the user that
+     * needs to be checked
+     */
     private boolean isPasswordValid(String password) {
 
         Pattern specailCharPatten = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
@@ -52,11 +60,23 @@ public class RegisterOrganisationActivity extends AppCompatActivity {
                 }
             }
         }
-
-        return password != null && password.trim().length() > 5 && specailCharPatten.matcher(password).find() && UpperCasePatten.matcher(password).find() && lowerCasePatten.matcher(password).find() && digits;
+        // Check if the inputed password passes the requirements.
+        return password != null && password.trim().length() > 5 &&
+                specailCharPatten.matcher(password).find() &&
+                UpperCasePatten.matcher(password).find() &&
+                lowerCasePatten.matcher(password).find() &&
+                digits;
     }
 
-    // A placeholder username validation check
+    /*
+     * Function to check if an inputed username is valid
+     * In order for an username to be valid it should
+     * not be null and it should contain  the '@'
+     * character.
+     *
+     * @param username - inputed email by the user that
+     * needs to be checked
+     */
     private boolean isEmailValid(String username) {
         if (username == null) {
             return false;
@@ -69,9 +89,16 @@ public class RegisterOrganisationActivity extends AppCompatActivity {
     }
 
     private FirebaseFirestore db;
+
+    /*
+     * Called when the activity is starting. Method for initialization
+     * most of the necessary variables and methods.
+     */
     @SuppressLint("MissingInflatedId")
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
+        // Declaring variables from the XML file.
         EditText editTextEmail, editTextPassword, editTextCP;
         Button backButton;
         Button registerButton;
@@ -93,7 +120,9 @@ public class RegisterOrganisationActivity extends AppCompatActivity {
         editTextPassword = findViewById(R.id.password);
         editTextCP = findViewById(R.id.passwordConfirmOrganisation);
 
-
+        /*
+         * Used for setting up the register button and also implementing its functionality.
+         */
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -165,6 +194,9 @@ public class RegisterOrganisationActivity extends AppCompatActivity {
             }
         });
 
+        /*
+         * If the user presses on the Back Button they will be taken back to the Welcome Page.
+         */
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

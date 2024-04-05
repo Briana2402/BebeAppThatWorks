@@ -28,9 +28,13 @@ import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.List;
 
-
+/*
+ * Public class GPS_settings that is responsible for the implementation of the
+ * GPS hardware of a mobile phone / tablet.
+ */
 public class GPS_settings extends AppCompatActivity {
 
+    //Declaring the variables.
     private static final int PERMISSION_FINE_LOCATION = 60;
     Switch sw_locationupdates, sw_gps;
 
@@ -77,6 +81,9 @@ public class GPS_settings extends AppCompatActivity {
         locationRequest.setFastestInterval(FAST_UP_INTERVAL);
         locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
 
+        /*
+         * Choose if the GPS feature is turned on or off.
+         */
         sw_gps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,15 +91,22 @@ public class GPS_settings extends AppCompatActivity {
                     //using GPS
                     locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
                     tv_sensor.setText("Using GPS sensors");
+                    updateGPS();
                 }
                 else {
                     tv_sensor.setText("GPS sensors are off");
                 }
             }
         });
+
         updateGPS();
     }
 
+    /*
+     * Method for requesting access in order for the app to be allowed
+     * to use the GPS hardware of the mobile phone / tablet +
+     * remembering the answer of the user.
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -108,6 +122,10 @@ public class GPS_settings extends AppCompatActivity {
         }
     }
 
+    /*
+     * Function that uses the fusedLocationProviderClient in order to get the
+     * current location of the user.
+     */
     private void updateGPS() {
         //get permisssions from the user to track Gps
         //get the current location

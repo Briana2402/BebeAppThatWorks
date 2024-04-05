@@ -36,14 +36,34 @@ public class RegisterAttendeeActivity extends AppCompatActivity {
 
     private final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+    /*
+     * Function to check if an inputed password is valid
+     * In order for a password to be valid it should
+     * contain at least a special character, an upper
+     * cased letter, a lower case letter and 2 numbers.
+     *
+     * @param password - inputed password by the user that
+     * needs to be checked
+     */
     private boolean isPasswordValid(String password) {
 
+        // Declare variable in order to check for the special character.
         Pattern specialCharPatten = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
+
+        // Declare variable in order to check for the upper case character.
         Pattern UpperCasePatten = Pattern.compile("[A-Z ]");
+
+        // Declare variable in order to check for the lower case character.
         Pattern lowerCasePatten = Pattern.compile("[a-z ]");
+
+        // Declare variable in order to check for the number of digits.
         int numberOfNumbers = 0;
+
+        // Variable representing if the password has enough digits.
         boolean digits;
         digits=false;
+
+        // Loop to check for the number of digits.
         for (int i = 0; i < password.length(); i++) {
             if (Character.isDigit(password.charAt(i))) {
                 numberOfNumbers++;
@@ -53,14 +73,31 @@ public class RegisterAttendeeActivity extends AppCompatActivity {
             }
         }
 
-        return password != null && password.trim().length() > 5 && specialCharPatten.matcher(password).find() && UpperCasePatten.matcher(password).find() && lowerCasePatten.matcher(password).find() && digits;
+        // Check if the inputed password passes the requirements.
+        return password != null && password.trim().length() > 5 &&
+                specialCharPatten.matcher(password).find() &&
+                UpperCasePatten.matcher(password).find() &&
+                lowerCasePatten.matcher(password).find() &&
+                digits;
     }
 
-    // A placeholder username validation check
+    /*
+     * Function to check if an inputed username is valid
+     * In order for an username to be valid it should
+     * not be null and it should contain  the '@'
+     * character.
+     *
+     * @param username - inputed email by the user that
+     * needs to be checked
+     */
     private boolean isEmailValid(String username) {
+
+        // Checking if the email field is not empty
         if (username == null) {
             return false;
         }
+
+        // Checking if the email contains '@' character
         if (username.contains("@")) {
             return Patterns.EMAIL_ADDRESS.matcher(username).matches();
         } else {
@@ -68,9 +105,15 @@ public class RegisterAttendeeActivity extends AppCompatActivity {
         }
     }
 
+    /*
+     * Called when the activity is starting. Method for initialization
+     * most of the necessary variables and methods.
+     */
     @SuppressLint("MissingInflatedId")
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
+        // Declaring variables from the XML file.
         EditText editTextEmail, editTextPassword, editTextCP;
         Button backButton;
         Button registerButton;
@@ -91,6 +134,9 @@ public class RegisterAttendeeActivity extends AppCompatActivity {
         editTextPassword = findViewById(R.id.password);
         editTextCP = findViewById(R.id.passwordConfirmAttendee);
 
+        /*
+         * Used for setting up the register button and also implementing its functionality.
+         */
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -130,11 +176,13 @@ public class RegisterAttendeeActivity extends AppCompatActivity {
                 }
                 //creates a user
                 createAttendee(email, password);
+
             }
         });
 
-
-
+        /*
+         * If the user presses on the Back Button they will be taken back to the Welcome Page.
+         */
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,7 +192,9 @@ public class RegisterAttendeeActivity extends AppCompatActivity {
         });
     }
 
-    //method to create an account and add it to Auth in Firebase
+    /*
+     * Method to create an account and add it to Auth in Firebase.
+     */
     private void createAttendee(String email, String password) {
         FirebaseAuth mAuth;
         mAuth = FirebaseAuth.getInstance();
@@ -162,6 +212,9 @@ public class RegisterAttendeeActivity extends AppCompatActivity {
                             //display a message if the account creation worked
                             Toast.makeText(RegisterAttendeeActivity.this, "Account created",
                                     Toast.LENGTH_SHORT).show();
+                            FirebaseAuth.getInstance().signOut();
+                            Intent i = new Intent(RegisterAttendeeActivity.this, LoginActivity.class);
+                            startActivity(i);
 
                             FirebaseAuth.getInstance().signOut();
                             Intent intent = new Intent(RegisterAttendeeActivity.this, LoginActivity.class);

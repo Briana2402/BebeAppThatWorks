@@ -12,10 +12,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.bebeappthatworks.R;
 import com.example.bebeappthatworks.ui.login.LoginActivity;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.firebase.auth.FirebaseAuth;
 
-//Activity class for the Forgot Password functionality.
+
+/**
+ * Activity class for the Forgot Password functionality.
+ */
 public class ForgotPasswordActivity extends AppCompatActivity {
 
     //Field to input email to reset password for.
@@ -24,6 +26,13 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     //String field to save email.
     private String email;
 
+    /**
+     * On create method.
+     * @param savedInstanceState If the activity is being re-initialized after
+     *     previously being shut down then this Bundle contains the data it most
+     *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
+     *
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

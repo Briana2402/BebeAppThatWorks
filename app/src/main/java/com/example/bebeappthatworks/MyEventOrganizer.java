@@ -5,19 +5,12 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.util.Log;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.example.bebeappthatworks.ui.eventCreation.Event;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -31,21 +24,31 @@ import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link SingleEventFree#newInstance} factory method to
+ * Use the {@link MyEventOrganizer#newInstance} factory method to
  * create an instance of this fragment.
+ *
+ * Fragment to display a singel event view when an organiser presses on said event.
  */
 public class MyEventOrganizer extends Fragment {
 
+    //Parameter send to class through constructor.
     private static final String ARGM1 = "param1";
+
+    //Event ID inputted through the constructor.
     public String eventID;
+
+    //List to contain event to be displayed.
     public List<Event> theEvent = new ArrayList<>();
+
+    //Event adapter used.
     private EventAdapter adapter;
 
-    private Event event;
-
+    //View.
     View view;
 
+    //Initialising Firebase database instance.
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+
     public MyEventOrganizer() {
         // Required empty public constructor
     }
@@ -54,10 +57,9 @@ public class MyEventOrganizer extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1
-     * @return A new instance of fragment SingleEvent.
+     * @param param1 eventID sent trrough connstructor.
+     * @return A new instance of fragment MyEventOrganizer.
      */
-    // TODO: Rename and change types and number of parameters
     public MyEventOrganizer newInstance(String param1) {
         MyEventOrganizer fragment = new MyEventOrganizer();
         Bundle args = new Bundle();
@@ -66,6 +68,12 @@ public class MyEventOrganizer extends Fragment {
         return fragment;
     }
 
+    /**
+     * OnCreate method. Sets parameter.
+     *
+     * @param savedInstanceState If the fragment is being re-created from
+     * a previous saved state, this is the state.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +82,19 @@ public class MyEventOrganizer extends Fragment {
         }
     }
 
+    /**
+     * OnCreateView method.
+     *
+     * @param inflater The LayoutInflater object that can be used to inflate
+     * any views in the fragment,
+     * @param container If non-null, this is the parent view that the fragment's
+     * UI should be attached to.  The fragment should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     *
+     * @return View with displayed one event
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
