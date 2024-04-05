@@ -15,7 +15,6 @@ import android.widget.Button;
 import com.example.bebeappthatworks.ui.login.LoginActivity;
 import com.example.bebeappthatworks.ui.register.RegisterAttendeeActivity;
 import com.example.bebeappthatworks.ui.register.RegisterOrganisationActivity;
-//import com.example.bebeappthatworks.ui.register.RegisterActivity;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -25,14 +24,29 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.List;
 
+/**
+ * MainActivty class, functionality of first screen displayed when opening app.
+ */
 public class MainActivity extends AppCompatActivity {
+    //Instance of Firestore database.
     private FirebaseFirestore db;
 
     FirebaseAuth.AuthStateListener authStateListener = new FirebaseAuth.AuthStateListener() {
+
+        /**
+         * Listens for changes in the Authentificator instance in Firebase.
+         *
+         * @param firebaseAuth instance of Firebase authentificator.
+         */
         @Override
         public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+            //gets current user
             FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+
+            //instantiates Firebase database
             db = FirebaseFirestore.getInstance();
+
+            //Checks if user which just connected is an attendee.
             if (firebaseUser != null) {
                 db.collection("Attendees").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @SuppressLint("NotifyDataSetChanged")
@@ -51,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+                //Checks if user which just connected is an organiser.
                 db.collection("Organisers").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @SuppressLint("NotifyDataSetChanged")
                     @Override
@@ -71,6 +86,14 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+    /**
+     * Oncreate method.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after
+     *     previously being shut down then this Bundle contains the data it most
+     *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
+     *
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         FirebaseAuth mAuth;
@@ -79,20 +102,22 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
 
+        //Initiate buttons.
         Button loginButton;
         Button guestButton;
         Button registerButton;
         Button registerOrganiser;
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
         setContentView(R.layout.activity_main);
 
+        //Connect button variables to instances in the layout.
         loginButton = (Button) findViewById(R.id.Login); //login button
         guestButton = (Button) findViewById(R.id.Guest); //guestbutton
         registerButton = (Button) findViewById(R.id.button4); //register attendee button
         registerOrganiser = (Button) findViewById(R.id.button5); //register organiser button
 
+        //Chnages intent based on button pressed.
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,7 +125,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
 
         guestButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,7 +134,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -118,7 +141,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
 
         registerOrganiser.setOnClickListener(new View.OnClickListener() {
             @Override

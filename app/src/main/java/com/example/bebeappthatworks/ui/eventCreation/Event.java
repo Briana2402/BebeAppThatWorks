@@ -36,86 +36,148 @@ public class Event {
         this.eventLink = eventLink;
         this.creator_id = creator;
     }
-
-    // getter methods for all variables.
+    /**
+     * Retrieves the location of the event.
+     *
+     * @return The location of the event.
+     */
     public String getEventLocation() {
         return eventLocation;
     }
 
+    /**
+     * Sets the location of the event.
+     *
+     * @param eventLocation The location of the event to be set.
+     */
     public void setEventLocation(String eventLocation) {
         this.eventLocation = eventLocation;
     }
 
+    /**
+     * Retrieves the link associated with the event.
+     *
+     * @return The link associated with the event.
+     */
     public String getEventLink() {
         return eventLink;
     }
 
-    public void setEventLink (String eventLink  ) {
+    /**
+     * Sets the link associated with the event.
+     *
+     * @param eventLink The link to be set.
+     */
+    public void setEventLink(String eventLink) {
         this.eventLink = eventLink;
     }
 
-    // getter methods for all variables.
+    /**
+     * Retrieves the time of the event.
+     *
+     * @return The time of the event.
+     */
     public String getEventTime() {
         return eventTime;
     }
 
+    /**
+     * Sets the time of the event.
+     *
+     * @param eventTime The time of the event to be set.
+     */
     public void setEventTime(String eventTime) {
         this.eventTime = eventTime;
     }
 
+    /**
+     * Retrieves the date of the event.
+     *
+     * @return The date of the event.
+     */
     public String getEventDate() {
         return eventDate;
     }
 
+    /**
+     * Sets the date of the event.
+     *
+     * @param eventDate The date of the event to be set.
+     */
     public void setEventDate(String eventDate) {
         this.eventDate = eventDate;
     }
 
-
+    /**
+     * Retrieves the name of the event.
+     *
+     * @return The name of the event.
+     */
     public String getEventName() {
         return eventName;
     }
 
+    /**
+     * Sets the name of the event.
+     *
+     * @param eventName The name of the event to be set.
+     */
     public void setEventName(String eventName) {
         this.eventName = eventName;
     }
 
-
+    /**
+     * Retrieves the description of the event.
+     *
+     * @return The description of the event.
+     */
     public String getEventDescription() {
         return eventDescription;
     }
 
-    public void setEventDescription(String eventDescription) {this.eventDescription = eventDescription;}
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    /**
+     * Sets the description of the event.
+     *
+     * @param eventDescription The description of the event to be set.
+     */
+    public void setEventDescription(String eventDescription) {
+        this.eventDescription = eventDescription;
     }
 
+    /**
+     * Retrieves the image URL associated with the event.
+     *
+     * @return The image URL associated with the event.
+     */
     public String getImageUrl() {
         return imageUrl;
     }
 
-    public void setEventType(String eventType) {
-        this.eventType = eventType;
+    /**
+     * Sets the image URL associated with the event.
+     *
+     * @param imageUrl The image URL to be set.
+     */
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
+    /**
+     * Retrieves the type of the event.
+     *
+     * @return The type of the event.
+     */
     public String getEventType() {
         return eventType;
     }
 
-    public void setEventCreator(String creator) {
-        this.creator_id = creator;
+    /**
+     * Sets the type of the event.
+     *
+     * @param eventType The type of the event to be set.
+     */
+    public void setEventType(String eventType) {
+        this.eventType = eventType;
     }
 
-    public String getEventCreator() {
-        return creator_id;
-    }
-
-    public String getEventMaxCapacity() {
-        return maxCapacity;
-    }
-
-    public void setEventMaxCapacity(String maxCapacity) {
-        this.maxCapacity = maxCapacity;
-    }
 }
