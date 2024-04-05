@@ -46,7 +46,7 @@ public class EventsFragment extends Fragment {
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
-    private int mColumnCount = 1;
+    private final int mColumnCount = 1;
 
     public final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -58,7 +58,7 @@ public class EventsFragment extends Fragment {
     private List<Event> eventList;
     private EventAdapter adapter;
 
-    public final FirebaseAuth mAuth = FirebaseAuth.getInstance();;
+    public final FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     private boolean tryTest;
 
@@ -92,7 +92,7 @@ public class EventsFragment extends Fragment {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 allEvents.add(document.toObject(Event.class));
-                                allEventsId.add(document.getId().toString());
+                                allEventsId.add(document.getId());
                             }
                             //setting the adapter
                             if (view instanceof RecyclerView) {
@@ -107,7 +107,7 @@ public class EventsFragment extends Fragment {
 
                                         // Fetch event clicked on
                                         RegisterForEvent register = new RegisterForEvent();
-                                        RegisterForEvent newRegister = register.newInstance(allEventsId.get(count));
+                                        RegisterForEvent newRegister = RegisterForEvent.newInstance(allEventsId.get(count));
                                         Fragment fragment = newRegister;
 
                                         // Replace fragment for the fetched event
@@ -121,7 +121,7 @@ public class EventsFragment extends Fragment {
 
                                                 // if event is free show buttons register, deregister
                                                 RegDegFragment buttons = new RegDegFragment();
-                                                RegDegFragment newButtons = buttons.newInstance(allEventsId.get(count));
+                                                RegDegFragment newButtons = RegDegFragment.newInstance(allEventsId.get(count));
                                                 Fragment fragment2 = newButtons;
 
                                                 // add register/deregister buttons fragment on top of the event
@@ -132,7 +132,7 @@ public class EventsFragment extends Fragment {
                                                 fragmentTransaction2.commit();
                                             } else {
                                                 InterestedInEvent interested = new InterestedInEvent();
-                                                InterestedInEvent newInterest = interested.newInstance(allEventsId.get(count));
+                                                InterestedInEvent newInterest = InterestedInEvent.newInstance(allEventsId.get(count));
                                                 Fragment fragment3 = newInterest;
 
                                                 // add interested/not interested buttons fragment on top of the event

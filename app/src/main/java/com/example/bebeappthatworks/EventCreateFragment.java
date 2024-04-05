@@ -166,7 +166,7 @@ public class EventCreateFragment extends Fragment {
                 eventDuration = eventDurationEdt.getText().toString();
                 eventLocation = eventLocationEdt.getText().toString();
                 eventCapacity = eventCapacityEdt.getText().toString();
-                String creator = mAuth.getCurrentUser().getUid().toString();
+                String creator = mAuth.getCurrentUser().getUid();
 
                 //Check if event is free or paid.
                 if (paidEvent.isChecked()) {

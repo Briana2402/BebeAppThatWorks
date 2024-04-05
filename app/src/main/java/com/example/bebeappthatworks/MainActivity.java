@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
                         if(!queryDocumentSnapshots.isEmpty()) {
                             List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
                             for(DocumentSnapshot d : list) {
-                                if(d.getId().toString().equals(firebaseUser.getUid().toString())){
+                                if(d.getId().equals(firebaseUser.getUid())){
                                     Intent intent = new Intent(MainActivity.this, AttendeeActivity.class);
                                     startActivity(intent);
                                     Log.i("attendee", "yes");
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
                         if(!queryDocumentSnapshots.isEmpty()) {
                             List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
                             for(DocumentSnapshot d : list) {
-                                if(d.getId().toString().equals(firebaseUser.getUid().toString())){
+                                if(d.getId().equals(firebaseUser.getUid())){
                                     Intent intent = new Intent(MainActivity.this, OrganiserActivity.class);
                                     startActivity(intent);
                                     Log.i("organizer", "yes");
