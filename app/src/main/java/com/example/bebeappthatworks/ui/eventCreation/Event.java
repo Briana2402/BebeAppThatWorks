@@ -179,5 +179,20 @@ public class Event {
     public void setEventType(String eventType) {
         this.eventType = eventType;
     }
+    public void setEventCreator(String creator) {
+        this.creator_id = creator;
+    }
+
+    public String getEventCreator() {
+        return creator_id;
+    }
+
+    public String getEventMaxCapacity() {
+        return maxCapacity;
+    }
+
+    public void setEventMaxCapacity(String maxCapacity) {
+        this.maxCapacity = maxCapacity;
+    }
 
 }
