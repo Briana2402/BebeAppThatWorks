@@ -1,14 +1,8 @@
 package com.example.bebeappthatworks.ui.eventCreation;
 
-import com.example.bebeappthatworks.Attendee;
-import com.example.bebeappthatworks.Organiser;
-
-import java.util.ArrayList;
-import java.util.List;
-import android.net.Uri;
-import android.widget.ImageView;
-
-//Class to hold information about an event.
+/**
+ * Class to hold information about an event.
+ */
 public class Event {
 
     // variables for storing event data.
