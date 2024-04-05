@@ -1,8 +1,5 @@
 package com.example.bebeappthatworks;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +8,9 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.bebeappthatworks.ui.login.LoginActivity;
 import com.example.bebeappthatworks.ui.register.RegisterAttendeeActivity;
@@ -51,6 +51,11 @@ public class MainActivity extends AppCompatActivity {
                 db.collection("Attendees").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @SuppressLint("NotifyDataSetChanged")
                     @Override
+                    /**
+                     * Method on Success used to send the user to the AttendeeActivity after authentication
+                     *
+                     * @queryDocumentSnapshots used to fetch the documents from firebase
+                     */
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                         if(!queryDocumentSnapshots.isEmpty()) {
                             List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
@@ -69,6 +74,11 @@ public class MainActivity extends AppCompatActivity {
                 db.collection("Organisers").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @SuppressLint("NotifyDataSetChanged")
                     @Override
+                    /**
+                     * Method on Success used to send the user to the OrganiserActivity after authentication
+                     *
+                     * @queryDocumentSnapshots used to fetch the documents from firebase
+                     */
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                         if(!queryDocumentSnapshots.isEmpty()) {
                             List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
@@ -120,6 +130,9 @@ public class MainActivity extends AppCompatActivity {
         //Chnages intent based on button pressed.
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
+            /**
+             * When the login button is clicked it sends the user to the login page
+             */
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(intent);
@@ -128,6 +141,9 @@ public class MainActivity extends AppCompatActivity {
 
         guestButton.setOnClickListener(new View.OnClickListener() {
             @Override
+            /**
+             * When the guest button is clicked it sends the user to the quest main page
+             */
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, GuestActivity.class);
                 startActivity(intent);
@@ -136,6 +152,9 @@ public class MainActivity extends AppCompatActivity {
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
+            /**
+             * When the register attendee button is clicked it sends the user to the register attendee page
+             */
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, RegisterAttendeeActivity.class);
                 startActivity(intent);
@@ -144,6 +163,9 @@ public class MainActivity extends AppCompatActivity {
 
         registerOrganiser.setOnClickListener(new View.OnClickListener() {
             @Override
+            /**
+             * When the register organiser button is clicked it sends the user to the register organiser page
+             */
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, RegisterOrganisationActivity.class);
                 startActivity(intent);
