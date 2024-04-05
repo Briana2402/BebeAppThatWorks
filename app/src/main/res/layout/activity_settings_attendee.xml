@@ -104,7 +104,7 @@
         </EditText>
 
         <Button
-            android:id="@+id/backtoprofile"
+            android:id="@+id/backtoprofileAttendee"
             android:layout_width="116dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textViewNoti"
@@ -117,7 +117,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
-            android:id="@+id/save_changes"
+            android:id="@+id/save_changesAttendee"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textViewNoti"
@@ -126,7 +126,7 @@
             android:layout_marginTop="40dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="108dp"
-            android:layout_toEndOf="@+id/backtoprofile"
+            android:layout_toEndOf="@+id/backtoprofileAttendee"
             android:text="Update Settings"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
