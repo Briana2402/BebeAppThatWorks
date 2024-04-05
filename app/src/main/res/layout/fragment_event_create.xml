@@ -58,7 +58,7 @@
         android:text="."
         android:textColor="@color/event_card"
         android:layout_marginStart="270dp"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="170dp"
         android:background="#00FFFFFF"
         android:onClick="captureImage"
         android:textColorLink="#34FFFFFF" />
@@ -96,7 +96,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="2dp">
+        android:paddingBottom="2dp"
+        android:paddingTop="15dp">
 
         <EditText
             android:id="@+id/idEdtEventName"

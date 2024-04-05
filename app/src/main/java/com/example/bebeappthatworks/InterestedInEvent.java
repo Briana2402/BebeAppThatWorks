@@ -75,7 +75,7 @@ public class InterestedInEvent extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_interested_in_event, container, false);
+        view = inflater.inflate(R.layout.them_button_with_interest, container, false);
 
         Button button = view.findViewById(R.id.buttonInterested);
         button.setOnClickListener(new View.OnClickListener() {
@@ -99,21 +99,6 @@ public class InterestedInEvent extends Fragment {
                 //data.put("type", "deregistered");
                 //data.put("type of event", event_type);
                 db.collection("Attendees").document(mAuth.getCurrentUser().getUid()).collection("my events").document(event_id).delete();
-            }
-        });
-
-        Button details = view.findViewById(R.id.buttonSeeDetailsPaid);
-        details.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                OnlyEventView newEvent = new OnlyEventView();
-                OnlyEventView newEventFinal = newEvent.newInstance(event_id);
-                Fragment fragment = newEventFinal;
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.navigation_host_fragment_content_main, fragment);
-                fragmentTransaction.addToBackStack(null);
-                fragmentTransaction.commit();
             }
         });
 

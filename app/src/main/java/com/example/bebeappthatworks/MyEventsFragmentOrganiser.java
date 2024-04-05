@@ -15,7 +15,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.example.bebeappthatworks.ui.eventCreation.Event;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -29,10 +28,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 
-public class MyEventsFragment extends Fragment {
+public class MyEventsFragmentOrganiser extends Fragment {
 
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
@@ -54,7 +52,7 @@ public class MyEventsFragment extends Fragment {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public MyEventsFragment() {
+    public MyEventsFragmentOrganiser() {
     }
 
 
@@ -89,15 +87,9 @@ public class MyEventsFragment extends Fragment {
                     if (view instanceof RecyclerView) {
                         Context context = view.getContext();
                         RecyclerView recyclerView = (RecyclerView) view;
-                        if (mColumnCount <= 1) {
-                            recyclerView.setLayoutManager(new LinearLayoutManager(context));
-                        } else {
-                            recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-                        }
                         adapter = new EventAdapter(myEvents);
                         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                         recyclerView.setAdapter(adapter);
-
 
                         adapter.setOnItemClickListener(new EventAdapter.OnItemClickListener() {
                             @Override
