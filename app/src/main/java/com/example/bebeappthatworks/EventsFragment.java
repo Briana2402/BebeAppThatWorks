@@ -53,6 +53,9 @@ public class EventsFragment extends Fragment {
     public List<Event> allEvents = new ArrayList<>();
     public List<String> allEventsId = new ArrayList<>();
     public int count = 0;
+
+    private RecyclerView recyclerView;
+    private List<Event> eventList;
     private EventAdapter adapter;
 
     public final FirebaseAuth mAuth = FirebaseAuth.getInstance();;
@@ -101,23 +104,27 @@ public class EventsFragment extends Fragment {
                                 adapter.setOnItemClickListener(new EventAdapter.OnItemClickListener() {
                                     @Override
                                     public void onItemClick(int count, Event event) {
-                                        // Handle item click here, e.g., launch details activity/fragment
+
+                                        // Fetch event clicked on
+                                        RegisterForEvent register = new RegisterForEvent();
+                                        RegisterForEvent newRegister = register.newInstance(allEventsId.get(count));
+                                        Fragment fragment = newRegister;
+
+                                        // Replace fragment for the fetched event
+                                        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                        fragmentTransaction.replace(R.id.navigation_host_fragment_content_main, fragment);
+                                        fragmentTransaction.addToBackStack(null);
+                                        fragmentTransaction.commit();
+
                                             if (Objects.equals(event.getEventType(), "Free")) {
-                                                RegisterForEvent register = new RegisterForEvent();
-                                                Fragment fragment = register.newInstance(allEventsId.get(count));
-                                                RegisterForEvent newRegister = register.newInstance(allEventsId.get(count));
-                                                fragment = newRegister;
 
-                                                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                                                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                                                fragmentTransaction.replace(R.id.navigation_host_fragment_content_main, fragment);
-                                                fragmentTransaction.addToBackStack(null);
-                                                fragmentTransaction.commit();
+                                                // if event is free show buttons register, deregister
+                                                RegDegFragment buttons = new RegDegFragment();
+                                                RegDegFragment newButtons = buttons.newInstance(allEventsId.get(count));
+                                                Fragment fragment2 = newButtons;
 
-                                                buttons_fragment bringbutts = new buttons_fragment();
-                                                buttons_fragment newbringbutts = bringbutts.newInstance(allEventsId.get(count));
-                                                Fragment fragment2 = newbringbutts;
-
+                                                // add register/deregister buttons fragment on top of the event
                                                 FragmentManager fragmentManager2 = getActivity().getSupportFragmentManager();
                                                 FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
                                                 fragmentTransaction2.add(R.id.navigation_host_fragment_content_main, fragment2);
@@ -125,12 +132,15 @@ public class EventsFragment extends Fragment {
                                                 fragmentTransaction2.commit();
                                             } else {
                                                 InterestedInEvent interested = new InterestedInEvent();
-                                                Fragment fragment = interested.newInstance(allEventsId.get(count));
-                                                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                                                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                                                fragmentTransaction.replace(R.id.navigation_host_fragment_content_main, fragment);
-                                                fragmentTransaction.addToBackStack(null);
-                                                fragmentTransaction.commit();
+                                                InterestedInEvent newInterest = interested.newInstance(allEventsId.get(count));
+                                                Fragment fragment3 = newInterest;
+
+                                                // add interested/not interested buttons fragment on top of the event
+                                                FragmentManager fragmentManager3 = getActivity().getSupportFragmentManager();
+                                                FragmentTransaction fragmentTransaction3 = fragmentManager3.beginTransaction();
+                                                fragmentTransaction3.add(R.id.navigation_host_fragment_content_main, fragment3);
+                                                fragmentTransaction3.addToBackStack(null);
+                                                fragmentTransaction3.commit();
                                             }
 
 

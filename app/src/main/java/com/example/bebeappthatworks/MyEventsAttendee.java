@@ -22,6 +22,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -31,13 +32,16 @@ import java.util.List;
 
 public class MyEventsAttendee extends Fragment {
 
-    private int mColumnCount = 1;
+    private static final String ARG_COLUMN_COUNT = "column-count";
+    // TODO: Customize parameters
+    private static String ARGM1 = "param1";
 
     public final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public List<Event> myEvents = new ArrayList<>();
 
     public List<String> events_id = new ArrayList<>();
+    public String eventID;
 
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
@@ -52,26 +56,36 @@ public class MyEventsAttendee extends Fragment {
     public MyEventsAttendee() {
     }
 
+    public MyEventsAttendee newInstance(String param1) {
+        MyEventsAttendee fragment = new MyEventsAttendee();
+        Bundle args = new Bundle();
+        args.putString(ARGM1, param1);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            eventID = getArguments().getString(ARGM1);
+        }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_my_events_attendee, container, false);
+
         CollectionReference eventsRef = db.collection("Attendees").document(mAuth.getCurrentUser().getUid().toString()).collection("my events");
+
         eventsRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     //creates an  array with all the ids of the events that the logged in user is registered for
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        events_id.add(document.getId().toString());
-                        event_id = document.getId().toString();
-                        DocumentReference docRef = db.collection("Events").document(event_id);
+                        DocumentReference docRef = db.collection("Events").document(eventID);
                         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             @Override
                             public void onComplete(Task<DocumentSnapshot> task) {
@@ -83,11 +97,6 @@ public class MyEventsAttendee extends Fragment {
                                         EventAdapter adapter = new EventAdapter(myEvents);
                                         RecyclerView recyclerView = (RecyclerView) view;
                                         Context context = view.getContext();
-                                        if (mColumnCount <= 1) {
-                                            recyclerView.setLayoutManager(new LinearLayoutManager(context));
-                                        } else {
-                                            recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-                                        }
                                         recyclerView.setAdapter(adapter);
                                     }
 
@@ -96,8 +105,10 @@ public class MyEventsAttendee extends Fragment {
                         });
                     }
                 }
-            }
+
         });
+
+
         return view;
     }
 }
