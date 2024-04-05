@@ -81,7 +81,7 @@ public class EventsFragmentOrganizer extends Fragment {
                                 adapter = new EventAdapter(allEvents);
                                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                                 recyclerView.setAdapter(adapter);
-                                // recyclerView.setAdapter(new MyItemRecyclerViewAdapter(allEvents));
+                                //recyclerView.setAdapter(new MyItemRecyclerViewAdapter(allEvents));
                                 adapter.setOnItemClickListener(new EventAdapter.OnItemClickListener() {
                                     @Override
                                     public void onItemClick(int count, Event event) {
@@ -93,7 +93,6 @@ public class EventsFragmentOrganizer extends Fragment {
                                       fragmentTransaction.replace(R.id.navigation_host_fragment_content_main, fragment);
                                       fragmentTransaction.addToBackStack(null);
                                       fragmentTransaction.commit();
-
 
                                     }
                                 });
