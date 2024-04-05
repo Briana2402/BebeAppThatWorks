@@ -28,13 +28,9 @@ import java.util.List;
  */
 public class SingleEventFree extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static String ARGM1 = "param1";
     public String eventID;
-
-    private Event event;
-
     View view;
 
     public List<Event> theEvent = new ArrayList<>();
@@ -48,10 +44,9 @@ public class SingleEventFree extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1
+     * @param param1 the id of the event that was pressed on
      * @return A new instance of fragment SingleEvent.
      */
-    // TODO: Rename and change types and number of parameters
     public SingleEventFree newInstance(String param1) {
         SingleEventFree fragment = new SingleEventFree();
         Bundle args = new Bundle();
@@ -60,32 +55,47 @@ public class SingleEventFree extends Fragment {
         return fragment;
     }
 
+    /**
+     * onCreate method.
+     * @param savedInstanceState If the fragment is being re-created from
+     * a previous saved state, this is the state.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        Log.i("TEROG",ARGM1);
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             eventID = getArguments().getString(ARGM1);
         }
-        Log.i("TEROG",eventID);
-
     }
 
+    /**
+     * onCreateView method.
+     * @param inflater The LayoutInflater object that can be used to inflate
+     * any views in the fragment,
+     * @param container If non-null, this is the parent view that the fragment's
+     * UI should be attached to.  The fragment should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     *
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_single_event, container, false);
+        //path to the event collection on Firestore
         DocumentReference docRef = db.collection("Events").document(eventID.toString());
-        Log.d("ma ta","fara liniuta");
+        //adding the event that was pressed to the variable
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                Log.d("help","pula");
+                //specifying the event for the adapter
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     theEvent.add(document.toObject(Event.class));
-                    Log.d("why","pula");
+                    //set the adapter
                     if (view instanceof RecyclerView) {
                         RecyclerView recyclerView = (RecyclerView) view;
                         recyclerView.setAdapter(new OneEventRecyclerView(theEvent));

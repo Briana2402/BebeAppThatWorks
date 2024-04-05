@@ -78,7 +78,6 @@ public class ProfileAttendeeFragment extends Fragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment ProfileAttendeeFragment.
      */
-    // TODO: Rename and change types and number of parameters
     public static ProfileAttendeeFragment newInstance(String param1, String param2) {
         ProfileAttendeeFragment fragment = new ProfileAttendeeFragment();
         Bundle args = new Bundle();
@@ -90,32 +89,43 @@ public class ProfileAttendeeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        if (getArguments() != null) {
-//            mParam1 = getArguments().getString(ARG_PARAM1);
-//        }
-
     }
 
-
+    /**
+     * Creates the view and updates the UI accordingly with the information from Firebase
+     * @param inflater The LayoutInflater object that can be used to inflate
+     * any views in the fragment,
+     * @param container If non-null, this is the parent view that the fragment's
+     * UI should be attached to.  The fragment should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     *
+     * @return the view
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        //inflating the view
         view = inflater.inflate(R.layout.fragment_profile_attendee, container, false);
+        //setting the instances for Firebase
         db = FirebaseFirestore.getInstance();
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
+        //Initialise the UI componnents
         username = view.findViewById(R.id.usernameAttendee);
         email = view.findViewById(R.id.emailAttendee);
         profile_pic = view.findViewById(R.id.imageViewAttendeeProfileImage);
         description = view.findViewById(R.id.descriptionAttendee);
+        //specifies the path of the document with the id of the user logged in from the attendees collection
         docRef = db.collection("Attendees").document((mAuth.getCurrentUser().getUid()));
+        //gets the profile information of the logged in user to be shhown in the UI
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     attendee = document.toObject(Attendee.class);
-                    //name.setText("my name is Jeff");
                     username.setText(attendee.getUsername());
                     email.setText(attendee.getEmail());
                     description.setText(attendee.getDescription());
@@ -131,9 +141,11 @@ public class ProfileAttendeeFragment extends Fragment {
             }
         });
 
+        //seyts the UI components
         Button myButton = view.findViewById(R.id.LOGOUTBUTTONATTENDEE);
         profilepicBtnAttendee = view.findViewById(R.id.addprofilepicAttendee);
 
+        //logs out the user when the log out button is pressed
         myButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -143,10 +155,12 @@ public class ProfileAttendeeFragment extends Fragment {
             }
         });
 
+        //sets the UI button
         Button openSettings = (Button) view.findViewById(R.id.openSettingsAttendee);
         openSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //replaces the fragment for the settings buttpn
                 SettingsAttendee settingsAttendee = new SettingsAttendee();
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -157,6 +171,7 @@ public class ProfileAttendeeFragment extends Fragment {
         });
 
         Button deleteAccountBtn = view.findViewById(R.id.deleteAccountAttendeeBtn);
+        //deletes the account
         deleteAccountBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -165,6 +180,7 @@ public class ProfileAttendeeFragment extends Fragment {
 
         });
 
+        // Profile picture button click listener
         profilepicBtnAttendee.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -175,6 +191,9 @@ public class ProfileAttendeeFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Displays a dialog to choose between camera and gallery for image capture.
+     */
     private void showDialog() {
         Dialog dialog = new Dialog(getContext());
         dialog.setContentView(R.layout.popup);
