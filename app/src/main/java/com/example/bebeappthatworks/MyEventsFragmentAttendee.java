@@ -71,6 +71,7 @@ public class MyEventsFragmentAttendee extends Fragment {
     @Override
     /**
      * onCreateView method to fetch events the user is registered for/interested in and display them in "my events" page
+     *
      * @param inflater The LayoutInflater object that can be used to inflate
      * any views in the fragment,
      * @param container If non-null, this is the parent view that the fragment's
