@@ -142,7 +142,7 @@ public class RegisterOrganisationActivity extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     //if user is added to auth db
                                     //FirebaseUser user = mAuth.getUid();
-                                    User user = new User(email, "organiser");
+                                    User user = new User(email, "organiser", null, null);
                                     //adds user to Firestore with he same uid
                                     dbOrg.document(Objects.requireNonNull(mAuth.getCurrentUser()).getUid()).set(user);
                                     Toast.makeText(RegisterOrganisationActivity.this, "Organisation account created",

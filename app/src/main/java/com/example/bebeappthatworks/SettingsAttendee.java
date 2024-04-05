@@ -38,6 +38,11 @@ public class SettingsAttendee extends Fragment {
     DocumentReference docRef;
     private Attendee attendee;
     private String description, username;
+
+    public SettingsAttendee(){
+
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,14 +55,13 @@ public class SettingsAttendee extends Fragment {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
         Button backBtn = (Button) view.findViewById(R.id.backtoprofileAttendee);
-        EditText editTextDescription = view.findViewById(R.id.description_field);
-        EditText editTextUsername = view.findViewById(R.id.update_username);
+        EditText editTextDescription = view.findViewById(R.id.description_fieldAttendee);
+        EditText editTextUsername = view.findViewById(R.id.update_usernameAttendee);
         docRef = db.collection("Attendees").document((mAuth.getCurrentUser().getUid()));
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getActivity(), ProfileAttendeeFragment.class);
-                startActivity(i);
+
             }
         });
 
@@ -70,9 +74,6 @@ public class SettingsAttendee extends Fragment {
                 Log.i("username", username);
                 Log.i("description", description);
                 updateAccount(description, username);
-
-                Intent i = new Intent(getActivity(), ProfileAttendeeFragment.class);
-                startActivity(i);
             }
         });
         return view;
@@ -87,15 +88,15 @@ public class SettingsAttendee extends Fragment {
             @Override
             public void onSuccess(Void unused) {
                 Toast.makeText(getActivity(), "Account Updated", Toast.LENGTH_SHORT).show();
-                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        DocumentSnapshot document = task.getResult();
-                        attendee = document.toObject(Attendee.class);
-                        attendee.setDescription(description);
-                        attendee.setUsername(username);
-                    }
-                });
+//                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                        DocumentSnapshot document = task.getResult();
+//                        attendee = document.toObject(Attendee.class);
+//                        attendee.setDescription(description);
+//                        attendee.setUsername(username);
+//                    }
+//                });
             }
         });
     }

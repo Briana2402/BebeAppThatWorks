@@ -285,15 +285,6 @@ public class ProfileOrganiserFragment extends Fragment {
             }
         });
 
-        Button openSettings = (Button) view.findViewById(R.id.openSettings);
-        openSettings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getActivity(), SettingsOrganiser.class);
-                startActivity(i);
-            }
-        });
-
         Button deleteAccountBtn = view.findViewById(R.id.deleteAccountOrganiserBtn);
         deleteAccountBtn.setOnClickListener(new View.OnClickListener() {
             @Override
