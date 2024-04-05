@@ -22,13 +22,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * create an instance of this fragment.
+ * Create an instance of the guest activity fragment.
  */
 public class GuestFragment extends Fragment {
 
+    //Initialise Firebase instance.
     public final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+    //List of all events to be displayed.
     public List<Event> allEvents = new ArrayList<>();
+
+    //View.
     View view;
 
     /**
@@ -39,17 +43,47 @@ public class GuestFragment extends Fragment {
     }
 
 
+    /**
+     * OnCreate function.
+     *
+     * @param savedInstanceState If the fragment is being re-created from
+     * a previous saved state, this is the state.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
     }
 
+    /**
+     * OnCreateView method.
+     *
+     * @param inflater The LayoutInflater object that can be used to inflate
+     * any views in the fragment,
+     * @param container If non-null, this is the parent view that the fragment's
+     * UI should be attached to.  The fragment should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     *
+     * @return View
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_events_list, container, false);
 
+        displayEvents();
+        return view;
+    }
+
+    /**
+     * Fetches and displays all events on main page.
+     *
+     * @pre There are events in database to be displayed.
+     * @post Events are displayed.
+     */
+    public void displayEvents(){
         // Fetch all the events for the main page
         db.collection("Events")
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -69,6 +103,5 @@ public class GuestFragment extends Fragment {
                         }
                     }
                 });
-        return view;
     }
 }
