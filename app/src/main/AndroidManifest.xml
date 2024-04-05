@@ -29,6 +29,10 @@
         android:theme="@style/Theme.BebeAppThatWorks"
         tools:targetApi="31">
 
+        <uses-library android:name="android.test.runner" />
+        <uses-library android:name="android.test.base" />
+        <uses-library android:name="android.test.mock" />
+
         <meta-data android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
         <meta-data android:name="com.google.android.geo.API_KEY"

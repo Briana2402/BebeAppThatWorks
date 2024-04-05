@@ -111,17 +111,14 @@ public class GPS_settings extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        switch (requestCode) {
-            case PERMISSION_FINE_LOCATION:
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    updateGPS();
-                }
-                else {
-                    Toast.makeText(this, "In order to enable GPS, permission must be granted",
-                            Toast.LENGTH_SHORT).show();
-                    finish();
-                }
-                break;
+        if (requestCode == PERMISSION_FINE_LOCATION) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                updateGPS();
+            } else {
+                Toast.makeText(this, "In order to enable GPS, permission must be granted",
+                        Toast.LENGTH_SHORT).show();
+                finish();
+            }
         }
     }
 

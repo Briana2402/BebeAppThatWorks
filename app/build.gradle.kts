@@ -7,6 +7,11 @@ plugins {
 }
 
 android {
+
+    useLibrary("android.test.runner")
+    useLibrary("android.test.base")
+
+
     namespace = "com.example.bebeappthatworks"
     compileSdk = 34
 
@@ -64,6 +69,29 @@ dependencies {
     // Add the dependency for the Firebase SDK for Google Analytics
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-core:9.6.1")
+
+    androidTestImplementation("androidx.test.ext:junit-ktx:1.1.5")
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation("androidx.test:runner:1.5.2")
+    androidTestImplementation("androidx.test.ext:truth:1.5.0")
+
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    androidTestImplementation("androidx.test.espresso:espresso-intents:3.5.1")
+
+    androidTestImplementation("androidx.test:rules:1.5.0")
+
+    androidTestImplementation( "androidx.test.espresso:espresso-contrib:3.5.1")
+    androidTestImplementation( "androidx.test.espresso:espresso-intents:3.5.1")
+    androidTestImplementation( "androidx.test.espresso:espresso-accessibility:3.5.1")
+    androidTestImplementation( "androidx.test.espresso:espresso-web:3.5.1")
+    androidTestImplementation( "androidx.test.espresso.idling:idling-concurrent:3.5.1")
+
+    androidTestImplementation( "androidx.test.espresso:espresso-idling-resource:3.5.1")
+
+    androidTestImplementation("junit:junit:4.13.2")
+    // Optional -- Robolectric environment
+    androidTestImplementation("androidx.test:core:1.5.0")
+    // Optional -- Mockito framework
 
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")
