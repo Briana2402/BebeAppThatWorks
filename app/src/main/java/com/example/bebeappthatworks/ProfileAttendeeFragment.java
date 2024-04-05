@@ -14,6 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.provider.MediaStore;
 import android.util.Log;
@@ -143,12 +145,16 @@ public class ProfileAttendeeFragment extends Fragment {
             }
         });
 
-        Button openSettings = (Button) view.findViewById(R.id.openSettings);
+        Button openSettings = (Button) view.findViewById(R.id.openSettingsAttendee);
         openSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getActivity(), SettingsAttendee.class);
-                startActivity(i);
+                SettingsAttendee settingsAttendee = new SettingsAttendee();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.navigation_host_fragment_content_main, settingsAttendee);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
             }
         });
 

@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -40,7 +41,7 @@ public class AttendeeActivity extends AppCompatActivity {
             if (id == R.id.Events) {
                 replaceFragment(new EventsFragment());
             } else if (id == R.id.MyEvents) {
-                replaceFragment(new MyEventsAttendee());
+                replaceFragment(new MyEventsFragmentAttendee());
             } else if (id == R.id.Notifications){
                 replaceFragment(new NotificationsFragment());
             } else if (id == R.id.Profile) {

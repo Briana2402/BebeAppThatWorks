@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.example.bebeappthatworks.MainActivity;
 import com.example.bebeappthatworks.R;
 import com.example.bebeappthatworks.User;
+import com.example.bebeappthatworks.ui.login.LoginActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -154,13 +155,18 @@ public class RegisterAttendeeActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             //if user is added to auth db
                             //FirebaseUser user = mAuth.getUid();
-                            User user = new User(email, "attendee");
+                            User user = new User(email, "attendee", null, null);
                             //adds user to Firestore with he same uid
                             CollectionReference dbAttendees = db.collection("Attendees");
                             dbAttendees.document(mAuth.getCurrentUser().getUid()).set(user);
                             //display a message if the account creation worked
                             Toast.makeText(RegisterAttendeeActivity.this, "Account created",
                                     Toast.LENGTH_SHORT).show();
+
+                            FirebaseAuth.getInstance().signOut();
+                            Intent intent = new Intent(RegisterAttendeeActivity.this, LoginActivity.class);
+                            startActivity(intent);
+
 
                         } else {
                             // If sign in fails, display a message to the user.

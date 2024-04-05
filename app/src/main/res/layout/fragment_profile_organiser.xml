@@ -8,30 +8,6 @@
     android:background="@drawable/bg_with_stars"
     tools:context=".ProfileOrganiserFragment">
 
-
-    <TextView
-        android:id="@+id/textNameOrganisor"
-        android:layout_width="57dp"
-        android:layout_height="29dp"
-        android:layout_marginTop="5dp"
-        android:text="Name"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewOrganiserProfileImage" />
-
-
-    <Button
-        android:id="@+id/openSettingsOrganiser"
-        android:layout_width="145dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="72dp"
-        android:text="Settings"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailOrganiser" />
-
     <ImageView
         android:id="@+id/imageViewOrganiserProfileImage"
         android:layout_width="220dp"
@@ -77,8 +53,8 @@
         android:text="email@organiser.com"
         android:textColor="#AFABAB"
         android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/usernameOrganiser"
         app:layout_constraintVertical_bias="0.029" />
@@ -97,7 +73,7 @@
         app:layout_constraintVertical_bias="0.029" />
 
     <Button
-        android:id="@+id/openSettings"
+        android:id="@+id/openSettingsOrganiser"
         android:layout_width="145dp"
         android:layout_height="48dp"
         android:layout_marginBottom="20dp"
@@ -120,9 +96,7 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/LOGOUTBUTTONORGANISER"
-        app:layout_constraintTop_toBottomOf="@+id/openSettingsOrganiser"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintStart_toEndOf="@+id/LOGOUTBUTTONORGANISER" />
 
     <Button
         android:id="@+id/LOGOUTBUTTONORGANISER"
@@ -130,12 +104,10 @@
         android:layout_height="48dp"
         android:layout_marginEnd="1dp"
         android:layout_marginBottom="108dp"
-        android:text="Log out"
+        android:text="Sign out"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/deleteAccountOrganiserBtn"
         app:layout_constraintHorizontal_bias="0.382"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/openSettingsOrganiser"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,7 +8,7 @@ public class User {
         // required for Firebase.
     }
 
-    public User(String email, String role) {
+    public User(String email, String role, String username, String description) {
         this.email = email;
         this.role = role;
     }
