@@ -1,10 +1,5 @@
 package com.example.bebeappthatworks;
 
-import com.example.bebeappthatworks.ui.eventCreation.Event;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-
 /**
  * Organiser class represents a user who organises events.
  * It extends the User class and contains methods and properties specific to an organiser.

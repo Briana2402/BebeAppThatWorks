@@ -4,23 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-
 import com.example.bebeappthatworks.databinding.OneEventLayoutBinding;
-import com.example.bebeappthatworks.ui.eventCreation.Event;
-import com.example.bebeappthatworks.MyItemRecyclerViewAdapter;
-import com.example.bebeappthatworks.EventsFragment;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * The activity for One Event. It is useful when
