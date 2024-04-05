@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.example.bebeappthatworks.MainActivity;
 import com.example.bebeappthatworks.R;
 import com.example.bebeappthatworks.User;
+import com.example.bebeappthatworks.ui.login.LoginActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -129,6 +130,7 @@ public class RegisterAttendeeActivity extends AppCompatActivity {
                 }
                 //creates a user
                 createAttendee(email, password);
+
             }
         });
 
@@ -161,6 +163,9 @@ public class RegisterAttendeeActivity extends AppCompatActivity {
                             //display a message if the account creation worked
                             Toast.makeText(RegisterAttendeeActivity.this, "Account created",
                                     Toast.LENGTH_SHORT).show();
+                            FirebaseAuth.getInstance().signOut();
+                            Intent i = new Intent(RegisterAttendeeActivity.this, LoginActivity.class);
+                            startActivity(i);
 
                         } else {
                             // If sign in fails, display a message to the user.

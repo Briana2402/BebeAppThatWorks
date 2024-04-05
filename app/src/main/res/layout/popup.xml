@@ -22,11 +22,15 @@
 
     <Button
         android:id="@+id/buttonGallery"
-        android:layout_width="131dp"
-        android:layout_height="61dp"
+        android:layout_width="158dp"
+        android:layout_height="59dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
         android:layout_gravity="center_horizontal"
-        android:layout_marginStart="82dp"
+        android:layout_marginStart="72dp"
         android:layout_marginTop="100dp"
-        android:layout_marginEnd="268dp"
+        android:layout_marginEnd="70dp"
+        android:layout_marginBottom="22dp"
         android:text="Import photo from library" />
 </RelativeLayout>
