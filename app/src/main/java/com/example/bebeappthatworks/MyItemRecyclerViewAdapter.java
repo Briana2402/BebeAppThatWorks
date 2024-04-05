@@ -30,22 +30,46 @@ import java.util.List;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link Event}.
+ * Class used to showcase one item.
  */
 public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecyclerViewAdapter.ViewHolder> {
 
+    // Declaring variables.
     private final List<Event> mValues;
+
+    /**
+     * Method used to initialize the mValues list
+     * with the necessary events passed by
+     * with the items parameter.
+     * @param items - list of events
+     */
     public MyItemRecyclerViewAdapter(List<Event> items) {
         mValues = items;
     }
+
+    /**
+     * Method used to initialize the showcase of the event.
+     * @param parent   The ViewGroup into which the new View will be added after it is bound to
+     *                 an adapter position.
+     * @param viewType The view type of the new View.
+     * @return the event as viewTyoe
+     */
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        return new ViewHolder(FragmentEventsBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
+        return new ViewHolder(FragmentEventsBinding.inflate(LayoutInflater.from(parent.getContext()),
+                parent, false));
 
     }
 
-    //method for binding the event with the fetched information
+    /**
+     *  Giving values from the firebase to all of our variables.
+     *      method for binding the event with the fetched information.
+     * @param holder   The ViewHolder which should be updated to represent the contents of the
+     *                 item at the given position in the data set.
+     * @param position The position of the item within the adapter's data set.
+     */
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         Event event = mValues.get(position);
@@ -58,12 +82,21 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
         holder.mCapacity.setText(event.getEventMaxCapacity());
     }
 
+    /**
+     * Method used to count the events from an arrayList.
+     * @return size of the array of events
+     */
     @Override
     public int getItemCount() {
         return mValues.size();
     }
 
+    /**
+     * Class used to showcase the event with all its variables
+     * filled in with the correct information.
+     */
     public static class ViewHolder extends RecyclerView.ViewHolder {
+        // Declaring variables.
         //public final TextView mIdView;
         public final ImageView mImageView;
 
@@ -76,7 +109,10 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
 
         //public PlaceholderItem mItem;
 
-
+        /**
+         * Method used to get and remember the details of an event.
+         * @param binding
+         */
         public ViewHolder(FragmentEventsBinding binding) {
             super(binding.getRoot());
             //mIdView = binding.itemNumber;
