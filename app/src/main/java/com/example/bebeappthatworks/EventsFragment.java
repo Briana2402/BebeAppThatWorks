@@ -43,9 +43,8 @@ import java.util.Objects;
  */
 public class EventsFragment extends Fragment {
 
-    // TODO: Customize parameter argument names
+    // Declaring the variables.
     private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
     private final int mColumnCount = 1;
 
     public final FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -72,6 +71,10 @@ public class EventsFragment extends Fragment {
     }
 
 
+    /**
+     * Called when the activity is starting. Method for initialization
+     * most of the necessary variables and methods.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,9 +82,13 @@ public class EventsFragment extends Fragment {
 
     }
 
+    /**
+     * Called when the activity is starting.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        //using the specefied layout
         view = inflater.inflate(R.layout.fragment_events_list, container, false);
 
         // Set the adapter
@@ -89,6 +96,8 @@ public class EventsFragment extends Fragment {
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        // if the task is successful the add all the event from the firebase
+                        // into a list.
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 allEvents.add(document.toObject(Event.class));
@@ -102,6 +111,16 @@ public class EventsFragment extends Fragment {
                                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                                 recyclerView.setAdapter(adapter);
                                 adapter.setOnItemClickListener(new EventAdapter.OnItemClickListener() {
+
+                                    /**
+                                     * Method used to implement the functionality of clicking
+                                     * on an event from a list of them and then moving the user
+                                     * to another fragment that showcases all the details of the
+                                     * specific event.
+                                     * @param count - the index of the specific event ID in the list
+                                     *              declared preveously
+                                     * @param event - the event whose information has to be shared
+                                     */
                                     @Override
                                     public void onItemClick(int count, Event event) {
 
@@ -154,6 +173,11 @@ public class EventsFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Method used in order to move from one fragment to another
+     * fragment within an activity.
+     * @param fragment - the fragment to be replaced
+     */
     private void replaceFragment(Fragment fragment) {
         // add register/deregister buttons fragment on top of the event
         FragmentManager fragmentManager2 = getActivity().getSupportFragmentManager();

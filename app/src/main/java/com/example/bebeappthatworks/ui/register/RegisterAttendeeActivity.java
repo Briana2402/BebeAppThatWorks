@@ -105,7 +105,7 @@ public class RegisterAttendeeActivity extends AppCompatActivity {
         }
     }
 
-    /*
+    /**
      * Called when the activity is starting. Method for initialization
      * most of the necessary variables and methods.
      */
