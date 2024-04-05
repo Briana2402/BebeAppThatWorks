@@ -12,3 +12,7 @@ plugins {
     id("org.jetbrains.kotlin.android") version "1.9.0" apply false
 
 }
+
+configurations.all {
+    resolutionStrategy.force("com.android.support:support-annotations:22.2.0")
+}

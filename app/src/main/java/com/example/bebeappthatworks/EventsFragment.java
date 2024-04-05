@@ -153,4 +153,14 @@ public class EventsFragment extends Fragment {
                 });
         return view;
     }
+
+    private void replaceFragment(Fragment fragment) {
+        // add register/deregister buttons fragment on top of the event
+        FragmentManager fragmentManager2 = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();
+        fragmentTransaction2.add(R.id.navigation_host_fragment_content_main, fragment);
+        fragmentTransaction2.addToBackStack(null);
+        fragmentTransaction2.commit();
+    }
+
 }
