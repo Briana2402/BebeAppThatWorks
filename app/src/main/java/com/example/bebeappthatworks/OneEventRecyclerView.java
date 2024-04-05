@@ -18,10 +18,11 @@ import java.util.List;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link Event}.
- * TODO: Replace the implementation with code for your data type.
+ * Class used to showcase one event.
  */
 public class OneEventRecyclerView extends RecyclerView.Adapter<OneEventRecyclerView.ViewHolder> {
 
+    // Declaring variables
     private final List<Event> mValues;
     private Event event;
 
@@ -36,14 +37,28 @@ public class OneEventRecyclerView extends RecyclerView.Adapter<OneEventRecyclerV
     }
 
 
+    /**
+     * Method used to initialize the showcase of the event.
+     * @param parent   The ViewGroup into which the new View will be added after it is bound to
+     *                 an adapter position.
+     * @param viewType The view type of the new View.
+     * @return the event as viewTyoe
+     */
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        return new ViewHolder(LayoutOneEventBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
+        return new ViewHolder(LayoutOneEventBinding.inflate(LayoutInflater.from(parent.getContext()),
+                parent, false));
 
     }
 
+    /**
+     *  Giving values from the firebase to all of our variables.
+     * @param holder   The ViewHolder which should be updated to represent the contents of the
+     *                 item at the given position in the data set.
+     * @param position The position of the item within the adapter's data set.
+     */
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
 
@@ -70,15 +85,27 @@ public class OneEventRecyclerView extends RecyclerView.Adapter<OneEventRecyclerV
 
     }
 
+    /**
+     * Method used to count the events from an arrayList.
+     * @return size of the array of events
+     */
     @Override
     public int getItemCount() {
         return mValues.size();
     }
 
+    /**
+     * Method used in order to make the user to be able to click
+     * anywhere on the item an open a new fragment.
+     */
     public interface OnItemClickListener {
         void onItemClick(Event event);
     }
 
+    /**
+     * Class used to showcase the event with all its variables
+     * filled in with the correct information.
+     */
     public static class ViewHolder extends RecyclerView.ViewHolder {
         //public final TextView mIdView;
         public final ImageView mImageView;
@@ -93,6 +120,10 @@ public class OneEventRecyclerView extends RecyclerView.Adapter<OneEventRecyclerV
         //public PlaceholderItem mItem;
 
 
+        /**
+         * Method used to get and remember the details of an event.
+         * @param binding
+         */
         public ViewHolder(@NonNull LayoutOneEventBinding binding) {
             super(binding.getRoot());
             //mIdView = binding.itemNumber;
