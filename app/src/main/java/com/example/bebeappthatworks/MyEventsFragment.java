@@ -2,6 +2,9 @@ package com.example.bebeappthatworks;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -10,12 +13,6 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.example.bebeappthatworks.ui.eventCreation.Event;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -29,7 +26,6 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 
 public class MyEventsFragment extends Fragment {
@@ -37,8 +33,10 @@ public class MyEventsFragment extends Fragment {
 
     public final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+    // array list of events that are fetched
     public List<Event> myEvents = new ArrayList<>();
 
+    // array list of the id's of all fetched events
     public List<String> allEventsId = new ArrayList<>();
 
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -64,18 +62,32 @@ public class MyEventsFragment extends Fragment {
     }
 
     @Override
+    /**
+     * onCreateView method to fetch events created by a user and display them in "my events" page
+     * @param inflater The LayoutInflater object that can be used to inflate
+     * any views in the fragment,
+     * @param container If non-null, this is the parent view that the fragment's
+     * UI should be attached to.  The fragment should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     *
+     * @return the view
+     */
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_created_events, container, false);
 
         // Set the adapter
         CollectionReference eventsRef = db.collection("Events");
-
+        // querys the database for events where the creater is the current user
         Query query = eventsRef.whereEqualTo("eventCreator", mAuth.getCurrentUser().getUid());
 
         //fetching the creator of the event in the event document
         query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
+            // fetched events and their id if they exist an dare created by a user
+            // then sets the recycler view to display the events in the"my events" page
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
@@ -98,6 +110,8 @@ public class MyEventsFragment extends Fragment {
 
                         adapter.setOnItemClickListener(new EventAdapter.OnItemClickListener() {
                             @Override
+                            // method to make each event when clicked display separately the event with
+                            // details and the edit button for it
                             public void onItemClick(int count, Event event ) {
                                 // Handle item click here, e.g., launch details activity/fragment
                                 MyEventOrganizer eventTest = new MyEventOrganizer();

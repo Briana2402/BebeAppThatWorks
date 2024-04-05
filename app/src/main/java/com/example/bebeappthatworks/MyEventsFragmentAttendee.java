@@ -2,19 +2,17 @@ package com.example.bebeappthatworks;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.example.bebeappthatworks.ui.eventCreation.Event;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -24,7 +22,6 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -41,10 +38,11 @@ public class MyEventsFragmentAttendee extends Fragment {
 
     public final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+    // array list of fetched events
     public List<Event> myEvents = new ArrayList<>();
-    public List<String> events_id = new ArrayList<>();
 
-    public List<String> allEventsId = new ArrayList<>();
+    //array list of the id's of the fetched events
+    public List<String> events_id = new ArrayList<>();
 
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
@@ -71,23 +69,39 @@ public class MyEventsFragmentAttendee extends Fragment {
     }
 
     @Override
+    /**
+     * onCreateView method to fetch events the user is registered for/interested in and display them in "my events" page
+     * @param inflater The LayoutInflater object that can be used to inflate
+     * any views in the fragment,
+     * @param container If non-null, this is the parent view that the fragment's
+     * UI should be attached to.  The fragment should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     *
+     * @return the view
+     */
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_my_events_attendee, container, false);
-
+        // document reference to "my events" from "Attendees"
         CollectionReference eventsRef = db.collection("Attendees").document(mAuth.getCurrentUser().getUid()).collection("my events");
 
         eventsRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
+            // gets the event id of one event and applies the document reference
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     //creates an  array with all the ids of the events that the logged in user is registered for
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         event_id = document.getId();
 
+                        // document reference to th event with current fethced id
                         DocumentReference docRef = db.collection("Events").document(event_id);
                         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             @Override
+                            // if the current user is registered/interested in the event then the recycler view
+                            // displays the event
                             public void onComplete(Task<DocumentSnapshot> task) {
                                 if (task.isSuccessful()) {
                                     DocumentSnapshot document = task.getResult();
@@ -104,6 +118,8 @@ public class MyEventsFragmentAttendee extends Fragment {
 
                                             adapter.setOnItemClickListener(new EventAdapter.OnItemClickListener() {
                                                 @Override
+                                                // method to make each event when clicked display separately the event with
+                                                // details and the edit button for it
                                                 public void onItemClick(int count, Event event ) {
                                                     // Handle item click here, e.g., launch details activity/fragment
                                                     MyEventsAttendee register = new MyEventsAttendee();
