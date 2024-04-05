@@ -1,6 +1,4 @@
 package com.example.bebeappthatworks;
-
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -92,13 +90,31 @@ public class EventCreateFragment extends Fragment {
         // Required empty public constructor
     }
 
+    /**
+     * OnCreate method.
+     *
+     * @param savedInstanceState If the fragment is being re-created from
+     * a previous saved state, this is the state.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
     }
 
-    //Creating the view for the event
+    /**
+     * Creating the view for the event creation.
+     *
+     * @param inflater The LayoutInflater object that can be used to inflate
+     * any views in the fragment,
+     * @param container If non-null, this is the parent view that the fragment's
+     * UI should be attached to.  The fragment should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     *
+     * @return View view
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -150,7 +166,7 @@ public class EventCreateFragment extends Fragment {
                 eventDuration = eventDurationEdt.getText().toString();
                 eventLocation = eventLocationEdt.getText().toString();
                 eventCapacity = eventCapacityEdt.getText().toString();
-                String creator = mAuth.getCurrentUser().getUid().toString();
+                String creator = mAuth.getCurrentUser().getUid();
 
                 //Check if event is free or paid.
                 if (paidEvent.isChecked()) {
@@ -250,6 +266,11 @@ public class EventCreateFragment extends Fragment {
         });
     }
 
+    /**
+     *
+     *
+     * @param view
+     */
     public void captureImage(View view) {
         if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -261,6 +282,17 @@ public class EventCreateFragment extends Fragment {
         startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
     }
 
+    /**
+     *
+     * @param requestCode The integer request code originally supplied to
+     *                    startActivityForResult(), allowing you to identify who this
+     *                    result came from.
+     * @param resultCode The integer result code returned by the child activity
+     *                   through its setResult().
+     * @param data An Intent, which can return result data to the caller
+     *               (various data can be attached to Intent "extras").
+     *
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -290,6 +322,10 @@ public class EventCreateFragment extends Fragment {
 
     }
 
+    /**
+     *
+     * @param imageBitmap
+     */
     private void uploadImageToFirebase(Bitmap imageBitmap) {
         // Firebase Storage reference
         StorageReference storageRef = FirebaseStorage.getInstance().getReference("images/" + UUID.randomUUID().toString());

@@ -12,22 +12,33 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.bebeappthatworks.databinding.OrganiserLayoutBinding;
 
+/**
+ * Activity containing the fragments and the functionality of the organiser account.
+ */
 public class OrganiserActivity extends AppCompatActivity {
 
     OrganiserLayoutBinding binding;
-    //private Button LogOutBtn;
 
+    /**
+     * OnCreate method.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after
+     *     previously being shut down then this Bundle contains the data it most
+     *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
+     *
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = OrganiserLayoutBinding.inflate(getLayoutInflater());
-        //EdgeToEdge.enable(this);
         setContentView(binding.getRoot());
+
+        //Setting initial fragment to be displayed.
         replaceFragment(new EventsFragmentOrganizer());
 
+        //Binding the fragments with the nav bar and the activity
         binding.bottomNavView.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
-
             if (id == R.id.Events) {
                 replaceFragment(new EventsFragmentOrganizer());
             } else if (id == R.id.MyEvents) {
@@ -42,11 +53,25 @@ public class OrganiserActivity extends AppCompatActivity {
         });
 
     }
+
+    /**
+     * Function to open GPS and maps.
+     *
+     * @param v View
+     * @pre Permission has been given for GPS.
+     * @post Map is opened.
+     */
     public void openMaps(View v) {
         Intent intent = new Intent(this, com.example.bebeappthatworks.Map.class);
         startActivity(intent);
     }
 
+    /**
+     * Method for replacing the fragments when a new button is pressed on the nav bar
+     * @param fragment Fragment to replace the current one with.
+     * @pre New valid fragment was selected.
+     * @post Fragment is changed.
+     */
     private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

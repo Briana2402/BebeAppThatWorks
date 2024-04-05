@@ -6,14 +6,11 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
 import com.example.bebeappthatworks.ui.eventCreation.Event;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -21,17 +18,16 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-
 import com.google.firebase.firestore.QueryDocumentSnapshot;
-
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link SingleEventFree#newInstance} factory method to
+ * Use the {@link CancelEventFragment#newInstance} factory method to
  * create an instance of this fragment.
+ *
+ * CancelEventFragment is used when an organiser wants to cancel an event they created.
  */
 public class CancelEventFragment extends Fragment {
 
@@ -72,7 +68,13 @@ public class CancelEventFragment extends Fragment {
         return fragment;
     }
 
-
+    /**
+     * OnCreate method.
+     * @param savedInstanceState If the fragment is being re-created from
+     * a previous saved state, this is the state.
+     * @pre a parameter has been transmitted
+     * @post Instance with given ID has been created, ID was transmitted.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,6 +83,19 @@ public class CancelEventFragment extends Fragment {
         }
     }
 
+    /**
+     * OnCreateView method.
+     *
+     * @param inflater The LayoutInflater object that can be used to inflate
+     * any views in the fragment,
+     * @param container If non-null, this is the parent view that the fragment's
+     * UI should be attached to.  The fragment should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     *
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -99,10 +114,11 @@ public class CancelEventFragment extends Fragment {
 
     /**
     *Sends notifications to all attendees register for event when it is cancelled.
-    * @pre An event was cancelled by its organiser.
+    *
+     *@pre An event was cancelled by its organiser.
     * @post Notification is sent to all the registered attendees.
     *
-     */
+    */
     public void sendNotification(){
         //Create notification to be sent and add it to the Notification database.
         Notification newNotication = new Notification(eventName,"This event has been canceled.");

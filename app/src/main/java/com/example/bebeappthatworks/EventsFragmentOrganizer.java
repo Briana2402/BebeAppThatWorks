@@ -90,7 +90,7 @@ public class EventsFragmentOrganizer extends Fragment {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 //adds the events and the ids in arrays for later use
                                 allEvents.add(document.toObject(Event.class));
-                                allEventsId.add(document.getId().toString());
+                                allEventsId.add(document.getId());
                             }
                             //set the adapter
                             if (view instanceof RecyclerView) {

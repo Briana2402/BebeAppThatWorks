@@ -16,6 +16,10 @@ import java.util.List;
 
 
 // Adapter class for RecyclerView to display events.
+
+/**
+ * Adapter class for RecyclerView to display events.
+ */
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHolder> {
 
     //List containing events to be shown in recycler view.
@@ -74,7 +78,13 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
         });
     }
 
-    // Method to load image using Glide library
+    /**
+     * Method to load image using Glide library
+     *
+     * @param imageUrl ImageUrl to pe sent to library.
+     * @param imageView Imageview wher eit cam from.
+     * @param context Context.
+     */
     private void setImage(String imageUrl, ImageView imageView, Context context) {
         if (imageUrl==null){
             Log.i("null", "Imageurl is null.");
@@ -86,13 +96,21 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHol
                 .into(imageView);
     }
 
-    // Method to get total number of items in RecyclerView
+
+    /**
+     * Method to get total number of items in RecyclerView
+     *
+     * @pre eventList contains elements and RecyclerView was initialised
+     * @return eventList.size()
+     */
     @Override
     public int getItemCount() {
         return eventList.size();
     }
 
-    // ViewHolder class to hold views of individual event item
+    /**
+     * ViewHolder class to hold views of individual event item
+     */
     public static class EventViewHolder extends RecyclerView.ViewHolder {
         public final ImageView mImageView;
         public final TextView mName;

@@ -30,11 +30,11 @@ public class InterestedInEvent extends Fragment {
 
     private String mParam1;
     String event_id;
-    private String ARGM1 = "param1";
+    private final String ARGM1 = "param1";
     View view;
 
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     public InterestedInEvent() {
         // Required empty public constructor

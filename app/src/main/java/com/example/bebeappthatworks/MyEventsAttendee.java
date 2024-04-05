@@ -5,11 +5,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,31 +19,36 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link MyEventsAttendee#newInstance} factory method to
+ * create an instance of this fragment.
+ *
+ * Fragment to display the events an attendee has registered for on their event page.
+ */
 public class MyEventsAttendee extends Fragment {
 
-    private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
-    private static String ARGM1 = "param1";
+    //Parameter send to class through constructor.
+    private static final String ARGM1 = "param1";
 
+    //Initialising Firebase database instance.
     public final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+    //Array containing all displayed events.
     public List<Event> myEvents = new ArrayList<>();
 
-    public List<String> events_id = new ArrayList<>();
+    //Event ID inputted through the constructor.
     public String eventID;
 
+    //Instance of Firebase Authentificator.
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
-    public String event_id = new String();
-
+    //View created.
     View view;
 
     /**
@@ -56,6 +58,7 @@ public class MyEventsAttendee extends Fragment {
     public MyEventsAttendee() {
     }
 
+
     public MyEventsAttendee newInstance(String param1) {
         MyEventsAttendee fragment = new MyEventsAttendee();
         Bundle args = new Bundle();
@@ -64,6 +67,12 @@ public class MyEventsAttendee extends Fragment {
         return fragment;
     }
 
+    /**
+     * OnCreate method.
+     *
+     * @param savedInstanceState If the fragment is being re-created from
+     * a previous saved state, this is the state.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,12 +82,27 @@ public class MyEventsAttendee extends Fragment {
 
     }
 
+    /**
+     * OnCreateView method.
+     * Displays events of attende in MyEvents page.
+     *
+     * @param inflater The LayoutInflater object that can be used to inflate
+     * any views in the fragment,
+     * @param container If non-null, this is the parent view that the fragment's
+     * UI should be attached to.  The fragment should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     *
+     * @return View
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_my_events_attendee, container, false);
 
-        CollectionReference eventsRef = db.collection("Attendees").document(mAuth.getCurrentUser().getUid().toString()).collection("my events");
+        //Checks the document from Firebase of currently logged in user.
+        CollectionReference eventsRef = db.collection("Attendees").document(mAuth.getCurrentUser().getUid()).collection("my events");
 
         eventsRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
