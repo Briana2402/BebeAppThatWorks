@@ -37,7 +37,7 @@ public class MyEventsFragmentAttendee extends Fragment {
 
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
-    private int mColumnCount = 1;
+    private final int mColumnCount = 1;
 
     public final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -48,7 +48,7 @@ public class MyEventsFragmentAttendee extends Fragment {
 
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
-    public String event_id = new String();
+    public String event_id = "";
 
     View view;
 
@@ -75,7 +75,7 @@ public class MyEventsFragmentAttendee extends Fragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_my_events_attendee, container, false);
 
-        CollectionReference eventsRef = db.collection("Attendees").document(mAuth.getCurrentUser().getUid().toString()).collection("my events");
+        CollectionReference eventsRef = db.collection("Attendees").document(mAuth.getCurrentUser().getUid()).collection("my events");
 
         eventsRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -83,7 +83,7 @@ public class MyEventsFragmentAttendee extends Fragment {
                 if (task.isSuccessful()) {
                     //creates an  array with all the ids of the events that the logged in user is registered for
                     for (QueryDocumentSnapshot document : task.getResult()) {
-                        event_id = document.getId().toString();
+                        event_id = document.getId();
 
                         DocumentReference docRef = db.collection("Events").document(event_id);
                         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -121,7 +121,7 @@ public class MyEventsFragmentAttendee extends Fragment {
 
                                                         // if event is free show buttons register, deregister
                                                         RegDegFragment buttons = new RegDegFragment();
-                                                        RegDegFragment newButtons = buttons.newInstance(events_id.get(count));
+                                                        RegDegFragment newButtons = RegDegFragment.newInstance(events_id.get(count));
                                                         Fragment fragment2 = newButtons;
 
                                                         // add register/deregister buttons fragment on top of the event
@@ -134,7 +134,7 @@ public class MyEventsFragmentAttendee extends Fragment {
 
                                                         // if event is paid show buttons interested, not interested
                                                         InterestedInEvent interested = new InterestedInEvent();
-                                                        InterestedInEvent newInterest = interested.newInstance(events_id.get(count));
+                                                        InterestedInEvent newInterest = InterestedInEvent.newInstance(events_id.get(count));
                                                         Fragment fragment3 = newInterest;
 
                                                         // add interested/not interested buttons fragment on top of the event
@@ -153,7 +153,7 @@ public class MyEventsFragmentAttendee extends Fragment {
                                 }
                             }
                         });
-                    };
+                    }
 
                 }
             }

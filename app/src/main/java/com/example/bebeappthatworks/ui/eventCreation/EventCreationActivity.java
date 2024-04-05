@@ -173,7 +173,7 @@ public class EventCreationActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         // adding our data to our courses object class.
-        Event events = new Event(eventLocation, eventDuration, eventName, eventDate, eventCapacity, eventDescription, imageUrl, eventType, eventLink, mAuth.getCurrentUser().getUid().toString());
+        Event events = new Event(eventLocation, eventDuration, eventName, eventDate, eventCapacity, eventDescription, imageUrl, eventType, eventLink, mAuth.getCurrentUser().getUid());
         if (eventType.equals("Free")) {
             dbFreeEvents.add(events);
         } else if (eventType.equals("Paid")) {

@@ -66,7 +66,7 @@ public class ProfileOrganiserFragment extends Fragment {
 
     private FirebaseFirestore db;
     private ImageView profile_pic;
-    private FirebaseAuth mAuth = FirebaseAuth.getInstance() ;
+    private final FirebaseAuth mAuth = FirebaseAuth.getInstance() ;
     private TextView email;
     private TextView username;
 

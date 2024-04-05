@@ -32,7 +32,7 @@ import java.util.List;
  */
 public class MyEventOrganizer extends Fragment {
 
-    private static String ARGM1 = "param1";
+    private static final String ARGM1 = "param1";
     public String eventID;
     public List<Event> theEvent = new ArrayList<>();
     private EventAdapter adapter;

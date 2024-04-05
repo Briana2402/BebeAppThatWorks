@@ -34,7 +34,7 @@ import java.util.regex.Pattern;
 
 public class RegisterAttendeeActivity extends AppCompatActivity {
 
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     private boolean isPasswordValid(String password) {
 
