@@ -68,6 +68,9 @@ public class ProfileOrganiserFragment extends Fragment {
     private ImageView profile_pic;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance() ;
     private TextView email;
+    private TextView username;
+
+    private TextView description;
     private Button profilepicBtnOrganiser;
     private String imageUrl;
 
@@ -234,8 +237,10 @@ public class ProfileOrganiserFragment extends Fragment {
         db = FirebaseFirestore.getInstance();
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
+        username = view.findViewById(R.id.usernameOrganiser);
         email = view.findViewById(R.id.emailOrganiser);
         profile_pic = view.findViewById(R.id.imageViewOrganiserProfileImage);
+        description = view.findViewById(R.id.descriptionOrganiser);
         docRef = db.collection("Organisers").document((mAuth.getCurrentUser().getUid()));
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
            @Override
@@ -244,7 +249,9 @@ public class ProfileOrganiserFragment extends Fragment {
                    DocumentSnapshot document = task.getResult();
                    organiser = document.toObject(Organiser.class);
                    //name.setText("my name is Jeff");
+                   username.setText(organiser.getUsername());
                    email.setText(organiser.getEmail());
+                   description.setText(organiser.getDescription());
                    try {
                        if (organiser.getProfileUrl() != null) {
                            setImage(organiser.getProfileUrl(), profile_pic, getContext());

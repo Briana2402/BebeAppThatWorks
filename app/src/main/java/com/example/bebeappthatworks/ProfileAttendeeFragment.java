@@ -14,6 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.provider.MediaStore;
 import android.util.Log;
@@ -55,6 +57,8 @@ public class ProfileAttendeeFragment extends Fragment {
     private ImageView profile_pic;
     private String imageUrl;
     private Attendee attendee;
+    private TextView username;
+    private TextView description;
     private Button profilepicBtnAttendee;
     private FirebaseFirestore db;
     private TextView email;
@@ -102,8 +106,11 @@ public class ProfileAttendeeFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_profile_attendee, container, false);
         db = FirebaseFirestore.getInstance();
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
+        username = view.findViewById(R.id.usernameAttendee);
         email = view.findViewById(R.id.emailAttendee);
         profile_pic = view.findViewById(R.id.imageViewAttendeeProfileImage);
+        description = view.findViewById(R.id.descriptionAttendee);
         docRef = db.collection("Attendees").document((mAuth.getCurrentUser().getUid()));
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -112,7 +119,9 @@ public class ProfileAttendeeFragment extends Fragment {
                     DocumentSnapshot document = task.getResult();
                     attendee = document.toObject(Attendee.class);
                     //name.setText("my name is Jeff");
+                    username.setText(attendee.getUsername());
                     email.setText(attendee.getEmail());
+                    description.setText(attendee.getDescription());
                     try {
                         if (attendee.getProfileUrl() != null) {
                             setImage(attendee.getProfileUrl(), profile_pic, getContext());
@@ -137,12 +146,16 @@ public class ProfileAttendeeFragment extends Fragment {
             }
         });
 
-        Button openSettings = (Button) view.findViewById(R.id.openSettings);
+        Button openSettings = (Button) view.findViewById(R.id.openSettingsAttendee);
         openSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getActivity(), SettingsAttendee.class);
-                startActivity(i);
+                SettingsAttendee settingsAttendee = new SettingsAttendee();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.navigation_host_fragment_content_main, settingsAttendee);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
             }
         });
 

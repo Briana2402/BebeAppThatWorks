@@ -155,7 +155,7 @@ public class RegisterAttendeeActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             //if user is added to auth db
                             //FirebaseUser user = mAuth.getUid();
-                            User user = new User(email, "attendee");
+                            User user = new User(email, "attendee", null, null);
                             //adds user to Firestore with he same uid
                             CollectionReference dbAttendees = db.collection("Attendees");
                             dbAttendees.document(mAuth.getCurrentUser().getUid()).set(user);
