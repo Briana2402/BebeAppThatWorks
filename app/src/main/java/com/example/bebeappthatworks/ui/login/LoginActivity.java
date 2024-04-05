@@ -10,7 +10,6 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -31,15 +30,31 @@ import com.example.bebeappthatworks.forgotPassword.ForgotPasswordActivity;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
-
 import java.util.List;
 
 
+/**
+ * Activty class for theLogging in functionality.
+ */
 public class LoginActivity extends AppCompatActivity {
+
+    //Instance of Firebase to be instantiated.
     public FirebaseFirestore db;
+
+    //Instance of Firebase Authentificator to be instantiated.
     public FirebaseAuth mAuth;
 
+    //Boolean variable to check if the logged in user is an attendee or an organiser.
     private boolean tryTest;
+
+    /**
+     * onCreate function for the activity.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after
+     *     previously being shut down then this Bundle contains the data it most
+     *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
+     *
+     */
     @SuppressLint("MissingInflatedId")
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,13 +62,14 @@ public class LoginActivity extends AppCompatActivity {
         EditText editTextEmail, editTextPassword;
         Button backToMain;
         Button loginButton;
-        FirebaseAuth mAuth;
-        super.onCreate(savedInstanceState);
         TextView forgotPassword;
+
+        super.onCreate(savedInstanceState);
+
         db = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
         setContentView(R.layout.activity_login);
 
 
@@ -64,9 +80,7 @@ public class LoginActivity extends AppCompatActivity {
         editTextEmail = findViewById(R.id.username);
         editTextPassword = findViewById(R.id.password);
 
-
-
-
+        //Inputting the neccessary fields.
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,7 +101,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-
+        //Back to main paige button.
         backToMain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,6 +110,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        //Forgot password button.
         forgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -105,7 +120,13 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    //method to check if the user trying to log in is an attendee
+    /**
+     * Method takes logged in user's ID and checks if it's an attendee.
+     *
+     * @pre A user has successfully signed in.
+     * @post The right type of user is identified.
+     * @return boolean variable which is true if logged in user is Attendee and false otherwise.
+     */
     public boolean checkForBelongingAttendee() {
         tryTest = false;
         db.collection("Attendees").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -124,7 +145,14 @@ public class LoginActivity extends AppCompatActivity {
         });
         return tryTest;
     }
-    //method to check if the user trying to log in is an organiser
+
+    /**
+     * Method takes logged in user's ID and checks if it's an organiser.
+     *
+     * @pre A user has successfully signed in.
+     * @post The right type of user is identified.
+     * @return boolean variable which is true if logged in user is Organiser and false otherwise.
+     */
     public boolean checkForBelongingOrganisers() {
         tryTest = false;
         db.collection("Organisers").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -144,24 +172,28 @@ public class LoginActivity extends AppCompatActivity {
         return tryTest;
     }
 
-    //method to log in the user using the credentials entered in the specified fields and checking
-    //if they match an account existing in our database
-    private void loginUser(String email,String password) {
-        mAuth = FirebaseAuth.getInstance();
+    /**
+     * Method to login the user with given email and password.
+     *
+     * @param email inputted email
+     * @param password inputted password
+     * @pre There exists an account in the database with the given email and password.
+     * @post User is logged in.
+     */
+    public void loginUser(String email, String password) {
+        //User signs in.
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    // Sign in success, update UI with the signed-in user's information
+                    // Sign in success, update UI with the type of signed-in user's information
                     tryTest = false;
                     if(checkForBelongingAttendee()) {
                         Intent intent = new Intent(LoginActivity.this, AttendeeActivity.class);
                         startActivity(intent);
-                        Log.i("attendee", "yes");
                     } else if(checkForBelongingOrganisers()) {
                         Intent intent = new Intent(LoginActivity.this, OrganiserActivity.class);
                         startActivity(intent);
-                        Log.i("organiser", "yes");
                     }
                 } else {
                     // If sign in fails, display a message to the user.

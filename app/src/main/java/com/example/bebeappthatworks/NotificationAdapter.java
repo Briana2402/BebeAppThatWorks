@@ -7,18 +7,28 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.bebeappthatworks.Notification;
-
 import java.util.List;
 
+/**
+ * Adapter class for RecyclerView to display notifications.
+ */
 public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapter.NotificationViewHolder> {
 
-    private final List<Notification> notificationList;
+    //Notifications to be displayed.
+    private List<Notification> notificationList;
 
     public NotificationAdapter(List<Notification> notificationList) {
         this.notificationList = notificationList;
     }
 
+    /**
+     * OnCreateViewHolder method.
+     *
+     * @param parent   The ViewGroup into which the new View will be added after it is bound to
+     *                 an adapter position.
+     * @param viewType The view type of the new View.
+     * @return
+     */
     @NonNull
     @Override
     public NotificationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
