@@ -14,6 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.provider.MediaStore;
 import android.util.Log;
@@ -31,13 +33,9 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -53,33 +51,18 @@ import java.util.UUID;
  * create an instance of this fragment.
  */
 public class ProfileOrganiserFragment extends Fragment {
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    private FirebaseFirestore db;
-    private ImageView profile_pic;
-    private FirebaseAuth mAuth = FirebaseAuth.getInstance() ;
-    private TextView email;
-    private TextView username;
-
-    private TextView description;
-    private Button profilepicBtnOrganiser;
-    private String imageUrl;
-
     private static final int REQUEST_CAMERA_PERMISSION_CODE = 1;
 
     private static final int REQUEST_IMAGE_CAPTURE = 2;
-
+    private ImageView profile_pic;
+    private String imageUrl;
     private Organiser organiser;
-
+    private TextView username;
+    private TextView description;
+    private Button profilepicBtnOrganiser;
+    private FirebaseFirestore db;
+    private TextView email;
+    private FirebaseAuth mAuth;
     View view;
     DocumentReference docRef;
 
@@ -99,8 +82,7 @@ public class ProfileOrganiserFragment extends Fragment {
     public static ProfileOrganiserFragment newInstance(String param1, String param2) {
         ProfileOrganiserFragment fragment = new ProfileOrganiserFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+
         fragment.setArguments(args);
         return fragment;
     }
@@ -108,31 +90,89 @@ public class ProfileOrganiserFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+//        if (getArguments() != null) {
+//            mParam1 = getArguments().getString(ARG_PARAM1);
+//        }
+
     }
 
-    private void setImage(String imageUrl, ImageView imageView, Context context) {
-        if (imageUrl==null){
-            Log.i("null", "IMAGEURL IS NULL");
-        } else {
-            Log.i("imageUrl:", imageUrl);
-        }
-        Glide.with(context)
-                .load(imageUrl)
-                .into(imageView);
-    }
-    private void captureImage(View view) {
-        if (ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.CAMERA)
-                != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA_PERMISSION_CODE);
-            return;
-        }
 
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.fragment_profile_organiser, container, false);
+        db = FirebaseFirestore.getInstance();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
+        username = view.findViewById(R.id.usernameOrganiser);
+        email = view.findViewById(R.id.emailOrganiser);
+        profile_pic = view.findViewById(R.id.imageViewOrganiserProfileImage);
+        description = view.findViewById(R.id.descriptionOrganiser);
+        docRef = db.collection("Organisers").document((mAuth.getCurrentUser().getUid()));
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    organiser = document.toObject(Organiser.class);
+                    //name.setText("my name is Jeff");
+                    username.setText(organiser.getUsername());
+                    email.setText(organiser.getEmail());
+                    description.setText(organiser.getDescription());
+                    try {
+                        if (organiser.getProfileUrl() != null) {
+                            setImage(organiser.getProfileUrl(), profile_pic, getContext());
+                        }
+                    } catch (NullPointerException e) {
+                        // This catch block likely won't be reached as the null check happens before accessing attendee.getProfileUrl()
+                        Log.i("Error", "Unexpected null pointer exception", e); // Log the error for debugging
+                    }
+                }
+            }
+        });
+
+        Button myButton = view.findViewById(R.id.LOGOUTBUTTONORGANISER);
+        profilepicBtnOrganiser = view.findViewById(R.id.addprofilepicOrganiser);
+
+        myButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                Intent i = new Intent(getActivity(), MainActivity.class);
+                startActivity(i);
+            }
+        });
+
+        Button openSettings = (Button) view.findViewById(R.id.openSettingsOrganiser);
+        openSettings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SettingsOrganiser settingsOrganiser = new SettingsOrganiser();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.navigation_host_fragment_content_main, settingsOrganiser);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
+
+        Button deleteAccountBtn = view.findViewById(R.id.deleteAccountOrganiserBtn);
+        deleteAccountBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialogDelete();
+            }
+
+        });
+
+        profilepicBtnOrganiser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog();
+            }
+        });
+
+        return view;
     }
 
     private void showDialog() {
@@ -156,6 +196,68 @@ public class ProfileOrganiserFragment extends Fragment {
             }
         });
         dialog.show();
+    }
+
+    private void showDialogDelete() {
+        Dialog dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.pop_up_delete);
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.popup_background);
+        Button cancelButton = dialog.findViewById(R.id.cancel_delete_button);
+        Button confirmButton = dialog.findViewById(R.id.confirm_delete_button);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Call your captureImage method
+                dialog.dismiss();
+            }
+        });
+        confirmButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                db.collection("Organisers").document((mAuth.getCurrentUser().getUid()))
+                        .delete()
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(getActivity(), "Account has been deleted.", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(getActivity(), "Error deleting the account.", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                mAuth.getCurrentUser().delete();
+                Intent i = new Intent(getActivity(), MainActivity.class);
+                startActivity(i);
+            }
+        });
+        dialog.show();
+    }
+
+    private void setImage(String imageUrl, ImageView imageView, Context context) {
+        if (imageUrl==null){
+            Log.i("null", "IMAGEURL IS NULL");
+        } else {
+            Log.i("imageUrl:", imageUrl);
+        }
+        Glide.with(context)
+                .load(imageUrl)
+                .into(imageView);
+    }
+
+    public void captureImage(View view) {
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA)
+                != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA_PERMISSION_CODE);
+            return;
+        }
+
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
     }
 
     @Override
@@ -228,122 +330,5 @@ public class ProfileOrganiserFragment extends Fragment {
                 });
             }
         });
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_profile_organiser, container, false);
-        db = FirebaseFirestore.getInstance();
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-
-        username = view.findViewById(R.id.usernameOrganiser);
-        email = view.findViewById(R.id.emailOrganiser);
-        profile_pic = view.findViewById(R.id.imageViewOrganiserProfileImage);
-        description = view.findViewById(R.id.descriptionOrganiser);
-        docRef = db.collection("Organisers").document((mAuth.getCurrentUser().getUid()));
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-           @Override
-           public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-               if (task.isSuccessful()) {
-                   DocumentSnapshot document = task.getResult();
-                   organiser = document.toObject(Organiser.class);
-                   //name.setText("my name is Jeff");
-                   username.setText(organiser.getUsername());
-                   email.setText(organiser.getEmail());
-                   description.setText(organiser.getDescription());
-                   try {
-                       if (organiser.getProfileUrl() != null) {
-                           setImage(organiser.getProfileUrl(), profile_pic, getContext());
-                       }
-                   } catch (NullPointerException e) {
-                       // This catch block likely won't be reached as the null check happens before accessing attendee.getProfileUrl()
-                       Log.i("Error", "Unexpected null pointer exception", e); // Log the error for debugging
-                   }
-               }
-           }
-       });
-
-
-        Button logOutButton = view.findViewById(R.id.LOGOUTBUTTONORGANISER);
-        profilepicBtnOrganiser = view.findViewById(R.id.addprofilepicOrganiser);
-
-        profilepicBtnOrganiser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Call your captureImage method or perform your action here
-                showDialog();
-            }
-        });
-
-        logOutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
-                Intent i = new Intent(getActivity(), MainActivity.class);
-                startActivity(i);
-            }
-        });
-
-        Button deleteAccountBtn = view.findViewById(R.id.deleteAccountOrganiserBtn);
-        deleteAccountBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showDialogDelete();
-            }
-        });
-
-
-
-        Button settingsButtonOrganiser = (Button) view.findViewById(R.id.openSettingsOrganiser);
-        settingsButtonOrganiser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(getActivity(), SettingsOrganiser.class);
-                startActivity(i);
-            }
-        });
-
-        return view;
-    }
-
-    private void showDialogDelete() {
-        Dialog dialog = new Dialog(getContext());
-        dialog.setContentView(R.layout.pop_up_delete);
-        dialog.getWindow().setBackgroundDrawableResource(R.drawable.popup_background);
-        Button cancelButton = dialog.findViewById(R.id.cancel_delete_button);
-        Button confirmButton = dialog.findViewById(R.id.confirm_delete_button);
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Call your captureImage method
-                dialog.dismiss();
-            }
-        });
-        confirmButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseAuth mAuth = FirebaseAuth.getInstance();
-                db.collection("Organisers").document((mAuth.getCurrentUser().getUid()))
-                    .delete()
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            Toast.makeText(getActivity(), "Account has been deleted.", Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(getActivity(), "Error deleting the account.", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-
-                mAuth.getCurrentUser().delete();
-                Intent i = new Intent(getActivity(), MainActivity.class);
-                startActivity(i);
-            }
-        });
-        dialog.show();
     }
 }

@@ -62,8 +62,6 @@ public class ProfileAttendeeFragment extends Fragment {
     private Button profilepicBtnAttendee;
     private FirebaseFirestore db;
     private TextView email;
-    private TextView name;
-
     private FirebaseAuth mAuth;
     View view;
     DocumentReference docRef;
