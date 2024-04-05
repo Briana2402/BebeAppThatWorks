@@ -66,7 +66,7 @@ public class ProfileOrganiserFragment extends Fragment {
 
     private FirebaseFirestore db;
     private ImageView profile_pic;
-    private FirebaseAuth mAuth;
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance() ;
     private TextView email;
     private Button profilepicBtnOrganiser;
     private String imageUrl;
@@ -282,50 +282,61 @@ public class ProfileOrganiserFragment extends Fragment {
         deleteAccountBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                showDialogDelete();
+            }
+        });
+
+
+
+        Button settingsButtonOrganiser = (Button) view.findViewById(R.id.openSettingsOrganiser);
+        settingsButtonOrganiser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getActivity(), SettingsOrganiser.class);
+                startActivity(i);
+            }
+        });
+
+        return view;
+    }
+
+    private void showDialogDelete() {
+        Dialog dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.pop_up_delete);
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.popup_background);
+        Button cancelButton = dialog.findViewById(R.id.cancel_delete_button);
+        Button confirmButton = dialog.findViewById(R.id.confirm_delete_button);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Call your captureImage method
+                dialog.dismiss();
+            }
+        });
+        confirmButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth mAuth = FirebaseAuth.getInstance();
                 db.collection("Organisers").document((mAuth.getCurrentUser().getUid()))
-                        .delete()
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Toast.makeText(getActivity(), "Account has been deleted.", Toast.LENGTH_SHORT).show();
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(getActivity(), "Error deleting the account.", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-
-                CollectionReference eventsRef = db.collection("Events");
-
-                Query query = eventsRef.whereEqualTo("eventCreator", mAuth.getCurrentUser().getUid());
-
-                query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot queryEvents : task.getResult()) {
-                               eventsRef.document(queryEvents.getId()).delete();
-                            }
+                    .delete()
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(getActivity(), "Account has been deleted.", Toast.LENGTH_SHORT).show();
                         }
-                    }
-                });
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(getActivity(), "Error deleting the account.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
                 mAuth.getCurrentUser().delete();
                 Intent i = new Intent(getActivity(), MainActivity.class);
                 startActivity(i);
             }
         });
-
-//        ImageView settingsButtonOrganiser = (ImageView) view.findViewById(R.id.SettingsOrganiser);
-//        settingsButtonOrganiser.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent i = new Intent(getActivity(), SettingsOrganiser.class);
-//                startActivity(i);
-//            }
-//        });
-
-        return view;
+        dialog.show();
     }
 }

@@ -148,29 +148,28 @@ public class LoginActivity extends AppCompatActivity {
     //if they match an account existing in our database
     private void loginUser(String email,String password) {
         mAuth = FirebaseAuth.getInstance();
-            mAuth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
-                                tryTest = false;
-                                if(checkForBelongingAttendee()) {
-                                    Intent intent = new Intent(LoginActivity.this, AttendeeActivity.class);
-                                    startActivity(intent);
-                                    Log.i("attendee", "yes");
-                                } else if(checkForBelongingOrganisers()) {
-                                    Intent intent = new Intent(LoginActivity.this, OrganiserActivity.class);
-                                    startActivity(intent);
-                                    Log.i("organiser", "yes");
-                                }
-                            } else {
-                                // If sign in fails, display a message to the user.
-                                Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                        Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
+        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    // Sign in success, update UI with the signed-in user's information
+                    tryTest = false;
+                    if(checkForBelongingAttendee()) {
+                        Intent intent = new Intent(LoginActivity.this, AttendeeActivity.class);
+                        startActivity(intent);
+                        Log.i("attendee", "yes");
+                    } else if(checkForBelongingOrganisers()) {
+                        Intent intent = new Intent(LoginActivity.this, OrganiserActivity.class);
+                        startActivity(intent);
+                        Log.i("organiser", "yes");
+                    }
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Toast.makeText(LoginActivity.this, "Authentication failed.",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
-        }
+    }
 }

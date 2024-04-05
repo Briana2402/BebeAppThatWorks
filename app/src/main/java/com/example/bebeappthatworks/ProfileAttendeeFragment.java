@@ -149,26 +149,11 @@ public class ProfileAttendeeFragment extends Fragment {
         Button deleteAccountBtn = view.findViewById(R.id.deleteAccountAttendeeBtn);
         deleteAccountBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                db.collection("Attendees").document((mAuth.getCurrentUser().getUid()))
-                        .delete()
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Toast.makeText(getActivity(), "Account has been deleted.", Toast.LENGTH_SHORT).show();
-                            }
-                        })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(getActivity(), "Error deleting the account.", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-
-                mAuth.getCurrentUser().delete();
-                Intent i = new Intent(getActivity(), MainActivity.class);
-                startActivity(i);
+            public void onClick(View v) {
+                showDialogDelete();
             }
+
+
         });
 
         profilepicBtnAttendee.setOnClickListener(new View.OnClickListener() {
@@ -199,6 +184,46 @@ public class ProfileAttendeeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
+    private void showDialogDelete() {
+        Dialog dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.pop_up_delete);
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.popup_background);
+        Button cancelButton = dialog.findViewById(R.id.cancel_delete_button);
+        Button confirmButton = dialog.findViewById(R.id.confirm_delete_button);
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Call your captureImage method
+                dialog.dismiss();
+            }
+        });
+        confirmButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth mAuth = FirebaseAuth.getInstance();
+                db.collection("Attendees").document((mAuth.getCurrentUser().getUid()))
+                    .delete()
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            Toast.makeText(getActivity(), "Account has been deleted.", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(getActivity(), "Error deleting the account.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+                mAuth.getCurrentUser().delete();
+                Intent i = new Intent(getActivity(), MainActivity.class);
+                startActivity(i);
             }
         });
         dialog.show();
