@@ -51,8 +51,9 @@ import java.util.UUID;
  * create an instance of this fragment.
  */
 public class ProfileAttendeeFragment extends Fragment {
-    private static final int REQUEST_CAMERA_PERMISSION_CODE = 1;
 
+    //Declaring global variables
+    private static final int REQUEST_CAMERA_PERMISSION_CODE = 1;
     private static final int REQUEST_IMAGE_CAPTURE = 2;
     private ImageView profile_pic;
     private String imageUrl;
@@ -66,6 +67,10 @@ public class ProfileAttendeeFragment extends Fragment {
     View view;
     DocumentReference docRef;
 
+    /**
+     * Method in order to create constructor for
+     * the ProfileAttendeeFragment.
+     */
     public ProfileAttendeeFragment() {
         // Required empty public constructor
     }
@@ -86,46 +91,47 @@ public class ProfileAttendeeFragment extends Fragment {
         return fragment;
     }
 
+    /**
+     * Called when the activity is starting. Method for initialization
+     * most of the necessary variables and methods.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        if (getArguments() != null) {
+//            mParam1 = getArguments().getString(ARG_PARAM1);
+//        }
+
     }
 
     /**
-     * Creates the view and updates the UI accordingly with the information from Firebase
-     * @param inflater The LayoutInflater object that can be used to inflate
-     * any views in the fragment,
-     * @param container If non-null, this is the parent view that the fragment's
-     * UI should be attached to.  The fragment should not add the view itself,
-     * but this can be used to generate the LayoutParams of the view.
-     * @param savedInstanceState If non-null, this fragment is being re-constructed
-     * from a previous saved state as given here.
-     *
-     * @return the view
+     * Called to have the fragment instantiate its user interface view.
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        //inflating the view
         view = inflater.inflate(R.layout.fragment_profile_attendee, container, false);
-        //setting the instances for Firebase
         db = FirebaseFirestore.getInstance();
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
-        //Initialise the UI componnents
+        // Giving each variable a value
         username = view.findViewById(R.id.usernameAttendee);
         email = view.findViewById(R.id.emailAttendee);
         profile_pic = view.findViewById(R.id.imageViewAttendeeProfileImage);
         description = view.findViewById(R.id.descriptionAttendee);
-        //specifies the path of the document with the id of the user logged in from the attendees collection
         docRef = db.collection("Attendees").document((mAuth.getCurrentUser().getUid()));
-        //gets the profile information of the logged in user to be shhown in the UI
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+
+            /**
+             * Method used to setup the UI.
+             * @param task - find the current task of the method
+             */
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     attendee = document.toObject(Attendee.class);
+                    //name.setText("my name is Jeff");
                     username.setText(attendee.getUsername());
                     email.setText(attendee.getEmail());
                     description.setText(attendee.getDescription());
@@ -141,11 +147,13 @@ public class ProfileAttendeeFragment extends Fragment {
             }
         });
 
-        //seyts the UI components
         Button myButton = view.findViewById(R.id.LOGOUTBUTTONATTENDEE);
         profilepicBtnAttendee = view.findViewById(R.id.addprofilepicAttendee);
 
-        //logs out the user when the log out button is pressed
+        /**
+         * Method used to setup the functionality of myButton (Sign Out Button)
+         * It sends the User back to Welcome Screen.
+         */
         myButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -155,12 +163,15 @@ public class ProfileAttendeeFragment extends Fragment {
             }
         });
 
-        //sets the UI button
         Button openSettings = (Button) view.findViewById(R.id.openSettingsAttendee);
+
+        /**
+         * Method used to setup the functionality of openSettings.
+         * It sends the User to the Settings Page when the button is pressed.
+         */
         openSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //replaces the fragment for the settings buttpn
                 SettingsAttendee settingsAttendee = new SettingsAttendee();
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -171,7 +182,12 @@ public class ProfileAttendeeFragment extends Fragment {
         });
 
         Button deleteAccountBtn = view.findViewById(R.id.deleteAccountAttendeeBtn);
-        //deletes the account
+
+        /**
+         * Method used to setup the functionality of deleteAccountBtn.
+         * It uses a dialog to make sure that the User does want to
+         * delete their account.
+         */
         deleteAccountBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -180,7 +196,11 @@ public class ProfileAttendeeFragment extends Fragment {
 
         });
 
-        // Profile picture button click listener
+        /**
+         * Method used to setup the functionality of profilepicBtnAttendee (Take picture Button).
+         * It uses a dialog to ask the user if they want to take a picture or
+         * import one from the library.
+         */
         profilepicBtnAttendee.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -192,7 +212,9 @@ public class ProfileAttendeeFragment extends Fragment {
     }
 
     /**
-     * Displays a dialog to choose between camera and gallery for image capture.
+     * Method used to setup the functionality changing the profile picture.
+     * It uses a dialog to ask the user if they want to take a picture or
+     * import one from the library.
      */
     private void showDialog() {
         Dialog dialog = new Dialog(getContext());
@@ -217,6 +239,11 @@ public class ProfileAttendeeFragment extends Fragment {
         dialog.show();
     }
 
+    /**
+     * Method used to setup the functionality of deleting an user's account.
+     * It uses a dialog to make sure that the User does want to
+     * delete their account.
+     */
     private void showDialogDelete() {
         Dialog dialog = new Dialog(getContext());
         dialog.setContentView(R.layout.pop_up_delete);
@@ -230,6 +257,12 @@ public class ProfileAttendeeFragment extends Fragment {
                 dialog.dismiss();
             }
         });
+
+        /**
+         * Method used to check for confirmation of user's intentions.
+         * It uses a dialog to make sure that the User does want to
+         * delete their account.
+         */
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -257,6 +290,9 @@ public class ProfileAttendeeFragment extends Fragment {
         dialog.show();
     }
 
+    /**
+     * Method used to setup the functionality of changing the profile picture.
+     */
     private void setImage(String imageUrl, ImageView imageView, Context context) {
         if (imageUrl==null){
             Log.i("null", "IMAGEURL IS NULL");
@@ -268,6 +304,10 @@ public class ProfileAttendeeFragment extends Fragment {
                 .into(imageView);
     }
 
+    /**
+     * Method used to capture an image in order to change the profile picture
+     * of an user.
+     */
     public void captureImage(View view) {
         if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -279,6 +319,10 @@ public class ProfileAttendeeFragment extends Fragment {
         startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
     }
 
+    /**
+     * Method used to explain the functionality of the camera feature +
+     * catching errors.
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -308,6 +352,9 @@ public class ProfileAttendeeFragment extends Fragment {
 
     }
 
+    /**
+     * Method used to upload the captured image to Firebase.
+     */
     private void uploadImageToFirebase(Bitmap imageBitmap) {
         // Firebase Storage reference
         StorageReference storageRef = FirebaseStorage.getInstance().getReference("images/" + UUID.randomUUID().toString());

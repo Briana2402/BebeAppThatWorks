@@ -52,7 +52,7 @@ import java.util.UUID;
  */
 public class ProfileOrganiserFragment extends Fragment {
 
-    //variables needed for the class
+    //Declaring global variables
     private static final int REQUEST_CAMERA_PERMISSION_CODE = 1;
 
     private static final int REQUEST_IMAGE_CAPTURE = 2;
@@ -61,10 +61,17 @@ public class ProfileOrganiserFragment extends Fragment {
     private Organiser organiser;
     private TextView username;
     private TextView description;
+    private Button profilepicBtnOrganiser;
     private FirebaseFirestore db;
     private TextView email;
+    private FirebaseAuth mAuth;
     View view;
     DocumentReference docRef;
+
+    /**
+     * Method in order to create constructor for
+     * the ProfileAttendeeFragment.
+     */
 
     public ProfileOrganiserFragment() {
         // Required empty public constructor
@@ -78,59 +85,55 @@ public class ProfileOrganiserFragment extends Fragment {
      * @param param2 Parameter 2.
      * @return A new instance of fragment ProfileOrganiserFragment.
      */
+    // TODO: Rename and change types and number of parameters
     public static ProfileOrganiserFragment newInstance(String param1, String param2) {
         ProfileOrganiserFragment fragment = new ProfileOrganiserFragment();
         Bundle args = new Bundle();
+
         fragment.setArguments(args);
         return fragment;
     }
 
     /**
-     * onCreate method.
-     * @param savedInstanceState If the fragment is being re-created from
-     * a previous saved state, this is the state.
+     * Called when the activity is starting. Method for initialization
+     * most of the necessary variables and methods.
      */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        if (getArguments() != null) {
+//            mParam1 = getArguments().getString(ARG_PARAM1);
+//        }
+
     }
 
-
     /**
-     *
-     * @param inflater The LayoutInflater object that can be used to inflate
-     * any views in the fragment,
-     * @param container If non-null, this is the parent view that the fragment's
-     * UI should be attached to.  The fragment should not add the view itself,
-     * but this can be used to generate the LayoutParams of the view.
-     * @param savedInstanceState If non-null, this fragment is being re-constructed
-     * from a previous saved state as given here.
-     *
-     * @return the view
+     * Called to have the fragment instantiate its user interface view.
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        //inflates the view
         view = inflater.inflate(R.layout.fragment_profile_organiser, container, false);
-        //setting the Firebase instances
         db = FirebaseFirestore.getInstance();
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
-        //setting the UI components to the fieldd
         username = view.findViewById(R.id.usernameOrganiser);
         email = view.findViewById(R.id.emailOrganiser);
         profile_pic = view.findViewById(R.id.imageViewOrganiserProfileImage);
         description = view.findViewById(R.id.descriptionOrganiser);
-        //specifying the field from the databse for the profile logged in
         docRef = db.collection("Organisers").document((mAuth.getCurrentUser().getUid()));
-        //updating the document with the inputted fields by the user
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+
+            /**
+             * Method used to setup the UI.
+             * @param task - find the current task of the method
+             */
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot document = task.getResult();
                     organiser = document.toObject(Organiser.class);
+                    //name.setText("my name is Jeff");
                     username.setText(organiser.getUsername());
                     email.setText(organiser.getEmail());
                     description.setText(organiser.getDescription());
@@ -147,8 +150,12 @@ public class ProfileOrganiserFragment extends Fragment {
         });
 
         Button myButton = view.findViewById(R.id.LOGOUTBUTTONORGANISER);
-        Button profilepicBtnOrganiser = view.findViewById(R.id.addprofilepicOrganiser);
+        profilepicBtnOrganiser = view.findViewById(R.id.addprofilepicOrganiser);
 
+        /**
+         * Method used to setup the functionality of myButton (Sign Out Button)
+         * It sends the User back to Welcome Screen.
+         */
         myButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -159,6 +166,11 @@ public class ProfileOrganiserFragment extends Fragment {
         });
 
         Button openSettings = (Button) view.findViewById(R.id.openSettingsOrganiser);
+
+        /**
+         * Method used to setup the functionality of openSettings.
+         * It sends the User to the Settings Page when the button is pressed.
+         */
         openSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -172,6 +184,12 @@ public class ProfileOrganiserFragment extends Fragment {
         });
 
         Button deleteAccountBtn = view.findViewById(R.id.deleteAccountOrganiserBtn);
+
+        /**
+         * Method used to setup the functionality of deleteAccountBtn.
+         * It uses a dialog to make sure that the User does want to
+         * delete their account.
+         */
         deleteAccountBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -180,6 +198,11 @@ public class ProfileOrganiserFragment extends Fragment {
 
         });
 
+        /**
+         * Method used to setup the functionality of profilepicBtnAttendee (Take picture Button).
+         * It uses a dialog to ask the user if they want to take a picture or
+         * import one from the library.
+         */
         profilepicBtnOrganiser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -190,6 +213,11 @@ public class ProfileOrganiserFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Method used to setup the functionality changing the profile picture.
+     * It uses a dialog to ask the user if they want to take a picture or
+     * import one from the library.
+     */
     private void showDialog() {
         Dialog dialog = new Dialog(getContext());
         dialog.setContentView(R.layout.popup);
@@ -213,6 +241,11 @@ public class ProfileOrganiserFragment extends Fragment {
         dialog.show();
     }
 
+    /**
+     * Method used to setup the functionality of deleting an user's account.
+     * It uses a dialog to make sure that the User does want to
+     * delete their account.
+     */
     private void showDialogDelete() {
         Dialog dialog = new Dialog(getContext());
         dialog.setContentView(R.layout.pop_up_delete);
@@ -226,6 +259,11 @@ public class ProfileOrganiserFragment extends Fragment {
                 dialog.dismiss();
             }
         });
+        /**
+         * Method used to check for confirmation of user's intentions.
+         * It uses a dialog to make sure that the User does want to
+         * delete their account.
+         */
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -253,6 +291,9 @@ public class ProfileOrganiserFragment extends Fragment {
         dialog.show();
     }
 
+    /**
+     * Method used to setup the functionality of changing the profile picture.
+     */
     private void setImage(String imageUrl, ImageView imageView, Context context) {
         if (imageUrl==null){
             Log.i("null", "IMAGEURL IS NULL");
@@ -264,6 +305,10 @@ public class ProfileOrganiserFragment extends Fragment {
                 .into(imageView);
     }
 
+    /**
+     * Method used to capture an image in order to change the profile picture
+     * of an user.
+     */
     public void captureImage(View view) {
         if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -275,6 +320,10 @@ public class ProfileOrganiserFragment extends Fragment {
         startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
     }
 
+    /**
+     * Method used to explain the functionality of the camera feature +
+     * catching errors.
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -304,6 +353,9 @@ public class ProfileOrganiserFragment extends Fragment {
 
     }
 
+    /**
+     * Method used to upload the captured image to Firebase.
+     */
     private void uploadImageToFirebase(Bitmap imageBitmap) {
         // Firebase Storage reference
         StorageReference storageRef = FirebaseStorage.getInstance().getReference("images/" + UUID.randomUUID().toString());
