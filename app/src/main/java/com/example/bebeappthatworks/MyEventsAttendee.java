@@ -34,7 +34,7 @@ public class MyEventsAttendee extends Fragment {
 
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
-    private int mColumnCount = 1;
+    private final int mColumnCount = 1;
 
     public final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -44,7 +44,7 @@ public class MyEventsAttendee extends Fragment {
 
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
-    public String event_id = new String();
+    public String event_id = "";
 
     View view;
 
@@ -101,7 +101,7 @@ public class MyEventsAttendee extends Fragment {
 //                }
 //            });
 
-        CollectionReference eventsRef = db.collection("Attendees").document(mAuth.getCurrentUser().getUid().toString()).collection("my events");
+        CollectionReference eventsRef = db.collection("Attendees").document(mAuth.getCurrentUser().getUid()).collection("my events");
 
 
         //Log.i("miauuu", "gets after collection");
@@ -114,9 +114,9 @@ public class MyEventsAttendee extends Fragment {
                 if (task.isSuccessful()) {
                     //creates an  array with all the ids of the events that the logged in user is registered for
                     for (QueryDocumentSnapshot document : task.getResult()) {
-                        events_id.add(document.getId().toString());
+                        events_id.add(document.getId());
                         //Log.i("miauuu", document.getId().toString());
-                        event_id = document.getId().toString();
+                        event_id = document.getId();
                         DocumentReference docRef = db.collection("Events").document(event_id);
                         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                             @Override
@@ -129,7 +129,7 @@ public class MyEventsAttendee extends Fragment {
                                     if (document.exists()) {
                                         // Map Firestore document to Event object
                                         myEvents.add(document.toObject(Event.class));
-                                        Log.i("miauuu", document.getId().toString());
+                                        Log.i("miauuu", document.getId());
                                         EventAdapter adapter = new EventAdapter(myEvents);
                                         RecyclerView recyclerView = (RecyclerView) view;
                                         Context context = view.getContext();

@@ -35,7 +35,7 @@ public class EventsFragmentOrganizer extends Fragment {
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
-    private int mColumnCount = 1;
+    private final int mColumnCount = 1;
 
     public final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -82,7 +82,7 @@ public class EventsFragmentOrganizer extends Fragment {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 allEvents.add(document.toObject(Event.class));
-                                allEventsId.add(document.getId().toString());
+                                allEventsId.add(document.getId());
                             }
                             if (view instanceof RecyclerView) {
                                 Context context = view.getContext();

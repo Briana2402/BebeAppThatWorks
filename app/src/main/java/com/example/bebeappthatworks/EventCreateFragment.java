@@ -170,7 +170,7 @@ public class EventCreateFragment extends Fragment {
         eventDurationEdt = view.findViewById(R.id.idEdtEventDuration);
         eventDateEdt = view.findViewById(R.id.idEdtEventDate);
         submitEventBtn = view.findViewById(R.id.idBtnSubmitEvent);
-        CheckBox paidEvent = (CheckBox) view.findViewById(R.id.checkBox);
+        CheckBox paidEvent = view.findViewById(R.id.checkBox);
         captureImageButton = view.findViewById(R.id.event_cover);
 
         paidEvent.setOnClickListener(new View.OnClickListener() {
@@ -201,7 +201,7 @@ public class EventCreateFragment extends Fragment {
                 eventDuration = eventDurationEdt.getText().toString();
                 eventLocation = eventLocationEdt.getText().toString();
                 eventCapacity = eventCapacityEdt.getText().toString();
-                String creator = mAuth.getCurrentUser().getUid().toString();
+                String creator = mAuth.getCurrentUser().getUid();
 
                 if(paidEvent.isChecked()){
                     eventType = "Paid";

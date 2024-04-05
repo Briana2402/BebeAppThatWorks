@@ -85,9 +85,9 @@ public class RegisterOrganisationActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
 
 
-        backButton = (Button) findViewById(R.id.backToMain); //back button
+        backButton = findViewById(R.id.backToMain); //back button
         mAuth = FirebaseAuth.getInstance();
-        registerButton =(Button) findViewById(R.id.btn_register);
+        registerButton = findViewById(R.id.btn_register);
         editTextEmail = findViewById(R.id.username);
         editTextPassword = findViewById(R.id.password);
         editTextCP = findViewById(R.id.passwordConfirmOrganisation);

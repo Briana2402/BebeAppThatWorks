@@ -61,9 +61,9 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
 
-        forgotPassword = (TextView) findViewById(R.id.forgotPassword);
-        backToMain = (Button) findViewById(R.id.backToMain); //back button
-        loginButton = (Button) findViewById(R.id.Loggingin);
+        forgotPassword = findViewById(R.id.forgotPassword);
+        backToMain = findViewById(R.id.backToMain); //back button
+        loginButton = findViewById(R.id.Loggingin);
         editTextEmail = findViewById(R.id.username);
         editTextPassword = findViewById(R.id.password);
         mAuth = FirebaseAuth.getInstance();
@@ -101,7 +101,7 @@ public class LoginActivity extends AppCompatActivity {
                                                 List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
                                                 for(DocumentSnapshot d : list) {
                                                     //Log.i(d.getId(),mAuth.getCurrentUser().getUid());
-                                                    if(d.getId().toString().equals(mAuth.getCurrentUser().getUid().toString())){
+                                                    if(d.getId().equals(mAuth.getCurrentUser().getUid())){
                                                         Intent intent = new Intent(LoginActivity.this, AttendeeActivity.class);
                                                         startActivity(intent);
                                                         Log.i("attendee", "yes");
@@ -118,7 +118,7 @@ public class LoginActivity extends AppCompatActivity {
                                             if(!queryDocumentSnapshots.isEmpty()) {
                                                 List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
                                                 for(DocumentSnapshot d : list) {
-                                                    if(d.getId().toString().equals(mAuth.getCurrentUser().getUid().toString())){
+                                                    if(d.getId().equals(mAuth.getCurrentUser().getUid())){
                                                         Intent intent = new Intent(LoginActivity.this, OrganiserActivity.class);
                                                         startActivity(intent);
                                                         Log.i("organizer", "yes");

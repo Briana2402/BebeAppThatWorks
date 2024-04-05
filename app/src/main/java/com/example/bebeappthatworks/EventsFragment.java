@@ -46,7 +46,7 @@ public class EventsFragment extends Fragment {
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
-    private int mColumnCount = 1;
+    private final int mColumnCount = 1;
 
     public final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -58,7 +58,7 @@ public class EventsFragment extends Fragment {
     private List<Event> eventList;
     private EventAdapter adapter;
 
-    public final FirebaseAuth mAuth = FirebaseAuth.getInstance();;
+    public final FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     private boolean tryTest;
 
@@ -92,7 +92,7 @@ public class EventsFragment extends Fragment {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 allEvents.add(document.toObject(Event.class));
-                                allEventsId.add(document.getId().toString());
+                                allEventsId.add(document.getId());
                             }
                             if (view instanceof RecyclerView) {
                                 Context context = view.getContext();
@@ -107,7 +107,7 @@ public class EventsFragment extends Fragment {
                                         // Handle item click here, e.g., launch details activity/fragment
                                             if (Objects.equals(event.getEventType(), "Free")) {
                                                 RegisterForEvent register = new RegisterForEvent();
-                                                RegisterForEvent newRegister = register.newInstance(allEventsId.get(count));
+                                                RegisterForEvent newRegister = RegisterForEvent.newInstance(allEventsId.get(count));
                                                 Fragment fragment = newRegister;
 
                                                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
@@ -117,7 +117,7 @@ public class EventsFragment extends Fragment {
                                                 fragmentTransaction.commit();
 
                                                 buttons_fragment bringbutts = new buttons_fragment();
-                                                buttons_fragment newbringbutts = bringbutts.newInstance(allEventsId.get(count));
+                                                buttons_fragment newbringbutts = buttons_fragment.newInstance(allEventsId.get(count));
                                                 Fragment fragment2 = newbringbutts;
 
                                                 FragmentManager fragmentManager2 = getActivity().getSupportFragmentManager();
@@ -127,7 +127,7 @@ public class EventsFragment extends Fragment {
                                                 fragmentTransaction2.commit();
                                             } else {
                                                 InterestedInEvent interested = new InterestedInEvent();
-                                                InterestedInEvent newInterest = interested.newInstance(allEventsId.get(count));
+                                                InterestedInEvent newInterest = InterestedInEvent.newInstance(allEventsId.get(count));
                                                 Fragment fragment = newInterest;
                                                 //SingleEventFree newEventParam = newEvent.newInstance(allEventsId.get(count));
                                                 //Fragment fragment = newEventParam;

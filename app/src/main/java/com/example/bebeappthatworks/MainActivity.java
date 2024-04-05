@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
                             List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
                             for(DocumentSnapshot d : list) {
                                 //Log.i(d.getId(),mAuth.getCurrentUser().getUid());
-                                if(d.getId().toString().equals(firebaseUser.getUid().toString())){
+                                if(d.getId().equals(firebaseUser.getUid())){
                                     Intent intent = new Intent(MainActivity.this, AttendeeActivity.class);
                                     startActivity(intent);
                                     Log.i("attendee", "yes");
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
                         if(!queryDocumentSnapshots.isEmpty()) {
                             List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
                             for(DocumentSnapshot d : list) {
-                                if(d.getId().toString().equals(firebaseUser.getUid().toString())){
+                                if(d.getId().equals(firebaseUser.getUid())){
                                     Intent intent = new Intent(MainActivity.this, OrganiserActivity.class);
                                     startActivity(intent);
                                     Log.i("organizer", "yes");
@@ -90,10 +90,10 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main);
 
-        loginButton = (Button) findViewById(R.id.Login); //login button
-        guestButton = (Button) findViewById(R.id.Guest); //login button
-        registerButton = (Button) findViewById(R.id.button4); //login button
-        registerOrganiser = (Button) findViewById(R.id.button5); //login button
+        loginButton = findViewById(R.id.Login); //login button
+        guestButton = findViewById(R.id.Guest); //login button
+        registerButton = findViewById(R.id.button4); //login button
+        registerOrganiser = findViewById(R.id.button5); //login button
 
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -36,8 +36,8 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         setContentView(R.layout.activity_forgot_password);
 
 
-        backToLogin = (Button) findViewById(R.id.backToLoginPage);
-        sendCode = (Button) findViewById(R.id.sendCode);
+        backToLogin = findViewById(R.id.backToLoginPage);
+        sendCode = findViewById(R.id.sendCode);
         enterEmailEdt = findViewById(R.id.code);
 
 

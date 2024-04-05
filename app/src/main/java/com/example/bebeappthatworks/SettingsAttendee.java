@@ -31,7 +31,7 @@ public class SettingsAttendee extends AppCompatActivity {
             return insets;
         });
 
-        backtoprofile = (Button) findViewById(R.id.backtoprofile);
+        backtoprofile = findViewById(R.id.backtoprofile);
 
 
 //        backtoprofile.setOnClickListener(new View.OnClickListener() {

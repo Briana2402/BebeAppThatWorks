@@ -41,7 +41,7 @@ public class CancelEventFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static String ARGM1 = "param1";
+    private static final String ARGM1 = "param1";
     public String eventID;
 
     public String eventName;
@@ -91,7 +91,7 @@ public class CancelEventFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_cancel_event, container, false);
-        DocumentReference docRef = db.collection("Events").document(eventID.toString());
+        DocumentReference docRef = db.collection("Events").document(eventID);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -110,7 +110,7 @@ public class CancelEventFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 sendNotification();
-                db.collection("Events").document(eventID.toString()).delete();
+                db.collection("Events").document(eventID).delete();
                 MyEventsFragment fragment = new MyEventsFragment();
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -135,7 +135,7 @@ public class CancelEventFragment extends Fragment {
                         for (QueryDocumentSnapshot attendee : task.getResult()) {
                             // Query the subcollection to check if the document exists
                             db.collection("Attendees").document(attendee.getId()).collection("my events")
-                                    .document(eventID.toString())
+                                    .document(eventID)
                                     .get()
                                     .addOnSuccessListener(documentSnapshot -> {
                                         if (documentSnapshot.exists()) {

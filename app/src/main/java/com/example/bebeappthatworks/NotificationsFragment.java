@@ -42,7 +42,7 @@ public class NotificationsFragment extends Fragment {
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
-    private int mColumnCount = 1;
+    private final int mColumnCount = 1;
 
     public final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -87,7 +87,7 @@ public class NotificationsFragment extends Fragment {
         // Inflate the layout for this fragment
         mAuth = FirebaseAuth.getInstance();
         view = inflater.inflate(R.layout.notifications_adapter, container, false);
-        CollectionReference attendeeRef = db.collection("Attendees").document(mAuth.getCurrentUser().getUid().toString()).collection("my notifications");
+        CollectionReference attendeeRef = db.collection("Attendees").document(mAuth.getCurrentUser().getUid()).collection("my notifications");
         attendeeRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {

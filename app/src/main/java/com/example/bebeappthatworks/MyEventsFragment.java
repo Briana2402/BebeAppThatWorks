@@ -36,7 +36,7 @@ public class MyEventsFragment extends Fragment {
 
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
-    private int mColumnCount = 1;
+    private final int mColumnCount = 1;
 
     public final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -82,7 +82,7 @@ public class MyEventsFragment extends Fragment {
                 if(task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         myEvents.add(document.toObject(Event.class));
-                        allEventsId.add(document.getId().toString());
+                        allEventsId.add(document.getId());
                         //Log.i("miauuu", "miau miau");
                     }
 
@@ -114,7 +114,7 @@ public class MyEventsFragment extends Fragment {
                                 fragmentTransaction.commit();
 
                                 EventButton add_button = new EventButton();
-                                EventButton new_button = add_button.newInstance(allEventsId.get(count));
+                                EventButton new_button = EventButton.newInstance(allEventsId.get(count));
                                 Fragment fragment2 = new_button;
                                 FragmentManager fragmentManager2 = getActivity().getSupportFragmentManager();
                                 FragmentTransaction fragmentTransaction2 = fragmentManager2.beginTransaction();

@@ -43,15 +43,15 @@ public class RegisterForEvent extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
-    private String ARGM1 = "param1";
+    private final String ARGM1 = "param1";
     private String event_type;
     private EventAdapter adapter;
 
     public List<Event> theEvent = new ArrayList<>();
 
     //public Button button;
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private final FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     String event_id;
 

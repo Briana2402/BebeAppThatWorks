@@ -131,7 +131,7 @@ public class ProfileAttendeeFragment extends Fragment {
             }
         });
 
-        Button openSettings = (Button) view.findViewById(R.id.openSettings);
+        Button openSettings = view.findViewById(R.id.openSettings);
         openSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

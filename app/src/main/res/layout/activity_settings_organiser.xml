@@ -158,11 +158,11 @@
         android:layout_width="196dp"
         android:layout_height="56dp"
         android:layout_marginTop="16dp"
-        android:text="GPS/SavePower"
+        android:text="Turn on GPS"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_labelupdates" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_labelupdates"/>
 
     <TextView
         android:id="@+id/tv_address"
@@ -193,3 +193,4 @@
         tools:layout_editor_absoluteX="0dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+

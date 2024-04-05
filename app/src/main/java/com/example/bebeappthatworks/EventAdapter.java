@@ -25,7 +25,7 @@ import com.example.bebeappthatworks.ui.eventCreation.Event;
 import java.util.List;
 
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventViewHolder> {
-    private List<Event> eventList;
+    private final List<Event> eventList;
     private OnItemClickListener onItemClickListener;
 
     public EventAdapter(List<Event> eventList) {

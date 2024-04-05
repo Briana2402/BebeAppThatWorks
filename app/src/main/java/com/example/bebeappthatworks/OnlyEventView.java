@@ -32,7 +32,7 @@ public class OnlyEventView extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static String ARGM1 = "param1";
+    private static final String ARGM1 = "param1";
     public String eventID;
 
     private Event event;

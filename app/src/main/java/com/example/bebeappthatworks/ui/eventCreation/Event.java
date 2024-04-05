@@ -31,7 +31,7 @@ public class Event {
     }
 
     public static final List<Event> ITEMS = new ArrayList<Event>();
-    private ArrayList<Attendee> eventAttendees = new ArrayList<Attendee>();
+    private final ArrayList<Attendee> eventAttendees = new ArrayList<Attendee>();
 
     // Constructor for all variables.
     public Event(String eventLocation, String eventTime, String eventName, String eventDate, String maxCapacity,String eventDescription, String imageUrl, String eventType, String eventLink, String creator) {

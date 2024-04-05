@@ -133,7 +133,7 @@ public class ProfileOrganiserFragment extends Fragment {
             }
         });
 
-        ImageView settingsButtonOrganiser = (ImageView) view.findViewById(R.id.SettingsOrganiser);
+        ImageView settingsButtonOrganiser = view.findViewById(R.id.SettingsOrganiser);
         settingsButtonOrganiser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
