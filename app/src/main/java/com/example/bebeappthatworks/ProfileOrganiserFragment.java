@@ -285,7 +285,7 @@ public class ProfileOrganiserFragment extends Fragment {
             }
         });
 
-        Button openSettings = (Button) view.findViewById(R.id.openSettings);
+        Button openSettings = (Button) view.findViewById(R.id.openSettingsOrganiser);
         openSettings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
