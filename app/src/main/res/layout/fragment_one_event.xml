@@ -10,7 +10,7 @@
     android:layout_marginRight="0dp"
     app:layoutManager="LinearLayoutManager"
     android:background="@drawable/bg_with_stars"
-    tools:context=".OneEventFragment"
+    tools:context=".MyEventOrganizer"
     tools:showIn="@layout/layout_one_event">
 
 </androidx.recyclerview.widget.RecyclerView>

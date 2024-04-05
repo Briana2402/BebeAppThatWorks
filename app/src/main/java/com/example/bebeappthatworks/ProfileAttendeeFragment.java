@@ -62,8 +62,6 @@ public class ProfileAttendeeFragment extends Fragment {
     private Button profilepicBtnAttendee;
     private FirebaseFirestore db;
     private TextView email;
-    private TextView name;
-
     private FirebaseAuth mAuth;
     View view;
     DocumentReference docRef;
@@ -97,7 +95,6 @@ public class ProfileAttendeeFragment extends Fragment {
 //        }
 
     }
-
 
 
     @Override
@@ -165,7 +162,6 @@ public class ProfileAttendeeFragment extends Fragment {
             public void onClick(View v) {
                 showDialogDelete();
             }
-
 
         });
 

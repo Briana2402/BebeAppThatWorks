@@ -22,10 +22,6 @@ public class Attendee extends User{
         this.profileUrl = profileUrl;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public String getProfileUrl() {
         return profileUrl;
     }

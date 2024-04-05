@@ -10,6 +10,10 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +41,8 @@ public class MyEventOrganizer extends Fragment {
     public List<Event> theEvent = new ArrayList<>();
     private EventAdapter adapter;
 
+    private Event event;
+
     View view;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -48,7 +54,7 @@ public class MyEventOrganizer extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 id of the event
+     * @param param1
      * @return A new instance of fragment SingleEvent.
      */
     // TODO: Rename and change types and number of parameters

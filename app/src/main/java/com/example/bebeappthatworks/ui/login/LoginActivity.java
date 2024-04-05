@@ -146,7 +146,7 @@ public class LoginActivity extends AppCompatActivity {
 
     //method to log in the user using the credentials entered in the specified fields and checking
     //if they match an account existing in our database
-    private void loginUser(String email,String password) {
+    public void loginUser(String email, String password) {
         mAuth = FirebaseAuth.getInstance();
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
