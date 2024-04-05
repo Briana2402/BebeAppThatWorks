@@ -43,11 +43,7 @@ public class MyEventOrganizer extends Fragment {
 
     private Event event;
 
-    private EventAdapter adapter;
-
     View view;
-
-    public List<Event> theEvent = new ArrayList<>();
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     public MyEventOrganizer() {

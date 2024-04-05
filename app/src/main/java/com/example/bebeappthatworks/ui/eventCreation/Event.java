@@ -8,11 +8,10 @@ import java.util.List;
 import android.net.Uri;
 import android.widget.ImageView;
 
-
+//Class to hold information about an event.
 public class Event {
 
-    // variables for storing our data.
-    //public String id;
+    // variables for storing event data.
     private String eventLocation;
     private String eventTime;
     private String eventDate;
@@ -30,10 +29,7 @@ public class Event {
         // required for Firebase.
     }
 
-    public static final List<Event> ITEMS = new ArrayList<Event>();
-    private ArrayList<Attendee> eventAttendees = new ArrayList<Attendee>();
-
-    // Constructor for all variables.
+    // Constructor for all variables creating an event.
     public Event(String eventLocation, String eventTime, String eventName, String eventDate, String maxCapacity,String eventDescription, String imageUrl, String eventType, String eventLink, String creator) {
         this.eventLocation = eventLocation;
         this.eventTime = eventTime;
@@ -46,18 +42,6 @@ public class Event {
         this.eventLink = eventLink;
         this.creator_id = creator;
     }
-
-
-    /*
-    public Event(String eventLocation,String eventTime, String eventName, String eventDate, String eventCapacity, String eventDescription) {
-        this.eventLocation = eventLocation;
-        this.eventTime = eventTime;
-        this.eventName = eventName;
-        this.eventDate = eventDate;
-        this.maxCapacity = eventCapacity;
-        this.eventDescription = eventDescription;
-    }*/
-
 
     // getter methods for all variables.
     public String getEventLocation() {
@@ -107,9 +91,7 @@ public class Event {
         return eventDescription;
     }
 
-    public void setEventDescription(String eventDescription) {
-        this.eventDescription = eventDescription;
-    }
+    public void setEventDescription(String eventDescription) {this.eventDescription = eventDescription;}
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
