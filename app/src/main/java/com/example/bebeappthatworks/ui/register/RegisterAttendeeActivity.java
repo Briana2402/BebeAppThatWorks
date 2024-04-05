@@ -130,6 +130,7 @@ public class RegisterAttendeeActivity extends AppCompatActivity {
                 }
                 //creates a user
                 createAttendee(email, password);
+
             }
         });
 
@@ -162,6 +163,9 @@ public class RegisterAttendeeActivity extends AppCompatActivity {
                             //display a message if the account creation worked
                             Toast.makeText(RegisterAttendeeActivity.this, "Account created",
                                     Toast.LENGTH_SHORT).show();
+                            FirebaseAuth.getInstance().signOut();
+                            Intent i = new Intent(RegisterAttendeeActivity.this, LoginActivity.class);
+                            startActivity(i);
 
                             FirebaseAuth.getInstance().signOut();
                             Intent intent = new Intent(RegisterAttendeeActivity.this, LoginActivity.class);
