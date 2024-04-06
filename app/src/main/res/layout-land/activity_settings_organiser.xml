@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/settingsOrganiserXml"
+    android:background="@drawable/bg_with_stars"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragments.SettingsOrganiser">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="200dp"
+        tools:layout_editor_absoluteY="78dp">
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="211dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="108dp"
+            android:layout_marginTop="11dp"
+            android:layout_marginEnd="92dp"
+            android:text="Account Settings"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:textStyle="bold"></TextView>
+
+        <TextView
+            android:id="@+id/editDesc"
+            android:layout_width="161dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView3"
+            android:layout_gravity="center"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="18dp"
+            android:text="Edit Description"
+            android:textColor="@color/white"
+            android:textSize="20sp"></TextView>
+
+        <EditText
+            android:id="@+id/description_fieldOrganiser"
+            android:layout_width="248dp"
+            android:layout_height="36dp"
+            android:layout_below="@+id/editDesc"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:hint="Update Current Description"></EditText>
+
+        <TextView
+            android:id="@+id/textViewNoti"
+            android:layout_width="wrap_content"
+            android:layout_height="42dp"
+            android:layout_below="@+id/textView3"
+            android:layout_gravity="center"
+            android:layout_marginStart="38dp"
+            android:layout_marginTop="24dp"
+            android:layout_toEndOf="@+id/description_fieldOrganiser"
+            android:text="Turn on Notifications"
+            android:textColor="@color/white"
+            android:textSize="20sp"></TextView>
+
+        <ToggleButton
+            android:id="@+id/noti_toggle"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/update_usernameOrganiser"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="29dp"
+            android:layout_marginTop="-155dp"
+            android:layout_marginEnd="79dp"
+            android:layout_toEndOf="@+id/textViewNoti" />
+
+        <TextView
+            android:id="@+id/updateUsername"
+            android:layout_width="181dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/description_fieldOrganiser"
+            android:layout_gravity="center"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="4dp"
+            android:text="Update Username"
+            android:textColor="@color/white"
+            android:textSize="20sp">
+
+        </TextView>
+
+        <EditText
+            android:id="@+id/update_usernameOrganiser"
+            android:layout_width="254dp"
+            android:layout_height="35dp"
+            android:layout_below="@+id/updateUsername"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:hint="Update Current Username">
+
+        </EditText>
+
+        <Button
+            android:id="@+id/backtoprofileOrganiser"
+            android:layout_width="116dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewNoti"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="321dp"
+            android:layout_marginTop="39dp"
+            android:layout_marginBottom="108dp"
+            android:text="Back"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/save_changesOrganiser"
+            android:layout_width="168dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewNoti"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="73dp"
+            android:layout_marginTop="39dp"
+            android:layout_marginEnd="53dp"
+            android:layout_marginBottom="108dp"
+            android:layout_toEndOf="@+id/backtoprofileOrganiser"
+            android:text="Update Settings"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </RelativeLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
