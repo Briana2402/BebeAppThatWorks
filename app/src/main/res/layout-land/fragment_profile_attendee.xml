@@ -10,15 +10,15 @@
 
     <ImageView
         android:id="@+id/imageViewAttendeeProfileImage"
-        android:layout_width="182dp"
-        android:layout_height="172dp"
-        android:layout_marginTop="32dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="36dp"
         android:background="@drawable/circle_background"
         android:clipToOutline="true"
         android:scaleType="centerCrop"
         android:src="@drawable/profileicon"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.152"
+        app:layout_constraintHorizontal_bias="0.13"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -27,47 +27,91 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_gravity="end|bottom"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="4dp"
         android:background="@drawable/add_photo"
         android:backgroundTint="#FFA500"
-        app:layout_constraintEnd_toEndOf="@+id/imageViewAttendeeProfileImage"
-        app:layout_constraintBottom_toBottomOf="@+id/imageViewAttendeeProfileImage" />
+        app:layout_constraintBottom_toBottomOf="@+id/imageViewAttendeeProfileImage"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewAttendeeProfileImage" />
 
-    <Button
-        android:id="@+id/deleteAccountAttendeeBtn"
-        android:layout_width="145dp"
-        android:layout_height="48dp"
-        android:backgroundTint="#EC4646"
-        android:text="Delete account"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.009"
-        app:layout_constraintStart_toEndOf="@+id/LOGOUTBUTTONATTENDEE"
-        app:layout_constraintTop_toBottomOf="@+id/emailAttendee"
-        app:layout_constraintVertical_bias="0.231" />
-
-    <Button
-        android:id="@+id/LOGOUTBUTTONATTENDEE"
-        android:layout_width="145dp"
+    <TextView
+        android:id="@+id/usernameAttendee"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Log out"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/deleteAccountAttendeeBtn"
-        app:layout_constraintStart_toEndOf="@+id/imageViewAttendeeProfileImage"
-        app:layout_constraintTop_toBottomOf="@+id/emailAttendee"
-        app:layout_constraintVertical_bias="0.231" />
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.198"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewAttendeeProfileImage" />
 
     <TextView
         android:id="@+id/emailAttendee"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
         android:text="email@attendee.com"
         android:textColor="#AFABAB"
         android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.711"
+        app:layout_constraintHorizontal_bias="0.522"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.151" />
+
+    <TextView
+        android:id="@+id/descriptionAttendee"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="216dp"
+        android:textColor="#AFABAB"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.514"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/emailAttendee"
+        app:layout_constraintVertical_bias="0.333" />
+
+    <Button
+        android:id="@+id/openSettingsAttendee"
+        android:layout_width="145dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="48dp"
+        android:text="Settings"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.766"
+        app:layout_constraintStart_toEndOf="@+id/imageViewAttendeeProfileImage"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/LOGOUTBUTTONATTENDEE"
+        android:layout_width="145dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="204dp"
+        android:text="Sign out"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.766"
+        app:layout_constraintStart_toEndOf="@+id/imageViewAttendeeProfileImage"
+        app:layout_constraintTop_toBottomOf="@+id/openSettingsAttendee"
+        app:layout_constraintVertical_bias="0.272" />
+
+    <Button
+        android:id="@+id/deleteAccountAttendeeBtn"
+        android:layout_width="145dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="136dp"
+        android:backgroundTint="#EC4646"
+        android:text="Delete account"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.766"
+        app:layout_constraintStart_toEndOf="@+id/imageViewAttendeeProfileImage"
+        app:layout_constraintTop_toBottomOf="@+id/LOGOUTBUTTONATTENDEE"
+        app:layout_constraintVertical_bias="0.233" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

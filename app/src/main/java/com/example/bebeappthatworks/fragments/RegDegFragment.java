@@ -83,7 +83,7 @@ public class RegDegFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.them_buttons, container, false);
+        view = inflater.inflate(R.layout.register_deregister_buttons, container, false);
 
         //setting the button for register to an event from the UI
         Button button = view.findViewById(R.id.buttonRegister);
