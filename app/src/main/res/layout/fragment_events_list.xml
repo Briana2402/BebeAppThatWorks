@@ -10,7 +10,7 @@
     android:layout_marginRight="0dp"
     android:background="@drawable/bg_with_stars"
     app:layoutManager="LinearLayoutManager"
-    tools:context=".EventsFragment"
+    tools:context=".fragments.EventsFragment"
     tools:listitem="@layout/fragment_events"
 
     />

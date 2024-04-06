@@ -10,7 +10,7 @@
     android:layout_marginRight="0dp"
     app:layoutManager="LinearLayoutManager"
     android:background="@drawable/bg_with_stars"
-    tools:context=".NotificationsFragment"
+    tools:context=".fragments.NotificationsFragment"
     tools:showIn="@layout/notifications_layout">
 
 </androidx.recyclerview.widget.RecyclerView>

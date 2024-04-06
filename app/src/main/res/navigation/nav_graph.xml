@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="com.example.bebeappthatworks.EventsFragment"
+        android:name="com.example.bebeappthatworks.fragments.EventsFragment"
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_events" >
 
@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/Single"
-        android:name="com.example.bebeappthatworks.SingleEventFree"
+        android:name="com.example.bebeappthatworks.fragments.SingleEventFree"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_single_event" >
 

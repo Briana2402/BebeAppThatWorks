@@ -5,7 +5,7 @@
     android:id="@+id/attendeeHome"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AttendeeActivity"
+    tools:context=".activities.AttendeeActivity"
     >
 
     <com.google.android.material.appbar.AppBarLayout
@@ -29,7 +29,7 @@
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragmentContainerView"
-            android:name="com.example.bebeappthatworks.SingleEventFree"
+            android:name="com.example.bebeappthatworks.fragments.SingleEventFree"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

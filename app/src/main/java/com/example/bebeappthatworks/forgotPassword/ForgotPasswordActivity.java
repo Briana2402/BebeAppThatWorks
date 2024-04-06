@@ -11,7 +11,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.bebeappthatworks.R;
-import com.example.bebeappthatworks.ui.login.LoginActivity;
+import com.example.bebeappthatworks.activities.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 

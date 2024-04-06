@@ -3,7 +3,6 @@ package com.example.bebeappthatworks;
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.action.ViewActions;
-import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 
 import org.junit.Before;
@@ -15,8 +14,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
-import com.example.bebeappthatworks.R;
-import com.example.bebeappthatworks.ui.login.LoginActivity;
+import com.example.bebeappthatworks.activities.LoginActivity;
 
 public class LoginActivityInstrumentedTest {
 

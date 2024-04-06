@@ -3,7 +3,7 @@ package com.example.bebeappthatworks;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import com.example.bebeappthatworks.ui.login.LoginActivity;
+import com.example.bebeappthatworks.activities.LoginActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
