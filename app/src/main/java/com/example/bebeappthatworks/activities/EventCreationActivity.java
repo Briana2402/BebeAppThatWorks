@@ -85,7 +85,7 @@ public class EventCreationActivity extends AppCompatActivity {
         eventDurationEdt = findViewById(R.id.idEdtEventDuration);
         eventDateEdt = findViewById(R.id.idEdtEventDate);
         submitEventBtn = findViewById(R.id.idBtnSubmitEvent);
-        captureCoverBtn = findViewById(R.id.button_capture);
+        captureCoverBtn = findViewById(R.id.event_cover);
         CheckBox paidEvent = (CheckBox) findViewById(R.id.checkBox);
 
         paidEvent.setOnClickListener(new View.OnClickListener() {
