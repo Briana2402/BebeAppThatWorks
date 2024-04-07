@@ -1,5 +1,6 @@
 package com.example.bebeappthatworks.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +13,10 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 
 import com.example.bebeappthatworks.R;
+import com.example.bebeappthatworks.activities.AttendeeActivity;
+import com.example.bebeappthatworks.activities.GPS_settings;
+import com.example.bebeappthatworks.activities.LoginActivity;
+import com.example.bebeappthatworks.activities.MainActivity;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
@@ -59,17 +64,9 @@ public class SettingsAttendee extends Fragment {
         view = inflater.inflate(R.layout.activity_settings_attendee, container, false);
         db = FirebaseFirestore.getInstance();
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
-
-        Button backBtn = (Button) view.findViewById(R.id.backtoprofileAttendee);
         EditText editTextDescription = view.findViewById(R.id.description_fieldAttendee);
         EditText editTextUsername = view.findViewById(R.id.update_usernameAttendee);
         docRef = db.collection("Attendees").document((mAuth.getCurrentUser().getUid()));
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
 
         Button saveBtn = (Button) view.findViewById(R.id.save_changesAttendee);
         saveBtn.setOnClickListener(new View.OnClickListener() {

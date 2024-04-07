@@ -6,7 +6,7 @@
     android:background="@drawable/bg_with_stars"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.SettingsOrganiser">
+    tools:context=".activities.OrganiserActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -112,7 +112,8 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="40dp"
             android:layout_marginBottom="108dp"
-            android:text="Back"
+            android:onClick="openGPS_settings"
+            android:text="GPS settings"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 

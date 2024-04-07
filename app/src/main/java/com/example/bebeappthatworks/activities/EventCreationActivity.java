@@ -178,7 +178,7 @@ public class EventCreationActivity extends AppCompatActivity {
                 // after the data addition is successful
                 // we are displaying a success toast message.
                 Toast.makeText(EventCreationActivity.this, "Your Event has been added to Firebase Firestore", Toast.LENGTH_SHORT).show();
-
+                finish();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

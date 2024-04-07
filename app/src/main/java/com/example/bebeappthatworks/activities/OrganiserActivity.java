@@ -84,4 +84,14 @@ public class OrganiserActivity extends AppCompatActivity {
         fragmentTransaction.commit();
 
     }
+
+    /**
+     * Function to open GPS settings.
+     *
+     * @param v View
+     */
+    public void openGPS_settings(View v) {
+        Intent intent = new Intent(this, GPS_settings.class);
+        startActivity(intent);
+    }
 }

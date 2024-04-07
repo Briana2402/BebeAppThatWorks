@@ -8,6 +8,7 @@ import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +26,7 @@ import com.example.bebeappthatworks.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.Priority;
 import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.List;
@@ -71,16 +73,30 @@ public class GPS_settings extends AppCompatActivity {
         tv_accuracy = findViewById(R.id.tv_accuracy);
         tv_speed = findViewById(R.id.tv_speed);
         tv_sensor = findViewById(R.id.tv_sensor);
-        tv_updates = findViewById(R.id.tv_updates);
         tv_address = findViewById(R.id.tv_address);
         sw_gps = findViewById(R.id.sw_gps);
-        sw_locationupdates = findViewById(R.id.sw_locationsupdates);
 
         //setting up the properties of Location Request
         locationRequest = new LocationRequest();
         locationRequest.setInterval(DEFAULT_UP_INTERVAL);
         locationRequest.setFastestInterval(FAST_UP_INTERVAL);
         locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+
+        Button update_location = findViewById(R.id.update_location);
+        update_location.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (sw_gps.isChecked()) {
+                    updateGPS();
+                    Toast.makeText(GPS_settings.this, "Current Location Updated",
+                            Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(GPS_settings.this, "In order to enable GPS, permission must be granted",
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         /*
          * Choose if the GPS feature is turned on or off.
@@ -91,7 +107,7 @@ public class GPS_settings extends AppCompatActivity {
                 if (sw_gps.isChecked()) {
                     //using GPS
                     locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-                    tv_sensor.setText("Using GPS sensors");
+                    tv_sensor.setText("GPS sensors are on");
                     updateGPS();
                 }
                 else {
@@ -99,8 +115,6 @@ public class GPS_settings extends AppCompatActivity {
                 }
             }
         });
-
-        updateGPS();
     }
 
     /*
@@ -127,7 +141,7 @@ public class GPS_settings extends AppCompatActivity {
      * Function that uses the fusedLocationProviderClient in order to get the
      * current location of the user.
      */
-    private void updateGPS() {
+    public void updateGPS() {
         //get permisssions from the user to track Gps
         //get the current location
         //update the UI
@@ -137,7 +151,8 @@ public class GPS_settings extends AppCompatActivity {
         if(ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             //user provided permission
-            fusedLocationProviderClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+            fusedLocationProviderClient.getCurrentLocation(Priority.PRIORITY_HIGH_ACCURACY,null)
+                    .addOnSuccessListener(this, new OnSuccessListener<Location>() {
                 @Override
                 public void onSuccess(Location location) {
                     // Put the values in the UI
